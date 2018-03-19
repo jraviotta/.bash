@@ -69,8 +69,13 @@ export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
 export HISTIGNORE=$'[ \t]*:&:[fb]g:exit'
 export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls' # Ignore the ls command as well
 
-# Whenever displaying the prompt, write the previous line to disk
-export PROMPT_COMMAND="history -a"
+# Append commands to the bash command history file (~/.bash_history)
+# instead of overwriting it.
+shopt -s histappend
+
+# Append commands to the history every time a prompt is shown,
+# instead of after closing the session.
+PROMPT_COMMAND='history -a'
 
 #######################################################
 #############         Unmask     ######################
@@ -80,11 +85,3 @@ export PROMPT_COMMAND="history -a"
 # umask 027
 # Paranoid: neither group nor others have any perms:
 # umask 077
-
-#######################################################
-#############          Path      ######################
-#######################################################
-
-export PATH="$HOME/bin/:$PATH"
-export PATH="$HOME/.composer/vendor/bin:$PATH"
-
