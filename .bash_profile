@@ -82,7 +82,7 @@ fi
 
 # Source .bash_aliases
 if [ -f ~/.bash_aliases ]; then
-	source ~/.bashrc
+	source ~/.bashrc_aliases
 	echo "loaded .bash_aliases"
 fi
 
@@ -91,10 +91,16 @@ if [ -f ~/.git-prompt.sh ]; then
 	source ~/.git-prompt.sh
 	echo "loaded .git-prompt.sh"
 fi
+
+# Source .tokens for environment tokens
+if [ -f ~/.tokens/.tokens ]; then
+	source ~/.tokens/.tokens
+	echo "loaded .tokens"
+fi
+
 #######################################################
 ##########   Customize Prompt  ########################
 #######################################################
-# PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
 PS1="\[$Green\]\t \[$Yellow\]\w\[\033[m\]\[$Red\]\$(__git_ps1)\[$White\]\012\$ "
 # If not running interactively, don't do anything
 [[ "$-" != *i* ]] && return
