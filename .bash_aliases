@@ -42,3 +42,4 @@ alias glog='git log --graph --full-history --all --color --pretty=format:"%x1b[3
 export DOCKER_SYNC_ENV_FILE=.env_docker-sync
 export GIT_EMAIL=jraviotta@gmail.com
 export GIT_NAME=Jonathan Raviotta
+alias term='make terminus -- '
