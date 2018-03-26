@@ -36,10 +36,11 @@ alias ls='ls -F'
 
 
 # Make grep more user friendly by highlighting matches
-alias grep='grep --color=auto
+alias grep='grep --color=auto'
 
 alias glog='git log --graph --full-history --all --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s"'
 
 export DOCKER_SYNC_ENV_FILE=.env_docker-sync
 export GIT_EMAIL=jraviotta@gmail.com
 export GIT_NAME=Jonathan Raviotta
+alias term='make terminus -- '

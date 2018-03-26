@@ -82,7 +82,7 @@ fi
 
 # Source .bash_aliases
 if [ -f ~/.bash_aliases ]; then
-	source ~/.bashrc_aliases
+	source ~/.bash_aliases
 	echo "loaded .bash_aliases"
 fi
 
