@@ -112,3 +112,7 @@ PS1="\[$Green\]\t \[$Yellow\]\w\[\033[m\]\[$Red\]\$(__git_ps1)\[$White\]\012\$ "
 
 export PATH="$HOME/bin/:$PATH"
 export PATH="$HOME/.composer/vendor/bin:$PATH"
+
+
+
+# . /Users/jonathanraviotta/anaconda3/etc/profile.d/conda.sh

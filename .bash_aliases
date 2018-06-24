@@ -44,3 +44,4 @@ export DOCKER_SYNC_ENV_FILE=.env_docker-sync
 export GIT_EMAIL=jraviotta@gmail.com
 export GIT_NAME=Jonathan Raviotta
 alias term='make terminus -- '
+alias conda="$HOME/anaconda3/bin/conda"
