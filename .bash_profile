@@ -73,7 +73,6 @@ On_IPurple='\e[0;105m'  # Purple
 On_ICyan='\e[0;106m'    # Cyan
 On_IWhite='\e[0;107m'   # White
 
-
 # Add other bash sources
 # Source .bashrc
 if [ -f ~/.bashrc ]; then
@@ -81,15 +80,35 @@ if [ -f ~/.bashrc ]; then
 	echo "loaded .bashrc"
 fi
 
-# Source .git-prompt.sh for customizing propmt with Git info
+# Source .bash_aliases
+if [ -f ~/.bash_aliases ]; then
+	source ~/.bash_aliases
+	echo "loaded .bash_aliases"
+fi
+
+# Source .git-prompt.sh for customizing prompt with Git info
 if [ -f ~/.git-prompt.sh ]; then
 	source ~/.git-prompt.sh
 	echo "loaded .git-prompt.sh"
 fi
+
+# Source .tokens for environment tokens
+if [ -f ~/.tokens/.tokens ]; then
+	source ~/.tokens/.tokens
+	echo "loaded .tokens"
+fi
+
 #######################################################
 ##########   Customize Prompt  ########################
 #######################################################
-# PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
 PS1="\[$Green\]\t \[$Yellow\]\w\[\033[m\]\[$Red\]\$(__git_ps1)\[$White\]\012\$ "
 # If not running interactively, don't do anything
 [[ "$-" != *i* ]] && return
+
+
+#######################################################
+#############          Path      ######################
+#######################################################
+
+export PATH="$HOME/bin/:$PATH"
+export PATH="$HOME/.composer/vendor/bin:$PATH"
