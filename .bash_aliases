@@ -30,7 +30,7 @@ alias fgrep='fgrep --color=auto'              # show differences in colour
 alias dir='ls --color=auto --format=vertical'
 alias vdir='ls --color=auto --format=long'
 alias ll='ls -lF --color=auto'
-alias la='ls -alF --color=auto'
+alias lsa='ls -alF --color=auto'
 alias l='ls -CF'
 alias ls='ls -F'
 
@@ -40,8 +40,8 @@ alias grep='grep --color=auto'
 # Make pretty git log for cli
 alias glog='git log --graph --full-history --all --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s"'
 
-export DOCKER_SYNC_ENV_FILE=.env_docker-sync
-export GIT_EMAIL=jraviotta@gmail.com
-export GIT_NAME=Jonathan Raviotta
-alias term='make terminus -- '
-alias conda="$HOME/anaconda3/bin/conda"
+#Windows stuff
+# Make windows cli launcher for IDEA
+if [ -e /c/Program\ Files\ \(x86\)/JetBrains/IntelliJ\ IDEA*/bin/idea64.exe ]; then
+    alias idea="/c/Program\ Files\ \(x86\)/JetBrains/IntelliJ\ IDEA*/bin/idea64.exe"
+fi
