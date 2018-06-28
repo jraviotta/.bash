@@ -1,4 +1,3 @@
-#@IgnoreInspection BashAddShebang
 # Define colors
 # Reset
 Color_Off='\e[0m'       # Text Reset
@@ -73,30 +72,84 @@ On_IPurple='\e[0;105m'  # Purple
 On_ICyan='\e[0;106m'    # Cyan
 On_IWhite='\e[0;107m'   # White
 
+# Function to check and create links if necessary
+check_and_create_links (){
+	my_target=$1
+	my_link=$2
+
+	if [ -L ${my_link} ] ; then
+	if [ -e ${my_link} ] ; then
+		echo $2" Good link"
+	else
+		echo $2" Broken link"
+		ln -s $my_target $my_link
+		echo "Created link to "$1
+	fi
+	elif [ -e ${my_link} ] ; then
+	echo "Not a link"
+	else
+	echo $2" Missing"
+	ln -s $my_target $my_link
+	echo "Created link to "$1
+	fi
+}
+
 # Add other bash sources
+
 # Source .bashrc
+check_and_create_links ~/.bash/.bashrc ~/.bashrc
 if [ -f ~/.bashrc ]; then
 	source ~/.bashrc
 	echo "loaded .bashrc"
 fi
 
 # Source .bash_aliases
+check_and_create_links ~/.bash/.bash_aliases ~/.bash_aliases
 if [ -f ~/.bash_aliases ]; then
 	source ~/.bash_aliases
 	echo "loaded .bash_aliases"
 fi
 
 # Source .git-prompt.sh for customizing prompt with Git info
+check_and_create_links ~/.bash/.git-prompt.sh ~/.git-prompt.sh
 if [ -f ~/.git-prompt.sh ]; then
 	source ~/.git-prompt.sh
 	echo "loaded .git-prompt.sh"
 fi
 
-# Source .tokens for environment tokens
-if [ -f ~/.tokens/.tokens ]; then
-	source ~/.tokens/.tokens
-	echo "loaded .tokens"
+# Source .git-completion for git tab completion
+check_and_create_links ~/.bash/.git-completion.sh ~/.git-completion.sh
+if [ -f ~/.git-completion.sh ]; then
+	source ~/.git-completion.sh
+	echo "loaded .git-completion.sh"
 fi
+
+# Source .tokens for environment tokens and api keys
+check_and_create_links ~/.bash/.credentials ~/.credentials
+if [ -f ~/.credentials/tokens ]; then
+	source ~/.credentials/tokens
+	echo "loaded tokens"
+fi
+
+# Source Anaconda for python
+if [ -d ~/Miniconda3/scripts ]; then
+	export PATH=~/Miniconda3/scripts:$PATH
+	echo "loaded Miniconda3"
+else
+	echo "Miniconda3 not installed"
+	if [ -d ~/Anaconda3/scripts ]; then
+	export PATH=~/Anaconda3/scripts:$PATH
+	echo "loaded Anaconda3"
+	else
+	echo "Anaconda3 not installed"
+	fi
+fi
+
+#######################################################
+#############     Environment    ######################
+#######################################################
+
+
 
 #######################################################
 ##########   Customize Prompt  ########################
@@ -112,3 +165,4 @@ PS1="\[$Green\]\t \[$Yellow\]\w\[\033[m\]\[$Red\]\$(__git_ps1)\[$White\]\012\$ "
 
 export PATH="$HOME/bin/:$PATH"
 export PATH="$HOME/.composer/vendor/bin:$PATH"
+export MSYS="winsymlinks:nativestrict"
