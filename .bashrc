@@ -85,7 +85,6 @@ PROMPT_COMMAND='history -a'
 # umask 027
 # Paranoid: neither group nor others have any perms:
 # umask 077
-<<<<<<< HEAD
 
 #######################################################
 #############          Path      ######################
@@ -141,5 +140,3 @@ rmlink() {
         rm "$1"
     fi
 }
-=======
->>>>>>> 0102fc95e16002b7a26c825cbd36005167852f06
