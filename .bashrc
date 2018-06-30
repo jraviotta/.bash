@@ -87,13 +87,6 @@ PROMPT_COMMAND='history -a'
 # umask 077
 
 #######################################################
-#############          Path      ######################
-#######################################################
-
-export PATH="$HOME/bin/:$PATH"
-export PATH="$HOME/.composer/vendor/bin:$PATH"
-
-#######################################################
 #############      functions     ######################
 #######################################################
 # Cross-platform symlink function. With one parameter, it will check
