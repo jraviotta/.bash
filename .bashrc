@@ -109,9 +109,9 @@ link() {
             # Windows needs to be told if it's a directory or not. Infer that.
             # Also: note that we convert `/` to `\`. In this case it's necessary.
             if [[ -d "$2" ]]; then
-                cmd <<< "mklink /D \"$1\" \"${2//\//\\}\"" > /dev/null
+                cmd <<< "mklink /D \"$1\" sed "$2/^\///;$2/\/$//"" > /dev/null
             else
-                cmd <<< "mklink \"$1\" \"${2//\//\\}\"" > /dev/null
+                cmd <<< "mklink \"$1\" sed "$2/^\///;$2/\/$//"" > /dev/null
             fi
         else
             # You know what? I think ln's parameters are backwards.

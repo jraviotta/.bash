@@ -86,7 +86,7 @@ check_and_create_links (){
 		echo "Created link to "$1
 	fi
 	elif [ -e ${my_link} ] ; then
-	echo "Not a link"
+	echo $2"Not a link"
 	else
 	echo $2" Missing"
 	ln -s $my_target $my_link
@@ -95,6 +95,8 @@ check_and_create_links (){
 }
 
 # Add other bash sources
+# Check for ~/.bash_profile
+check_and_create_links ~/.bash/.bash_profile ~/.bash_profile
 
 # Source .bashrc
 check_and_create_links ~/.bash/.bashrc ~/.bashrc
