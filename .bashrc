@@ -115,7 +115,7 @@ link() {
             fi
         else
             # You know what? I think ln's parameters are backwards.
-            ln -s "$2" "$1"
+            ln "$2" "$1"
         fi
     fi
 }
