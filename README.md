@@ -14,3 +14,7 @@ ln -s ~/.bash/.bash_profile ~/.bash_profile
 ln -s ~/.bash/.bashrc ~/.bashrc
 ln -s ~/.bash/.bash_aliases ~/.bash_aliases
 ```
+
+# I've given up on windows
+install
+`choco install sudo`
