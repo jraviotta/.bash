@@ -127,7 +127,6 @@ if [ -f ~/.git-completion.sh ]; then
 fi
 
 # Source .tokens for environment tokens and api keys
-check_and_create_links ~/.bash/.credentials ~/.credentials
 if [ -f ~/.credentials/tokens ]; then
 	source ~/.credentials/tokens
 	echo "loaded tokens"
