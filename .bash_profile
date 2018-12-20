@@ -125,20 +125,22 @@ source_and_report ~/.git-completion.sh
 # Source .tokens for environment tokens and api keys
 source_and_report ~/.credentials/tokens
 
-# Source Anaconda for python
-if [ -d ~/Miniconda3/scripts ]; then
-	export PATH=~/Miniconda3/scripts:$PATH
-	echo "loaded Miniconda3"
-else
-	echo "Miniconda3 not installed"
-	if [ -d ~/Anaconda3/scripts ]; then
-	export PATH=~/Anaconda3/scripts:$PATH
-	echo "loaded Anaconda3"
-	else
-	echo "Anaconda3 not installed"
-	fi
-fi
+#######################################################
+#############          Path      ######################
+#######################################################
 
+export PATH="$HOME/bin/:$PATH"
+export PATH="$HOME/.composer/vendor/bin:$PATH"
+export MSYS="winsymlinks:nativestrict"
+export PATH="/usr/share/miniconda3/bin:$PATH"
+
+# Check for Anaconda
+conda --v
+if [ $? -eq 0 ]; then
+    echo "conda is installed"
+	else
+    echo "conda is not installed"
+fi
 
 #######################################################
 #############     Environment    ######################
@@ -154,10 +156,3 @@ PS1="\[$Green\]\t \[$Yellow\]\w\[\033[m\]\[$Red\]\$(__git_ps1)\[$White\]\012\$ "
 [[ "$-" != *i* ]] && return
 
 
-#######################################################
-#############          Path      ######################
-#######################################################
-
-export PATH="$HOME/bin/:$PATH"
-export PATH="$HOME/.composer/vendor/bin:$PATH"
-export MSYS="winsymlinks:nativestrict"
