@@ -113,7 +113,6 @@ source_and_report ~/.bashrc
 # Source .bash_aliases
 check_and_create_links ~/.bash/.bash_aliases ~/.bash_aliases
 source_and_report ~/.bash_aliases
-
 # Source .git-prompt.sh for customizing prompt with Git info
 check_and_create_links ~/.bash/.git-prompt.sh ~/.git-prompt.sh
 source_and_report ~/.git-prompt.sh
@@ -124,6 +123,15 @@ source_and_report ~/.git-completion.sh
 
 # Source .tokens for environment tokens and api keys
 source_and_report ~/.credentials/tokens
+
+# Source .nanorc for syntax highlighting in nano
+
+if [ -f ~/.nanorc ] ; then
+	echo "~/.nanorc exists"
+else
+	find /usr/share/nano -name '*.nanorc' -printf "include %p\n" > ~/.nanorc
+	echo "Created ~/.nanorc"
+fi
 
 #######################################################
 #############          Path      ######################
@@ -154,5 +162,4 @@ fi
 PS1="\[$Green\]\t \[$Yellow\]\w\[\033[m\]\[$Red\]\$(__git_ps1)\[$White\]\012\$ "
 # If not running interactively, don't do anything
 [[ "$-" != *i* ]] && return
-
 
