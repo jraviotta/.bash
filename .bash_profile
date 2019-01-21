@@ -129,7 +129,8 @@ source_and_report ~/.credentials/tokens
 if [ -f ~/.nanorc ] ; then
 	echo "~/.nanorc exists"
 else
-	find /usr/share/nano -name '*.nanorc' -printf "include %p\n" > ~/.nanorc
+	cp ~/.bash/.nanorc ~/.nanorc
+	find /usr/share/nano -name '*.nanorc' -printf "include %p\n" >> ~/.nanorc
 	echo "Created ~/.nanorc"
 fi
 
