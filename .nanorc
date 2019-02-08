@@ -16,7 +16,7 @@ set softwrap
 set suspend
 set tabsize 4
 set tabstospaces
-set tempfile
+#set tempfile
 
 #####################################################
 ################## Key bindings #####################
