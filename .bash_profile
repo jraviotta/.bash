@@ -86,7 +86,7 @@ check_and_create_links (){
 		echo "Created link to "$1
 	fi
 	elif [ -e ${my_link} ] ; then
-	echo $2"Not a link"
+	echo $2" Not a link"
 	else
 	echo $2" Missing"
 	ln -s $my_target $my_link
@@ -113,6 +113,7 @@ source_and_report ~/.bashrc
 # Source .bash_aliases
 check_and_create_links ~/.bash/.bash_aliases ~/.bash_aliases
 source_and_report ~/.bash_aliases
+
 # Source .git-prompt.sh for customizing prompt with Git info
 check_and_create_links ~/.bash/.git-prompt.sh ~/.git-prompt.sh
 source_and_report ~/.git-prompt.sh
@@ -121,6 +122,8 @@ source_and_report ~/.git-prompt.sh
 check_and_create_links ~/.bash/.git-completion.sh ~/.git-completion.sh
 source_and_report ~/.git-completion.sh
 
+# Create jupyter config
+check_and_create_links ~/.bash/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
 # Source .tokens for environment tokens and api keys
 source_and_report ~/.credentials/tokens
 
@@ -145,9 +148,7 @@ export PATH="/usr/share/miniconda3/bin:$PATH"
 
 # Check for Anaconda
 conda --v
-if [ $? -eq 0 ]; then
-    echo "conda is installed"
-	else
+if [ $? -ne 0 ]; then
     echo "conda is not installed"
 fi
 
