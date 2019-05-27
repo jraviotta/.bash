@@ -94,56 +94,61 @@ check_and_create_links (){
 	fi
 }
 
+source_and_report(){
+	my_link=$1
+	if [ -f ${my_link} ]; then
+	source ${my_link}
+	echo "loaded "${my_link}
+fi
+}
+
 # Add other bash sources
 # Check for ~/.bash_profile
 check_and_create_links ~/.bash/.bash_profile ~/.bash_profile
 
 # Source .bashrc
 check_and_create_links ~/.bash/.bashrc ~/.bashrc
-if [ -f ~/.bashrc ]; then
-	source ~/.bashrc
-	echo "loaded .bashrc"
-fi
+source_and_report ~/.bashrc
 
 # Source .bash_aliases
 check_and_create_links ~/.bash/.bash_aliases ~/.bash_aliases
-if [ -f ~/.bash_aliases ]; then
-	source ~/.bash_aliases
-	echo "loaded .bash_aliases"
-fi
-
+source_and_report ~/.bash_aliases
 # Source .git-prompt.sh for customizing prompt with Git info
 check_and_create_links ~/.bash/.git-prompt.sh ~/.git-prompt.sh
-if [ -f ~/.git-prompt.sh ]; then
-	source ~/.git-prompt.sh
-	echo "loaded .git-prompt.sh"
-fi
+source_and_report ~/.git-prompt.sh
 
 # Source .git-completion for git tab completion
 check_and_create_links ~/.bash/.git-completion.sh ~/.git-completion.sh
-if [ -f ~/.git-completion.sh ]; then
-	source ~/.git-completion.sh
-	echo "loaded .git-completion.sh"
-fi
+source_and_report ~/.git-completion.sh
 
 # Source .tokens for environment tokens and api keys
-if [ -f ~/.credentials/tokens ]; then
-	source ~/.credentials/tokens
-	echo "loaded tokens"
+source_and_report ~/.credentials/tokens
+
+# Source .nanorc for syntax highlighting in nano
+
+if [ -f ~/.nanorc ] ; then
+	echo "~/.nanorc exists"
+else
+	cp ~/.bash/.nanorc ~/.nanorc
+	find /usr/share/nano -name '*.nanorc' -printf "include %p\n" >> ~/.nanorc
+	echo "Created ~/.nanorc"
 fi
 
-# Source Anaconda for python
-if [ -d ~/Miniconda3/scripts ]; then
-	export PATH=~/Miniconda3/scripts:$PATH
-	echo "loaded Miniconda3"
-else
-	echo "Miniconda3 not installed"
-	if [ -d ~/Anaconda3/scripts ]; then
-	export PATH=~/Anaconda3/scripts:$PATH
-	echo "loaded Anaconda3"
+#######################################################
+#############          Path      ######################
+#######################################################
+
+export PATH="$HOME/bin/:$PATH"
+export PATH="$HOME/.composer/vendor/bin:$PATH"
+export MSYS="winsymlinks:nativestrict"
+export PATH="/usr/share/miniconda3/bin:$PATH"
+
+# Check for Anaconda
+conda --v
+if [ $? -eq 0 ]; then
+    echo "conda is installed"
 	else
-	echo "Anaconda3 not installed"
-	fi
+    echo "conda is not installed"
 fi
 
 #######################################################
@@ -159,11 +164,3 @@ PS1="\[$Green\]\t \[$Yellow\]\w\[\033[m\]\[$Red\]\$(__git_ps1)\[$White\]\012\$ "
 # If not running interactively, don't do anything
 [[ "$-" != *i* ]] && return
 
-
-#######################################################
-#############          Path      ######################
-#######################################################
-
-export PATH="$HOME/bin/:$PATH"
-export PATH="$HOME/.composer/vendor/bin:$PATH"
-export MSYS="winsymlinks:nativestrict"
