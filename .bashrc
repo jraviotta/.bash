@@ -66,10 +66,45 @@ PROMPT_COMMAND='history -a'
 #######################################################
 #############      functions     ######################
 #######################################################
+
+# Cross platform conda
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+    # >>> conda initialize >>>
+    # !! Contents within this block are managed by 'conda init' !!
+    __conda_setup="$('/usr/share/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+        eval "$__conda_setup"
+    else
+        if [ -f "/usr/share/miniconda3/etc/profile.d/conda.sh" ]; then
+            . "/usr/share/miniconda3/etc/profile.d/conda.sh"
+        else
+            export PATH="/usr/share/miniconda3/bin:$PATH"
+        fi
+    fi
+    unset __conda_setup
+    # <<< conda initialize <<<
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    # >>> conda initialize >>>
+    # !! Contents within this block are managed by 'conda init' !!
+    __conda_setup="$('/Users/$USER/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+        eval "$__conda_setup"
+    else
+        if [ -f "/Users/$USER/miniconda3/etc/profile.d/conda.sh" ]; then
+            . "/Users/$USER/miniconda3/etc/profile.d/conda.sh"
+        else
+            export PATH="/Users/$USER/miniconda3/bin:$PATH"
+        fi
+    fi
+    unset __conda_setup
+    # <<< conda initialize <<<
+else
+    echo 'Unknown OS'
+fi
+
 # Cross-platform symlink function. With one parameter, it will check
 # whether the parameter is a symlink. With two parameters, it will create
 # a symlink to a file or directory, with syntax: link $linkname $target
-
 windows() { [[ -n "$WINDIR" ]]; }
 
 link() {
@@ -86,9 +121,9 @@ link() {
             # Windows needs to be told if it's a directory or not. Infer that.
             # Also: note that we convert `/` to `\`. In this case it's necessary.
             if [[ -d "$2" ]]; then
-                cmd <<< "mklink /D \"$1\" sed "$2/^\///;$2/\/$//"" > /dev/null
+                cmd <<< "mklink /D \"$1\" \"${2//\//\\}\"" > /dev/null
             else
-                cmd <<< "mklink \"$1\" sed "$2/^\///;$2/\/$//"" > /dev/null
+                cmd <<< "mklink \"$1\" \"${2//\//\\}\"" > /dev/null
             fi
         else
             # You know what? I think ln's parameters are backwards.

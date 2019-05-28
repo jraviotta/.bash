@@ -2,3 +2,4 @@
 .idea
 .tokens.sh
 *.save
+.vscode
