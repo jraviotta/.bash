@@ -144,7 +144,7 @@ fi
 export PATH="$HOME/bin/:$PATH"
 export PATH="$HOME/.composer/vendor/bin:$PATH"
 export MSYS="winsymlinks:nativestrict"
-export PATH="/usr/share/miniconda3/bin:$PATH"
+# export PATH="/usr/share/miniconda3/bin:$PATH"  # commented out by conda initialize
 
 # Check for Anaconda
 conda --v
@@ -164,4 +164,20 @@ fi
 PS1="\[$Green\]\t \[$Yellow\]\w\[\033[m\]\[$Red\]\$(__git_ps1)\[$White\]\012\$ "
 # If not running interactively, don't do anything
 [[ "$-" != *i* ]] && return
+
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/jonathanraviotta/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/jonathanraviotta/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/jonathanraviotta/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/jonathanraviotta/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
 
