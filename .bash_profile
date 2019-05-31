@@ -123,7 +123,7 @@ check_and_create_links ~/.bash/.git-completion.sh ~/.git-completion.sh
 source_and_report ~/.git-completion.sh
 
 # Create jupyter config
-check_and_create_links ~/.bash/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
+# check_and_create_links ~/.bash/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
 # Source .tokens for environment tokens and api keys
 source_and_report ~/.credentials/tokens
 
@@ -141,8 +141,8 @@ fi
 #############          Path      ######################
 #######################################################
 
-export PATH="$HOME/bin/:$PATH"
-export PATH="$HOME/.composer/vendor/bin:$PATH"
+# export PATH="$HOME/bin/:$PATH"
+# export PATH="$HOME/.composer/vendor/bin:$PATH"
 
 #######################################################
 #############     Environment    ######################

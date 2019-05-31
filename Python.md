@@ -11,20 +11,18 @@ TLDR
 Install some essentials
 
 ```bash
-conda install -c conda-forge -y \
+conda install -c conda-forge -y
 # https://pypi.python.org/pypi/nbstripout for .ipynb files  
-nbstripout \  
+nbstripout  
 
 # Jupyter or JupyterLab http://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html  
-# jupyterlab \
-# or 
-jupyter \ 
+jupyter
 
 # Ipython helpers
-ipykernel \
-nb_conda  \
-nb_conda_kernels \
-cookiecutter \
+ipykernel
+nb_conda
+nb_conda_kernels
+cookiecutter
 
 ```
 
