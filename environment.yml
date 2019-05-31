@@ -1,0 +1,21 @@
+name: base
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - click
+  - cookiecutter
+  - ipykernel
+  - ipython
+  - ipywidgets
+  - jupyter
+  - nb_conda
+  - nb_conda_kernels
+  - nbconvert
+  - nbstripout
+  - pip
+  - python=3.7
+  - widgetsnbextension
+  - pip:
+    - cycler
+    - jupyterthemes
