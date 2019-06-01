@@ -1,32 +1,29 @@
 # Windows native configuration
 
-## [Make Powershell Useful](http://jbeckwith.com/2012/11/28/5-steps-to-a-better-windows-command-line/)  
+## Make Powershell [Useful](http://jbeckwith.com/2012/11/28/5-steps-to-a-better-windows-command-line/)  
 
 See also https://mathieubuisson.github.io/powershell-linux-bash/
 
 ### Allow PowerShell to [run scripts](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-6)   
 
-* Open PowerShell as an administrator:  
-
 ```Powershell
+# Using PowerShell as an administrator
 Set-ExecutionPolicy Unrestricted -Scope CurrentUser  
 ```
 
 ### Install [chocolatey](http://chocolatey.org/) package manager  
 
-* Install to default location using Administrative PowerShell with this command
-
 ```powershell
+# Install to default location using Administrative PowerShell with
 Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 ```
 
-* OR Install to modified location using Non-Administrative PowerShell with this command
-
 ```powershell
+# OR Install to modified location using Non-Administrative PowerShell with this command
 $InstallDir=$env:systemdrive + '\ProgramData\chocoportable'; $env:ChocolateyInstall="$InstallDir"; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 ```
 
-* Install useful packages  
+### Install useful packages  
 
 ```powershell
 # Linux-y stuff  
@@ -50,9 +47,9 @@ cinst -y anaconda3
 cinst -y r.project  
 ```
 
-### Modify PowerShell profile
+## Modify PowerShell profile
 
-Improve [posh-git prompt](https://github.com/dahlbyk/posh-git/wiki/Customizing-Your-PowerShell-Prompt)
+Improve prompt with [posh-git](https://github.com/dahlbyk/posh-git/wiki/Customizing-Your-PowerShell-Prompt)
 
 ```powershell
 Add-Content -Path $profile -Value '$GitPromptSettings.DefaultPromptAbbreviateHomeDirectory = $true'
@@ -73,22 +70,27 @@ Unblock-File -Path (Join-Path (Split-Path -Path $Profile)  \\bash_aliases\bash_a
 ```
 
 Configure [GIT authentication](https://github.com/Microsoft/Git-Credential-Manager-for-Windows)  
-`git config --global credential.helper manager`  
+
+```bash
+git config --global credential.helper manager
+```  
+
 Set ssh as the default connection for GitHub & Bitbucket. Tokens are [here](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/) & [here](https://confluence.atlassian.com/bitbucketserver/personal-access-tokens-939515499.html)
 
-```
+```bash
 git config --global url.ssh://git@github.com/.insteadOf https://github.com/  
 git config --global url.ssh://git@bitbucket.org/.insteadOf https://bitbucket.org/  
 ```
 
-### [Symlinks on Windows with Git Bash](https://www.joshkel.com/2018/01/18/symlinks-in-windows/)
+### Symlinks on Windows [with Git Bash](https://www.joshkel.com/2018/01/18/symlinks-in-windows/)
 
 1. Grant permissions to user to [create symlinks](https://github.com/git-for-windows/git/wiki/Symbolic-Links#allowing-non-administrators-to-create-symbolic-links)  
-    1. Local Group Policy Editor: Launch gpedit.msc, navigate to Computer configuration - Windows Setting - Security Settings - Local Policies - User Rights Assignment and add the account(s) to the list named Create symbolic links.
-1. Add environemnt variable MSYS=winsymlinks:nativestrict  
+    1. Local Group Policy Editor: Launch `gpedit.msc`
+    1. Navigate to Computer configuration `Windows Setting > Security Settings > Local Policies > User Rights Assignment` and add the account(s) to the list `Create symbolic links`.
+1. Add environemnt variable `MSYS=winsymlinks:nativestrict`  
 1. Set `git config core.symlinks true` see [this link.](https://stackoverflow.com/questions/32847697/windows-specific-git-configuration-settings-where-are-they-set/32849199#32849199)  
 
 ### Executing bash scripts
-A default install of Git provides git-bash at `C:\Program Files (x86)\Git\git-bash.exe`. This should make bash scripts executable in 
-PowerShell. Verify with `.\hello.sh` from the repo directory. Otherwise check the Windows path environment variable or
+
+A default install of Git provides git-bash at `C:\Program Files (x86)\Git\git-bash.exe`. This should make bash scripts executable in PowerShell. Verify with `.\hello.sh` from the repo directory. Otherwise check the Windows path environment variable or
 [install WSL](https://www.howtogeek.com/261591/how-to-create-and-run-bash-shell-scripts-on-windows-10/).  

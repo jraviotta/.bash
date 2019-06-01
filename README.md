@@ -1,31 +1,14 @@
 # Bash config files
 
-Clone to ~/.bash  
-Create symlinks in ~
-### PowerShell as admin  
-```
-New-Item -Path $ENV:USERPROFILE\.bash_profile -ItemType SymbolicLink -Value $ENV:USERPROFILE\.bash\.bash_profile
-New-Item -Path $ENV:USERPROFILE\.bashrc -ItemType SymbolicLink -Value $ENV:USERPROFILE\.bash\.bashrc
-New-Item -Path $ENV:USERPROFILE\.bash_aliases -ItemType SymbolicLink -Value $ENV:USERPROFILE\.bash\.bash_aliases
-```
-### Bash
+Clone to ~/.bash and install
+
 ```bash
-ln -s ~/.bash/.bash_profile ~/.bash_profile
-ln -s ~/.bash/.bashrc ~/.bashrc
-ln -s ~/.bash/.bash_aliases ~/.bash_aliases
+git clone git@github.com:jraviotta/.bash.git ~/
+source ~/.bash/.bash_profile
 ```
 
-# I've given up on windows
-install
-`choco install sudo`
+### Docker customizations  
 
-# Configuring a Windows machine for cross-platform development
-
-Choose whether to install WSL and work from Linnux or Stay Windows native. Then follow the instructions in the repo.
-
-## Platform agnostic customizations
-
-### Docker customizations
 [create aliases](https://4sysops.com/archives/how-to-create-a-powershell-alias/)
 
 https://nickjanetakis.com/blog/docker-tip-26-alias-and-function-shortcuts-for-common-commands
