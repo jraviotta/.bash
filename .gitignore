@@ -3,3 +3,4 @@
 .tokens.sh
 *.save
 .vscode
+.env
