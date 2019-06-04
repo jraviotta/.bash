@@ -15,6 +15,7 @@ dependencies:
   - nb_conda_kernels
   - nbconvert
   - nbstripout
+  - flake8
   - pip
   - python=3.7
   - pip:
