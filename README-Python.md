@@ -13,6 +13,7 @@ TLDR
 ```bash
 cd ~/.bash
 conda deactivate
+conda update -n base -c defaults conda
 conda env update -f environment.yml
 
 ### OR ###

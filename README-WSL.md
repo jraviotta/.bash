@@ -105,6 +105,12 @@ git config --global core.editor "code-insiders --wait"
 # Set VS Code as diff tool
 git config --global diff.tool "default-difftool"
 git config --global difftool.default-difftool.cmd "code-insiders --wait --diff \$LOCAL \$REMOTE"
+
+# Configure global nbstripout pre-commit filter
+git config --global filter.nbstripout.clean "~/miniconda3/bin/nbstripout"
+git config --global filter.nbstripout.smudge cat
+git config --global filter.nbstripout.required true
+git config --global diff.ipynb.textconv '~/miniconda3/bin/nbstripout -t'
 ```  
 
 ## Install my .bash customizations
