@@ -26,7 +26,7 @@ generateResolvConf = true
 EOF'
 ```  
 
-* Run updates & install essentials  
+## Run updates & install essentials  
 
 ```bash
 sudo apt-get update && sudo apt-get upgrade -y
@@ -44,19 +44,6 @@ sudo apt-get install -q -y \
   bridge-utils \
   git-core
 ```
-
-## Configure VS Code  
-
-*Presently, VS Code insiders is required for remote development.*  
-
-### Assign [Linux shell to VS Code](https://code.visualstudio.com/docs/editor/integrated-terminal#_configuration)  
-  
-  `"terminal.integrated.shell.windows": C:\\WINDOWS\\System32\\bash.exe`    `"terminal.integrated.shellArgs.windows": ["-l"]`  
-
-### Configure remote development in VS Code
-
-* [See instructions](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)  
-* Be sure to open projects on the WSL side.  EG: `/mnt/c/Documnets/Repos/<project>`  
 
 ## Change default home dir to %USERPROFILE%  
 
@@ -119,6 +106,19 @@ git config --global diff.ipynb.textconv '~/miniconda3/bin/nbstripout -t'
 git clone git@github.com:jraviotta/.bash.git ~
 source ~/.bash/.bash_profile  
 ```
+
+## Configure VS Code  
+
+*Presently, VS Code insiders is required for remote development.*  
+
+### Assign [Linux shell to VS Code](https://code.visualstudio.com/docs/editor/integrated-terminal#_configuration)  
+  
+  `"terminal.integrated.shell.windows": C:\\WINDOWS\\System32\\bash.exe`    `"terminal.integrated.shellArgs.windows": ["-l"]`  
+
+### Configure remote development in VS Code
+
+* [See instructions](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)  
+* Be sure to open projects on the WSL side.  EG: `/mnt/c/Documnets/Repos/<project>`  
 
 ## Install Docker  
 

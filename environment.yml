@@ -16,6 +16,7 @@ dependencies:
   - nbconvert
   - nbstripout
   - flake8
+  - pylint
   - pip
   - python=3.7
   - pip:

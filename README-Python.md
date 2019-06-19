@@ -7,6 +7,7 @@ TLDR
 
 * Download [linux installer](https://docs.conda.io/en/latest/miniconda.html)  
 * install with `bash minicon.....` to home directory
+* May need to make `~/miniconda3` [case sensitive](https://www.howtogeek.com/354220/how-to-enable-case-sensitive-folders-on-windows-10/)
 
 ### Add some essentials
 
