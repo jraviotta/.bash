@@ -4,4 +4,4 @@
 *.save
 .vscode
 .env
-.code-workspace*
+*.code-workspace

@@ -66,6 +66,11 @@ PROMPT_COMMAND='history -a'
 #######################################################
 #############      functions     ######################
 #######################################################
+# Cross platform Docker
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+    export DOCKER_HOST=tcp://localhost:2375
+    export PATH="$HOME/.local/bin/:$PATH"
+fi
 
 # Cross platform conda
 if [[ "$OSTYPE" == "linux-gnu" ]]; then

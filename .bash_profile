@@ -106,10 +106,6 @@ fi
 # Check for ~/.bash_profile
 check_and_create_links ~/.bash/.bash_profile ~/.bash_profile
 
-# Source .bashrc
-check_and_create_links ~/.bash/.bashrc ~/.bashrc
-source_and_report ~/.bashrc
-
 # Source .bash_aliases
 check_and_create_links ~/.bash/.bash_aliases ~/.bash_aliases
 source_and_report ~/.bash_aliases
@@ -126,6 +122,10 @@ source_and_report ~/.git-completion.sh
 # check_and_create_links ~/.bash/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
 # Source .tokens for environment tokens and api keys
 source_and_report ~/.credentials/tokens
+
+# Source .bashrc
+check_and_create_links ~/.bash/.bashrc ~/.bashrc
+source_and_report ~/.bashrc
 
 # Source .nanorc for syntax highlighting in nano
 

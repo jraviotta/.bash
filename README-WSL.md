@@ -16,8 +16,7 @@ sudo bash -c 'cat >> /etc/wsl.conf << EOF
 [automount]
 enabled = true
 options = "metadata,umask=22,fmask=11"
-mountFsTab = true
-options = "case=dir"
+# options = "case=dir"
 
 # Enable DNS – even though these are turned on by default, we’ll specify here just to be explicit.
 [network]
@@ -100,7 +99,7 @@ git config --global filter.nbstripout.required true
 git config --global diff.ipynb.textconv '~/miniconda3/bin/nbstripout -t'
 ```  
 
-## Install my .bash customizations
+## Install .bash customizations
 
 ```bash  
 git clone git@github.com:jraviotta/.bash.git ~
@@ -122,6 +121,20 @@ source ~/.bash/.bash_profile
 
 ## Install Docker  
 
+Prior to the release of [WSL2](https://devblogs.microsoft.com/commandline/announcing-wsl-2/), Docker and WSL are not completely compatible. The Docker dameon must be running on Windows and accesed through WSL. Configure [as follows.](https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly)  
+*Note: Bind-mounted volumes are still wonky*
+
+### Install [Docker on Windows.](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
+
+* Expose Docker daemon running on Windows on `tcp://localhost:2375 without TLS` from Docker settings in system tray.
+* Create environment variable in WSL shell.
+
+```bash
+echo "export DOCKER_HOST=tcp://localhost:2375" >> ~/.bashrc && source ~/.bashrc
+```
+
+### Install Docker on WSL
+
 ```bash
 # Add Docker's official GPG key
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
@@ -133,14 +146,37 @@ sudo add-apt-repository \
    stable"
 # Install Docker CE
 sudo apt-get update && sudo apt-get install -q -y docker-ce
-# Install Docker-compose
-sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
+# Allow your user to access the Docker CLI without needing root access.
+sudo usermod -aG docker $USER
+# Install Docker Compose into your user's home directory.
+pip install --user docker-compose
+```
+
+* Confirm `$HOME/.local/bin` is set on WSL `$PATH`.
+
+```bash
+echo $PATH | grep /.local/bin
+```
+
+### Test configuration
+
+```bash
+# You should get a bunch of output about your Docker daemon.
+docker info
+# You should get back your Docker Compose version.
+docker-compose --version
+# You should build and execute the hello-world container
+docker run hello-world
+# TODO: create bind-mounted volume test
+
 ```
 
 ## Install optional packages  
 
+* [Lando](https://docs.devwithlando.io/installation/linux.html) (manual install)
+
 ```bash
+# With apt-get
 sudo apt-get install -q -y \
 screen \
 <other packages>
