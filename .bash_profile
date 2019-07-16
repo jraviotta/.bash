@@ -143,7 +143,7 @@ fi
 
 # export PATH="$HOME/bin/:$PATH"
 # export PATH="$HOME/.composer/vendor/bin:$PATH"
-
+export DOCKER_HOST=tcp://localhost:2375
 #######################################################
 #############     Environment    ######################
 #######################################################

@@ -54,7 +54,7 @@ sudo apt-get install -q -y \
 # Set your windows uesername
 WINDOWS_USER="$(echo "$(cmd.exe /c echo %username%)"|tr -d '\r')"  
 
-sudo sed -i'' "s@$USER:x:1000:1000:,,,:/home/$USER:/bin/bash@$USER:x:1000:1000:,,,:/mnt/c/$WINDOWS_USER:/bin/bash@g" test.txt /etc/passwd
+sudo sed -i'' "s@$USER:x:1000:1000:,,,:/home/$USER:/bin/bash@$USER:x:1000:1000:,,,:/mnt/c/$WINDOWS_USER:/bin/bash@g" /etc/passwd
 ```
 
 ## Configure [ssh](https://www.ssh.com/ssh/keygen/)  
@@ -173,7 +173,13 @@ docker run hello-world
 
 ## Install optional packages  
 
-* [Lando](https://docs.devwithlando.io/installation/linux.html) (manual install)
+* [Lando](https://docs.devwithlando.io/installation/linux.html)
+Until WSL supports docker completely, download and install the windows version of lando.
+
+```bash
+# create link to windows lando
+alias lando='/mnt/c/Windows/System32/cmd.exe /c "lando"'
+```
 
 ```bash
 # With apt-get
