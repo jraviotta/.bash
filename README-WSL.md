@@ -181,6 +181,8 @@ Until WSL supports docker completely, download and install the windows version o
 alias lando='/mnt/c/Windows/System32/cmd.exe /c "lando"'
 ```
 
+Configuring VScode for [Drupal development with lando](https://docs.devwithlando.io/guides/lando-with-vscode.html)
+
 ```bash
 # With apt-get
 sudo apt-get install -q -y \
