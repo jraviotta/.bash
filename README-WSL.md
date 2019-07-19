@@ -111,8 +111,15 @@ source ~/.bash/.bash_profile
 *Presently, VS Code insiders is required for remote development.*  
 
 ### Assign [Linux shell to VS Code](https://code.visualstudio.com/docs/editor/integrated-terminal#_configuration)  
-  
-  `"terminal.integrated.shell.windows": C:\\WINDOWS\\System32\\bash.exe`    `"terminal.integrated.shellArgs.windows": ["-l"]`  
+
+```json
+{  
+  "terminal.integrated.shell.windows": "C:\\Windows\\System32\\wsl.exe",
+  "terminal.integrated.shellArgs.windows": ["-l"],
+  "terminal.integrated.shell.linux": "/bin/bash",
+  "terminal.integrated.shellArgs.linux": ["-l"],
+}
+```
 
 ### Configure remote development in VS Code
 
