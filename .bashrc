@@ -67,8 +67,8 @@ PROMPT_COMMAND='history -a'
 #############      functions     ######################
 #######################################################
 # Cross platform Docker
-windows() { [[ -n "$WINDIR" ]]; }
-if windows; then
+if grep -q Microsoft /proc/version; then
+    echo 'detected windows host'
 	export DOCKER_HOST=tcp://localhost:2375
 else
     if [[ "$OSTYPE" == "linux-gnu" ]]; then
