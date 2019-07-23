@@ -70,10 +70,6 @@ PROMPT_COMMAND='history -a'
 if grep -q Microsoft /proc/version; then
     echo 'detected windows host'
 	export DOCKER_HOST=tcp://localhost:2375
-else
-    if [[ "$OSTYPE" == "linux-gnu" ]]; then
-        export PATH="$HOME/.local/bin/:$PATH"
-    fi
 fi
 
 # Cross platform conda
