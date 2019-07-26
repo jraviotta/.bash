@@ -37,4 +37,8 @@ alias glog='git log --graph --full-history --all --color --pretty=format:"%x1b[3
 
 # Tools
 alias ci='code-insiders'
-alias lando='/mnt/c/Windows/System32/cmd.exe /c "lando"'
+if grep -q Microsoft /proc/version; then
+    echo 'Creating Windows aliases'
+	alias lando='/mnt/c/Windows/System32/cmd.exe /c "lando"'
+    alias drush='/mnt/c/Windows/System32/cmd.exe /c "lando drush --y"'
+fi
