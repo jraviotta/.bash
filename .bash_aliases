@@ -44,4 +44,7 @@ if grep -q Microsoft /proc/version; then
 	alias lando='/mnt/c/Windows/System32/cmd.exe /c "lando"'
     alias drush='/mnt/c/Windows/System32/cmd.exe /c "lando drush --y"'
     alias brave="'/mnt/c/Program Files (x86)/BraveSoftware/Brave-Browser/Application/brave.exe'"
+else
+    alias drush='lando drush --y'
 fi
+
