@@ -17,6 +17,8 @@ shopt -s histappend
 # for example, cd /vr/lgo/apaache would find /var/log/apache
 shopt -s cdspell
 
+# Include dotfiles in glob operations
+shopt -s dotglob
 #######################################################
 ##########   Completion options  ######################
 #######################################################
