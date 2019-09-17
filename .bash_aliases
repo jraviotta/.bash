@@ -49,5 +49,5 @@ else
 fi
 
 # Show dotfiles in jupyter notebook
-alias notebook="jupyter notebook --ContentsManager.allow_hidden=True"
+alias nb="jupyter notebook --ContentsManager.allow_hidden=True"
 
