@@ -48,3 +48,6 @@ else
     alias drush='lando drush --y'
 fi
 
+# Show dotfiles in jupyter notebook
+alias jupyter="jupyter notebook --ContentsManager.allow_hidden=True"
+
