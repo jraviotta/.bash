@@ -25,24 +25,7 @@ generateResolvConf = true
 EOF'
 ```  
 
-## Run updates & install essentials  
 
-```bash
-sudo apt-get update && sudo apt-get upgrade -y
-
-# Utilities and networking packages
-sudo apt-get install -q -y \
-  build-essential \
-  dos2unix \
-  apt-transport-https \
-  ca-certificates \
-  curl \
-  gnupg2 \
-  software-properties-common \
-  net-tools \
-  bridge-utils \
-  git-core
-```
 
 ## Change default home dir to %USERPROFILE%  
 
@@ -86,11 +69,11 @@ git config --global url.ssh://git@github.com/.insteadOf https://github.com/
 git config --global url.ssh://git@bitbucket.org/.insteadOf https://bitbucket.org/  
   
 # Set VS Code as editor
-git config --global core.editor "code-insiders --wait"
+git config --global core.editor "code --wait"
 
 # Set VS Code as diff tool
 git config --global diff.tool "default-difftool"
-git config --global difftool.default-difftool.cmd "code-insiders --wait --diff \$LOCAL \$REMOTE"
+git config --global difftool.default-difftool.cmd "code --wait --diff \$LOCAL \$REMOTE"
 
 # Configure global nbstripout pre-commit filter
 git config --global filter.nbstripout.clean "~/miniconda3/bin/nbstripout"

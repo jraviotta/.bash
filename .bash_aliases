@@ -40,7 +40,6 @@ function git() { case $* in fetch* ) shift 1; command git fetch "$@" --prune ;; 
 # Tools
 if grep -q Microsoft /proc/version; then
     echo 'Creating Windows aliases'
-    alias code='code-insiders'
 	alias lando='/mnt/c/Windows/System32/cmd.exe /c "lando"'
     alias drush='/mnt/c/Windows/System32/cmd.exe /c "lando drush --y"'
     alias brave="'/mnt/c/Program Files (x86)/BraveSoftware/Brave-Browser/Application/brave.exe'"
@@ -51,3 +50,7 @@ fi
 # Show dotfiles in jupyter notebook
 alias nb="jupyter notebook --ContentsManager.allow_hidden=True"
 
+# # Fix link to jupyterthemes
+# if [ -e $HOME/.local/bin/jt ] ; then
+#     alias jt='$HOME/.local/bin/jt'
+# fi

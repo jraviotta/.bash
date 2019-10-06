@@ -9,28 +9,27 @@ TLDR
 * install with `bash minicon.....` to home directory
 * May need to make `~/miniconda3` [case sensitive](https://www.howtogeek.com/354220/how-to-enable-case-sensitive-folders-on-windows-10/)
 
+## Configure system Python
+```bash
+# Install pip
+sudo apt-get install python3-setuptools
+sudo apt-get install python3-pip
+
+# Set python3 and pip3 to the default python and pip
+sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
+sudo update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
+```
+
 ### Add some essentials
 
 ```bash
-cd ~/.bash
+# Using python
+pip install -r ~/.bash/requirements.txt
+
+# Using Conda
 conda deactivate
 conda update -n base -c defaults conda
-conda env update -f environment.yml
-
-### OR ###
-conda install -c conda-forge -y
-# https://pypi.python.org/pypi/nbstripout for .ipynb files  
-nbstripout  
-
-# Jupyter or JupyterLab http://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html  
-jupyter
-
-# Ipython helpers
-ipykernel
-nb_conda
-nb_conda_kernels
-cookiecutter
-jupyterthemes
+conda env update -f ~/.bash/environment.yml
 ```
 
 ### Configure [jupyterthemes](https://github.com/dunovank/jupyter-themes)

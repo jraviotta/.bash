@@ -1,0 +1,8 @@
+jupyter
+nbstripout
+ipykernel
+jupyterthemes
+click
+jupyter_contrib_nbextensions
+nbconvert
+flake8

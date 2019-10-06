@@ -66,7 +66,7 @@ PROMPT_COMMAND='history -a'
 # umask 077
 
 #######################################################
-#############      functions     ######################
+################      Docker     ######################
 #######################################################
 # Cross platform Docker
 if grep -q Microsoft /proc/version; then
@@ -74,8 +74,33 @@ if grep -q Microsoft /proc/version; then
 	export DOCKER_HOST=tcp://localhost:2375
 fi
 
+#######################################################
+################      Python     ######################
+#######################################################
+# if [ -e $HOME/.local/bin ] ; then
+#     if [ ":$PYTHONPATH:" != *":${HOME}/.local/bin:"* ] ; then
+#         export PYTHONPATH="${HOME}/.local/bin:${PYTHONPATH}"
+#     fi
+#     # if [ ":${PATH}:" != *"${HOME}/.local/bin:"* ] ; then
+#     #     export PATH="${HOME}/.local/bin:${PATH}"
+#     # fi
+# fi
+
+# Add to path if it doesn't exist
+pathmunge () {
+        if ! echo "$PATH" | /bin/grep -Eq "(^|:)$1($|:)" ; then
+           if [ "$2" = "after" ] ; then
+              PATH="$PATH:$1"
+           else
+              PATH="$1:$PATH"
+           fi
+        fi
+}
+
+pathmunge ${HOME}/.local/bin
 # Cross platform conda
-if [[ "$OSTYPE" == "linux-gnu" ]]; then
+if [[ "grep -q Microsoft /proc/version" == "linux-gnu" ]]; then
+    echo "Detected Windows host"
     # >>> conda initialize >>>
     # !! Contents within this block are managed by 'conda init' !!
     __conda_setup="$('/mnt/c/users/'$USER'/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
@@ -105,6 +130,8 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     fi
     unset __conda_setup
     # <<< conda initialize <<<
+elif [[ "$OSTYPE" == "linux-gnu" ]]; then
+    echo "Detected linux host."
 else
     echo 'Unknown OS'
 fi
