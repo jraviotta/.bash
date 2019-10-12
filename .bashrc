@@ -97,7 +97,7 @@ pathmunge () {
         fi
 }
 
-pathmunge ${HOME}/.local/bin
+
 # Cross platform conda
 if [[ "grep -q Microsoft /proc/version" == "linux-gnu" ]]; then
     echo "Detected Windows host"
@@ -132,6 +132,8 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     # <<< conda initialize <<<
 elif [[ "$OSTYPE" == "linux-gnu" ]]; then
     echo "Detected linux host."
+    pathmunge ${HOME}/.local/bin
+    pathmunge /usr/lib/jvm/java-11-openjdk-amd64/bin
 else
     echo 'Unknown OS'
 fi
