@@ -12,8 +12,7 @@ TLDR
 ## Configure system Python
 ```bash
 # Install pip
-sudo apt-get install python3-setuptools
-sudo apt-get install python3-pip
+sudo apt-get install python3-setuptools python3-pip python3-venv
 
 # Set python3 and pip3 to the default python and pip
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
