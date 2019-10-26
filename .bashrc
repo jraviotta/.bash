@@ -132,7 +132,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     # <<< conda initialize <<<
 elif [[ "$OSTYPE" == "linux-gnu" ]]; then
     echo "Detected linux host."
-    pathmunge ${HOME}/.local/bin
+    pathmunge ${HOME}/.local/bin after
     pathmunge /usr/lib/jvm/java-11-openjdk-amd64/bin
 else
     echo 'Unknown OS'
