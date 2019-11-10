@@ -153,6 +153,6 @@ fi
 #######################################################
 ##########   Customize Prompt  ########################
 #######################################################
-PS1="\[$Green\]\t \[$Yellow\]\w\[\033[m\]\[$Red\]\$(__git_ps1)\[$White\]\012\$ "
+PS1="\[$Green\]\t \[$Yellow\]\w\[\033[m\]\[$Red\]\$(__git_ps1)\[$White\]\012\u@\H \$ "
 # If not running interactively, don't do anything
 [[ "$-" != *i* ]] && return
