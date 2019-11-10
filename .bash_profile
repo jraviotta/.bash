@@ -127,13 +127,16 @@ source_and_report ~/.credentials/tokens
 check_and_create_links ~/.bash/.bashrc ~/.bashrc
 source_and_report ~/.bashrc
 
-# Source .nanorc for syntax highlighting in nano
+# Source .tmux config
+check_and_create_links ~/.bash/.tmux.conf ~/.tmux.conf
 
+# Source .nanorc for syntax highlighting in nano
 if [ -f ~/.nanorc ] ; then
 	echo "~/.nanorc exists"
 else
 	cp ~/.bash/.nanorc ~/.nanorc
-	find /usr/share/nano -name '*.nanorc' -printf "include %p\n" >> ~/.nanorc
+	find /usr/share/nano -name '*.nanorc' -printfs echo "include %p\n" >> ~/.nanorc
+	find/usr/local/share/nano -name '*.nanorc' -printfs echo "include %p\n" >> ~/.nanorc
 	echo "Created ~/.nanorc"
 fi
 
