@@ -49,3 +49,25 @@ sudo apt-get install openjdk-11-jdk
 wget -P ~/Downloads https://mediaserver.thinkorswim.com/installer/InstFiles/thinkorswim_installer.sh
 bash ~/Downloads/thinkorswim_installer.sh
 ```
+
+## Configure jupyter server to start on boot
+Create the file: /etc/systemd/system/jupyter.service
+
+Description=Jupyter Workspace
+
+[Service]  
+Type=simple
+PIDFile=/run/jupyter.pid  
+ExecStart=/home/jona/.local/bin/jupyter-lab --config=/home/jona/.jupyter/jupyter_notebook_config.py
+User=jona      
+Group=jona     
+WorkingDirectory=/home/jona
+restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+
+systemctl enable jupyter.service
+systemctl daemon-reload
+systemctl restart jupyter.service
