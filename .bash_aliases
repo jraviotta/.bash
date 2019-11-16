@@ -49,7 +49,7 @@ fi
 
 # Show dotfiles in jupyter notebook
 alias nb="jupyter notebook --ContentsManager.allow_hidden=True"
-
+alias ssh-jupyter="ssh -L 9999:localhost:8888 jona@197.168.1.79" 
 # # Fix link to jupyterthemes
 # if [ -e $HOME/.local/bin/jt ] ; then
 #     alias jt='$HOME/.local/bin/jt'
