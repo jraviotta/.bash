@@ -77,14 +77,14 @@ fi
 #######################################################
 ################      Python     ######################
 #######################################################
-# if [ -e $HOME/.local/bin ] ; then
-#     if [ ":$PYTHONPATH:" != *":${HOME}/.local/bin:"* ] ; then
-#         export PYTHONPATH="${HOME}/.local/bin:${PYTHONPATH}"
-#     fi
-#     # if [ ":${PATH}:" != *"${HOME}/.local/bin:"* ] ; then
-#     #     export PATH="${HOME}/.local/bin:${PATH}"
-#     # fi
-# fi
+if [ -e $HOME/.local/bin ] ; then
+    if [ ":$PYTHONPATH:" != *":${HOME}/.local/bin:"* ] ; then
+        export PYTHONPATH="${HOME}/.local/bin:${PYTHONPATH}"
+    fi
+    if [ ":${PATH}:" != *"${HOME}/.local/bin:"* ] ; then
+        export PATH="${HOME}/.local/bin:${PATH}"
+    fi
+fi
 
 # Add to path if it doesn't exist
 pathmunge () {
@@ -98,25 +98,12 @@ pathmunge () {
 }
 
 
-# Cross platform conda
+# OS customizations
 if [[ "grep -q Microsoft /proc/version" == "linux-gnu" ]]; then
     echo "Detected Windows host"
-    # >>> conda initialize >>>
-    # !! Contents within this block are managed by 'conda init' !!
-    __conda_setup="$('/mnt/c/users/'$USER'/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-    if [ $? -eq 0 ]; then
-        eval "$__conda_setup"
-    else
-        if [ -f "/mnt/c/users/$USER/miniconda3/etc/profile.d/conda.sh" ]; then
-            . "/mnt/c/users/$USER/miniconda3/etc/profile.d/conda.sh"
-        else
-            export PATH="/mnt/c/users/$USER/miniconda3/bin:$PATH"
-        fi
-    fi
-    unset __conda_setup
 elif [[ "$OSTYPE" == "linux-gnu" ]]; then
     echo "Detected linux host."
-    pathmunge ${HOME}/.local/bin after
+#    pathmunge ${HOME}/.local/bin after
     pathmunge /usr/lib/jvm/java-11-openjdk-amd64/bin
 else
     echo 'Unknown OS'

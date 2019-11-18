@@ -120,6 +120,7 @@ source_and_report ~/.git-completion.sh
 
 # Create jupyter config
 # check_and_create_links ~/.bash/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
+
 # Source .tokens for environment tokens and api keys
 source_and_report ~/.credentials/tokens
 

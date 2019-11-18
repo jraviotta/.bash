@@ -6,3 +6,5 @@ click
 jupyter_contrib_nbextensions
 nbconvert
 flake8
+ipywidgets
+jupyterlab

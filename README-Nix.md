@@ -48,11 +48,15 @@ sudo apt-get install openjdk-11-jdk
 # thinkorswim
 wget -P ~/Downloads https://mediaserver.thinkorswim.com/installer/InstFiles/thinkorswim_installer.sh
 bash ~/Downloads/thinkorswim_installer.sh
+
+# node.js
+sudo apt install nodejs
 ```
 
 ## Configure jupyter server to start on boot
 Create the file: /etc/systemd/system/jupyter.service
 
+```
 Description=Jupyter Workspace
 
 [Service]  
@@ -67,7 +71,18 @@ RestartSec=10
 
 [Install]
 WantedBy=multi-user.target
+```
 
+#### Start service manually
+```bash
 systemctl enable jupyter.service
 systemctl daemon-reload
 systemctl restart jupyter.service
+```
+
+#### Install jupyter lab extensions
+```bash
+jupyter labextensions install @jupyter-widgets/jupyterlab-manager @jupyter-widgets/jupyterlab-sidecar @jupyterlab/git v0.8.2 @jupyterlab/plotly-extension v1.0.0 @krassowski/jupyterlab-lsp @krassowski/jupyterlab_go_to_definition @lckr/jupyterlab_variableinspector v0.3.0 @ryantam626/jupyterlab_code_formatter ipysheet jupyterlab-plotly  jupyterlab_templates plotlywidget qgrid
+                                                                                                        
+
+```
