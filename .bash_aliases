@@ -48,4 +48,7 @@ else
 fi
 
 # open port to local jupyter
-alias ssh-jupyter="ssh -L 9999:localhost:8888 jona@197.168.1.79 && brave-browser --new-window http://localhost:9999"
+alias ssh-jupyter="ssh -L 9999:localhost:8888 jona@192.168.1.79"
+
+# login to whopper
+alias ssh-whopper="ssh jona@192.168.1.79"
