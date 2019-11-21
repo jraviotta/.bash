@@ -43,8 +43,6 @@ if grep -q Microsoft /proc/version; then
 	alias lando='/mnt/c/Windows/System32/cmd.exe /c "lando"'
     alias drush='/mnt/c/Windows/System32/cmd.exe /c "lando drush --y"'
     alias brave-browser="'/mnt/c/Program Files (x86)/BraveSoftware/Brave-Browser/Application/brave.exe'"
-else
-    alias drush='lando drush --y'
 fi
 
 # open port to local jupyter
@@ -52,3 +50,9 @@ alias ssh-jupyter="ssh -L 9999:localhost:8888 jona@192.168.1.79"
 
 # login to whopper
 alias ssh-whopper="ssh jona@192.168.1.79"
+
+# Lando
+alias drush='lando drush --y'
+
+# Python
+alias activate="source .venv/bin/activate"
