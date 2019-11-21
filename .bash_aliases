@@ -45,9 +45,9 @@ if grep -q Microsoft /proc/version; then
     alias brave-browser="'/mnt/c/Program Files (x86)/BraveSoftware/Brave-Browser/Application/brave.exe'"
 fi
 
+# SSH
 # open port to local jupyter
 alias ssh-jupyter="ssh -L 9999:localhost:8888 jona@192.168.1.79"
-
 # login to whopper
 alias ssh-whopper="ssh jona@192.168.1.79"
 
@@ -56,3 +56,6 @@ alias drush='lando drush --y'
 
 # Python
 alias activate="source .venv/bin/activate"
+
+# Docker
+alias airflow="docker exec -ti airflow airflow"

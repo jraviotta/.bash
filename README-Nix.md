@@ -54,24 +54,7 @@ sudo apt install nodejs
 ```
 
 ## Configure jupyter server to start on boot
-Create the file: /etc/systemd/system/jupyter.service
-
-```
-Description=Jupyter Workspace
-
-[Service]  
-Type=simple
-PIDFile=/run/jupyter.pid  
-ExecStart=/home/jona/.local/bin/jupyter-lab --config=/home/jona/.jupyter/jupyter_notebook_config.py
-User=jona      
-Group=jona     
-WorkingDirectory=/home/jona
-restart=always
-RestartSec=10
-
-[Install]
-WantedBy=multi-user.target
-```
+Clone the file: services/jupyter.service to /etc/systemd/system/jupyter.service
 
 #### Start service manually
 ```bash
@@ -82,7 +65,7 @@ systemctl restart jupyter.service
 
 #### Install jupyter lab extensions
 ```bash
-jupyter labextensions install @jupyter-widgets/jupyterlab-manager @jupyter-widgets/jupyterlab-sidecar @jupyterlab/git v0.8.2 @jupyterlab/plotly-extension v1.0.0 @krassowski/jupyterlab-lsp @krassowski/jupyterlab_go_to_definition @lckr/jupyterlab_variableinspector v0.3.0 @ryantam626/jupyterlab_code_formatter ipysheet jupyterlab-plotly  jupyterlab_templates plotlywidget qgrid
+
                                                                                                         
 
 ```
