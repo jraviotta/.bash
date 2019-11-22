@@ -59,7 +59,7 @@ unset NODE_OPTIONS
 ### Configure [jupyterthemes](https://github.com/dunovank/jupyter-themes)
 
 ```bash
-jt -t onedork -N -fs 95 -altp -tfs 11 -nfs 115 -cellw 95% -T -dfs 8
+jt -t onedork -N -fs 105 -altp -tfs 11 -nfs 115 -cellw 95% -T -dfs 8
 ```
 
 ## Use [environments](https://conda.io/docs/user-guide/tasks/manage-environments.html)  
