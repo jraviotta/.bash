@@ -50,6 +50,7 @@ fi
 alias ssh-jupyter="ssh -L 9999:localhost:8888 jona@192.168.1.79"
 # login to whopper
 alias ssh-whopper="ssh jona@192.168.1.79"
+alias ssh-whopper-remote="ssh jona@jraviotta.asuscomm.com"
 
 # Lando
 alias drush='lando drush --y'
