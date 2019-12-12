@@ -9,7 +9,13 @@ TLDR
 * install with `bash minicon.....` to home directory
 * May need to make `~/miniconda3` [case sensitive](https://www.howtogeek.com/354220/how-to-enable-case-sensitive-folders-on-windows-10/)
 
-## Configure system Python
+## Configure system Python Mac
+```bash
+brew install python
+
+```
+
+## Configure system Python Debian
 ```bash
 # Install pip
 sudo apt-get install python3-setuptools python3-pip python3-venv
