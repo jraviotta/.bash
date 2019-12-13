@@ -18,10 +18,14 @@ import platform
 if platform.system() == 'Darwin':
     c.LabApp.browser = '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --app=%s'
 
+c.LabApp.browser = 'chrome-browser --app=%s'
+
+
 ## Allow access to hidden files
 c.ContentsManager.allow_hidden = True
 
 # Allow a password
+c.NotebookApp.allow_credentials = True
 c.NotebookApp.allow_password_change = True
 
 import io

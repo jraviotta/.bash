@@ -21,6 +21,7 @@ alias whence='type -a'                        # where, of a sort
 alias grep='grep --color'                     # show differences in colour
 alias egrep='egrep'              # show differences in colour
 alias fgrep='fgrep'              # show differences in colour
+alias ifconfig='ip -stats -color -human addr'
 
 # Some shortcuts for different directory listings
 alias dir='ls --format=vertical'
@@ -46,9 +47,10 @@ fi
 # SSH
 # open port to local jupyter
 alias ssh-jupyter="ssh -L 9999:localhost:8888 jona@192.168.1.79"
+alias ssh-jupyter-remote="ssh -N -f -L localhost:8888:localhost:9999 jona@jraviotta.asuscomm.com -p 22022"
 # login to whopper
 alias ssh-whopper="ssh jona@192.168.1.79"
-alias ssh-whopper-remote="ssh jona@jraviotta.asuscomm.com"
+alias ssh-whopper-remote="ssh jona@jraviotta.asuscomm.com -p 22022"
 
 # Lando
 alias drush='lando drush --y'
