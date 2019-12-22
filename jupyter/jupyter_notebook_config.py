@@ -96,7 +96,7 @@ c.NotebookApp.allow_password_change = True
 #  If not specified, the default browser will be determined by the `webbrowser`
 #  standard library module, which allows setting of the BROWSER environment
 #  variable to override it.
-c.LabApp.browser = 'brave-browser --app=%s'
+# c.LabApp.browser = 'brave-browser --app=%s'
 
 ## The full path to an SSL/TLS certificate file.
 c.NotebookApp.certfile = u'/home/jona/mycert.pem'
@@ -264,7 +264,7 @@ c.NotebookApp.keyfile = u'/home/jona/mykey.key'
 #  platform dependent and determined by the python standard library `webbrowser`
 #  module, unless it is overridden using the --browser (NotebookApp.browser)
 #  configuration option.
-c.NotebookApp.open_browser = False
+# c.NotebookApp.open_browser = False
 
 ## Hashed password to use for web authentication.
 #  
@@ -883,4 +883,4 @@ def script_post_save(model, os_path, contents_manager, **kwargs):
     with io.open(script_fname, 'w', encoding='utf-8') as f:
         f.write(script)
 
-c.FileContentsManager.post_save_hook = script_post_save
+# c.FileContentsManager.post_save_hook = script_post_save
