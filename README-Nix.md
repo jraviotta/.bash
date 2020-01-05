@@ -49,23 +49,37 @@ sudo apt-get install openjdk-11-jdk
 wget -P ~/Downloads https://mediaserver.thinkorswim.com/installer/InstFiles/thinkorswim_installer.sh
 bash ~/Downloads/thinkorswim_installer.sh
 
+# VNC
+# Download and install vncserver https://www.realvnc.com/en/connect/download/vnc/
+# Download and install vncviewer https://www.realvnc.com/en/connect/download/viewer/
+# Load on startup
+sudo systemctl enable vncserver-x11-serviced.service
+sudo systemctl enable vncserver-virtuald.service
+
+# Fix scaling
+sudo apt-get install xvfb xpra x11_server_utils
+sudo wget -O /usr/local/bin/run_scaled "https://raw.githubusercontent.com/kaueraal/run_scaled/master/run_scaled"
+sudo chmod +x /usr/local/bin/run_scaled
+# execute with run_scaled vncviewer
+
 # node.js
 sudo apt install nodejs
 ```
 
 ## Configure jupyter server to start on boot
+
 Clone the file: services/jupyter.service to /etc/systemd/system/jupyter.service
 
-#### Start service manually
+### Start service manually
+
 ```bash
 systemctl enable jupyter.service
 systemctl daemon-reload
 systemctl restart jupyter.service
 ```
 
-#### Install jupyter lab extensions
-```bash
+### Install jupyter lab extensions
 
-                                                                                                        
+```bash
 
 ```
