@@ -15,14 +15,53 @@ brew install python
 
 ```
 
+## Install Current Python Debian
+
+https://linuxize.com/post/how-to-install-python-3-7-on-debian-9/
+https://realpython.com/installing-python/#debian
+
+
+```bash
+# Install prerequisites
+sudo apt update
+sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev wget
+
+# install latest default systems versions
+sudo apt-get install python python3
+
+# Download current python
+CURRENT_PYTHON=3.7.6
+curl -O https://www.python.org/ftp/python/$CURRENT_PYTHON/Python-$CURRENT_PYTHON.tar.xz
+tar -xf Python-$CURRENT_PYTHON.tar.xz
+cd Python-$CURRENT_PYTHON
+./configure --enable-optimizations --with-ensurepip=install
+
+# Optimize for available cores
+let CORES=`nproc`/2
+make -j $CORES
+
+# Install
+sudo make altinstall
+```
+
 ## Configure system Python Debian
 ```bash
-# Install pip
-sudo apt-get install python3-setuptools python3-pip python3-venv
+# Show available python versions
+ls /usr/bin/python*
+ls /usr/local/bin/python*
+# Show linked python versions
+python --version; python3 --version; python3.7 --version
 
 # Set python3 and pip3 to the default python and pip
+# https://linuxconfig.org/how-to-change-from-default-to-alternative-python-version-on-debian-linux
+update-alternatives --list python
+
+# add system-aliases if necessary
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
-sudo update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
+sudo update-alternatives --install /usr/local/bin/python python /usr/bin/python3.7 2
+
+# configure targets for system aliases
+sudo update-alternatives --config python
 ```
 
 ### Add some essentials
