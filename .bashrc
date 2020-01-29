@@ -77,18 +77,18 @@ fi
 #######################################################
 ################      Python     ######################
 #######################################################
-if [[ "$OSTYPE" == "linux-gnu" ]]; then
-    if [ -e $HOME/.local/bin ] ; then
-        if [ ":$PYTHONPATH:" != *":${HOME}/.local/bin:"* ] ; then
-            export PYTHONPATH="${HOME}/.local/bin:${PYTHONPATH}"
-        fi
-        if [ ":${PATH}:" != *"${HOME}/.local/bin:"* ] ; then
-            export PATH="${HOME}/.local/bin:${PATH}"
-        fi
-    fi
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-    pathmunge /usr/local/opt/python/libexec/bin before
-fi
+# if [[ "$OSTYPE" == "linux-gnu" ]]; then
+#     if [ -e $HOME/.local/bin ] ; then
+#         if [ ":$PYTHONPATH:" != *":${HOME}/.local/bin:"* ] ; then
+#             export PYTHONPATH="${HOME}/.local/bin:${PYTHONPATH}"
+#         fi
+#         if [ ":${PATH}:" != *"${HOME}/.local/bin:"* ] ; then
+#             export PATH="${HOME}/.local/bin:${PATH}"
+#         fi
+#     fi
+# elif [[ "$OSTYPE" == "darwin"* ]]; then
+#     pathmunge /usr/local/opt/python/libexec/bin before
+# fi
 
 # Add to path if it doesn't exist
 pathmunge () {
