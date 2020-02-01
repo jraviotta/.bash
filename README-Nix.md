@@ -64,6 +64,10 @@ sudo chmod +x /usr/local/bin/run_scaled
 
 # node.js
 sudo apt install nodejs
+
+# tmuxinator
+sudo gem install tmuxinator
+sudo wget https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.bash -O /etc/bash_completion.d/tmuxinator.bash
 ```
 
 ## Configure jupyter server to start on boot
