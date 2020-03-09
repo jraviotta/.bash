@@ -56,6 +56,12 @@ bash ~/Downloads/thinkorswim_installer.sh
 sudo systemctl enable vncserver-x11-serviced.service
 sudo systemctl enable vncserver-virtuald.service
 
+# Virtualbox
+# See https://www.virtualbox.org/wiki/Linux_Downloads
+
+# NoMachine
+# See https://www.nomachine.com/
+
 # Fix scaling
 sudo apt-get install xvfb xpra x11_server_utils
 sudo wget -O /usr/local/bin/run_scaled "https://raw.githubusercontent.com/kaueraal/run_scaled/master/run_scaled"

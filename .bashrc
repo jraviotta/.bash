@@ -89,7 +89,7 @@ fi
 # elif [[ "$OSTYPE" == "darwin"* ]]; then
 #     pathmunge /usr/local/opt/python/libexec/bin before
 # fi
-
+export PYTHONSTARTUP=~/.bash/python_startup.py
 # Add to path if it doesn't exist
 pathmunge () {
         if ! echo "$PATH" | /bin/grep -Eq "(^|:)$1($|:)" ; then
