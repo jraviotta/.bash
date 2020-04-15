@@ -888,5 +888,3 @@ def script_post_save(model, os_path, contents_manager, **kwargs):
 
 # c.FileContentsManager.post_save_hook = script_post_save
 c.InteractiveShell.ast_node_interactivity = "all"
-c.InteractiveShellApp.extensions = ['autoreload']
-c.InteractiveShellApp.exec_lines = ['%autoreload 2']

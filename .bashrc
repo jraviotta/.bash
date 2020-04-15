@@ -101,6 +101,12 @@ pathmunge () {
         fi
 }
 
+#######################################################
+##################      Fred     ######################
+#######################################################
+export FRED_HOME=$HOME/FRED
+export PATH=${FRED_HOME}/bin:/usr/local/bin:$PATH
+export FRED_GNUPLOT=/usr/bin/gnuplot
 
 # OS customizations
 if [[ "grep -q Microsoft /proc/version" == "linux-gnu" ]]; then
