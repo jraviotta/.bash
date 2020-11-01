@@ -89,7 +89,7 @@ fi
 # elif [[ "$OSTYPE" == "darwin"* ]]; then
 #     pathmunge /usr/local/opt/python/libexec/bin before
 # fi
-export PYTHONSTARTUP=~/.bash/python_startup.py
+# export PYTHONSTARTUP=~/.bash/python_startup.py
 # Add to path if it doesn't exist
 pathmunge () {
         if ! echo "$PATH" | /bin/grep -Eq "(^|:)$1($|:)" ; then
@@ -107,6 +107,7 @@ pathmunge () {
 export FRED_HOME=$HOME/FRED
 export PATH=${FRED_HOME}/bin:/usr/local/bin:$PATH
 export FRED_GNUPLOT=/usr/bin/gnuplot
+alias fred="FRED"
 
 # OS customizations
 if [[ "grep -q Microsoft /proc/version" == "linux-gnu" ]]; then
@@ -114,7 +115,9 @@ if [[ "grep -q Microsoft /proc/version" == "linux-gnu" ]]; then
 elif [[ "$OSTYPE" == "linux-gnu" ]]; then
     echo "Detected linux host."
 #    pathmunge ${HOME}/.local/bin after
-    pathmunge /usr/lib/jvm/java-11-openjdk-amd64/bin
+    # pathmunge /usr/lib/jvm/java-11-openjdk-amd64/bin
+
+    pathmunge /usr/lib/jvm/zulu8/jre/bin
 else
     echo 'Unknown OS'
 fi
