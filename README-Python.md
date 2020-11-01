@@ -24,13 +24,14 @@ https://realpython.com/installing-python/#debian
 ```bash
 # Install prerequisites
 sudo apt update
-sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev wget
+sudo apt install libssl-dev zlib1g-dev libncurses5-dev libncursesw5-dev libreadline-dev libsqlite3-dev
+sudo apt install libgdbm-dev libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev libffi-dev uuid-dev
 
 # install latest default systems versions
 sudo apt-get install python python3
 
 # Download current python
-CURRENT_PYTHON=3.7.6
+CURRENT_PYTHON=3.7.9
 curl -O https://www.python.org/ftp/python/$CURRENT_PYTHON/Python-$CURRENT_PYTHON.tar.xz
 tar -xf Python-$CURRENT_PYTHON.tar.xz
 cd Python-$CURRENT_PYTHON
