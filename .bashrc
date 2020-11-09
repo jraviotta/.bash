@@ -19,6 +19,21 @@ shopt -s cdspell
 
 # Include dotfiles in glob operations
 shopt -s dotglob
+
+#######################################################
+##############   Functions  ###########################
+#######################################################
+# Add to path if it doesn't exist
+pathmunge () {
+        if ! echo "$PATH" | /bin/grep -Eq "(^|:)$1($|:)" ; then
+           if [ "$2" = "after" ] ; then
+              PATH="$PATH:$1"
+           else
+              PATH="$1:$PATH"
+           fi
+        fi
+}
+
 #######################################################
 ##########   Completion options  ######################
 #######################################################
@@ -89,18 +104,9 @@ fi
 # elif [[ "$OSTYPE" == "darwin"* ]]; then
 #     pathmunge /usr/local/opt/python/libexec/bin before
 # fi
-# export PYTHONSTARTUP=~/.bash/python_startup.py
-# Add to path if it doesn't exist
-pathmunge () {
-        if ! echo "$PATH" | /bin/grep -Eq "(^|:)$1($|:)" ; then
-           if [ "$2" = "after" ] ; then
-              PATH="$PATH:$1"
-           else
-              PATH="$1:$PATH"
-           fi
-        fi
-}
 
+export PYTHONSTARTUP=~/.bash/python_startup.py
+export PATH=$PATH:~/.local/bin
 #######################################################
 ##################      Fred     ######################
 #######################################################
