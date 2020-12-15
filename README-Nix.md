@@ -1,11 +1,41 @@
 # Configuring Linux
+ubuntu 18.x installs without problem
+
+## Access machine
+-Use live usb  
+-Something else  
 
 ## Run updates & install essentials  
-
 ```bash
 sudo apt-get update && sudo apt-get upgrade -y
+```
 
-# Utilities and networking packages
+## Check for network
+```bash
+ping www.google.com
+## if resolver fails add google DNS resolver
+sudo nano /etc/resolve.conf
+## Add nameserver 8.8.8.8
+## Restart networking
+sudo systemctl restart NetworkManager
+```
+
+## Install graphic drivers
+For GEFORCE GTX 1060
+```bash
+sudo add-apt-repository ppa:graphics-drivers/ppa
+sudo apt-get update --allow-insecure-repositories
+sudo apt install nvidia-driver-455
+```
+
+## Fix package dependency problems with aptitude
+```bash
+sudo apt install aptitude
+sudo aptitude install nvidia-driver-455
+```
+
+# Install Utilities and networking packages
+```bash
 sudo apt-get install -q -y \
   build-essential \
   dos2unix \
@@ -17,6 +47,7 @@ sudo apt-get install -q -y \
   net-tools \
   bridge-utils \
   git-core
+```
 
 # VSCode
 curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
