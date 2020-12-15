@@ -30,13 +30,23 @@ sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microso
 sudo apt-get update
 sudo apt-get install code # or code-insiders
 ```
+## Docker
+see https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
+
+## Lando
+see https://docs.lando.dev/basics/installation.html#preflight-checks
+https://github.com/lando/lando/releases
+```bash
+wget https://files.devwithlando.io/lando-stable.deb
+sudo dpkg -i lando-stable.deb
+```
 
 ## Java
 
 ```bash
 sudo apt-get install openjdk-11-jdk
 ```
-or
+### or
 ```bash
 # Oracle JDK 8 download page. 
 # https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
@@ -45,8 +55,10 @@ or
 ```
 
 ## thinkorswim
+```bash
 wget -P ~/Downloads https://mediaserver.thinkorswim.com/installer/InstFiles/thinkorswim_installer.sh
 bash ~/Downloads/thinkorswim_installer.sh
+```
 
 ## VNC
 ```bash
@@ -57,17 +69,19 @@ sudo systemctl enable vncserver-x11-serviced.service
 sudo systemctl enable vncserver-virtuald.service
 ```
 
-##Virtualbox
+## Virtualbox
 See https://www.virtualbox.org/wiki/Linux_Downloads
 
 ## NoMachine
 See https://www.nomachine.com/
 
 ## Fix scaling
+```bash
 sudo apt-get install xvfb xpra x11_server_utils
 sudo wget -O /usr/local/bin/run_scaled "https://raw.githubusercontent.com/kaueraal/run_scaled/master/run_scaled"
 sudo chmod +x /usr/local/bin/run_scaled
 # execute with run_scaled vncviewer
+```
 
 ## node.js
 ```bash
@@ -75,11 +89,9 @@ sudo apt install nodejs
 ```
 
 ## Configure jupyter server to start on boot
-
 Clone the file: services/jupyter.service to /etc/systemd/system/jupyter.service
 
 ### Start service manually
-
 ```bash
 systemctl enable jupyter.service
 systemctl daemon-reload
