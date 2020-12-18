@@ -1,11 +1,12 @@
 # Configuring Linux
+ubuntu 18.x installs without problem
 
 ## Run updates & install essentials  
-
 ```bash
 sudo apt-get update && sudo apt-get upgrade -y
-
-# Utilities and networking packages
+```
+## Install Utilities and networking packages
+```bash
 sudo apt-get install -q -y \
   build-essential \
   dos2unix \
