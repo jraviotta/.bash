@@ -107,6 +107,7 @@ fi
 
 export PYTHONSTARTUP=~/.bash/python_startup.py
 export PATH=$PATH:~/.local/bin
+
 #######################################################
 ##################      Fred     ######################
 #######################################################
@@ -122,8 +123,7 @@ elif [[ "$OSTYPE" == "linux-gnu" ]]; then
     echo "Detected linux host."
 #    pathmunge ${HOME}/.local/bin after
     # pathmunge /usr/lib/jvm/java-11-openjdk-amd64/bin
-
-    pathmunge /usr/lib/jvm/zulu8/jre/bin
+    # pathmunge /usr/lib/jvm/zulu8/jre/bin
 else
     echo 'Unknown OS'
 fi

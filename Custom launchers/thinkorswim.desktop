@@ -1,0 +1,21 @@
+[Desktop Entry]
+Comment[en_US]=Desktop Application for thinkorswim
+Comment=Desktop Application for thinkorswim
+Encoding=UTF-8
+#Exec=export _JAVA_OPTIONS='-Dsun.java2d.ddscale=true';\nexport PATH=/usr/lib/jvm/zulu-8-amd64/jre/bin/:$PATH;exec  /home/jona/thinkorswim/thinkorswim "$@";
+Exec=export PATH=/usr/lib/jvm/zulu8/jre/bin/:$PATH;export _JAVA_OPTIONS='-Dsun.java2d.ddscale=true';exec /home/jona/thinkorswim/thinkorswim "$@";
+GenericName[en_US]=
+GenericName=
+Icon=/opt/thinkorswim/.install4j/thinkorswim.png
+MimeType=
+Name[en_US]=thinkorswim
+Name=thinkorswim
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-KDE-SubstituteUID=false
+X-KDE-Username=root

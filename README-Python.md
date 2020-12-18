@@ -1,34 +1,15 @@
 # Python customizations
-
-## Install & configure conda  
-
-See [instructions](https://conda.io/docs/user-guide/install/index.html#)  
-TLDR
-
-* Download [linux installer](https://docs.conda.io/en/latest/miniconda.html)  
-* install with `bash minicon.....` to home directory
-* May need to make `~/miniconda3` [case sensitive](https://www.howtogeek.com/354220/how-to-enable-case-sensitive-folders-on-windows-10/)
-
-## Configure system Python Mac
-```bash
-brew install python
-
-```
-
-## Install Current Python Debian
+## Install Python Debian
 
 https://linuxize.com/post/how-to-install-python-3-7-on-debian-9/
 https://realpython.com/installing-python/#debian
 
-
 ```bash
 # Install prerequisites
 sudo apt update
-sudo apt install libssl-dev zlib1g-dev libncurses5-dev libncursesw5-dev libreadline-dev libsqlite3-dev
-sudo apt install libgdbm-dev libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev libffi-dev uuid-dev
-
-# install latest default systems versions
-sudo apt-get install python python3
+sudo apt install libssl-dev zlib1g-dev libncurses5-dev libncursesw5-dev \
+libreadline-dev libsqlite3-dev libgdbm-dev libdb5.3-dev libbz2-dev \
+libexpat1-dev liblzma-dev libffi-dev uuid-dev
 
 # Download current python
 CURRENT_PYTHON=3.7.9
@@ -36,47 +17,58 @@ curl -O https://www.python.org/ftp/python/$CURRENT_PYTHON/Python-$CURRENT_PYTHON
 tar -xf Python-$CURRENT_PYTHON.tar.xz
 cd Python-$CURRENT_PYTHON
 ./configure --enable-optimizations --with-ensurepip=install
-
 # Optimize for available cores
 let CORES=`nproc`/2
 make -j $CORES
-
 # Install
 sudo make altinstall
 ```
 
-## Configure system Python Debian
+## Install Python Ubuntu
 ```bash
-# Show available python versions
-ls /usr/bin/python*
-ls /usr/local/bin/python*
-# Show linked python versions
-python --version; python3 --version; python3.7 --version
+# install latest default systems versions
+sudo apt-get install python python3
+```
+# Configure system python
+```bash
+#Show available python versions
+ls -larth `which python`*
 
 # Set python3 and pip3 to the default python and pip
 # https://linuxconfig.org/how-to-change-from-default-to-alternative-python-version-on-debian-linux
 update-alternatives --list python
 
 # add system-aliases if necessary
-sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
-sudo update-alternatives --install /usr/local/bin/python python /usr/bin/python3.7 2
+sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
+sudo update-alternatives --install /usr/local/bin/python python /usr/bin/python3.8 2
 
 # configure targets for system aliases
 sudo update-alternatives --config python
+
+# Install pip if necessary
+sudo apt-get install python3-pip
 ```
 
-### Add some essentials
+## Install jupyter and tooling
+```bash
+pip install -r ~/.bash/requirements.txt
+```
+
+## Configure jupyter server to start on boot
+```bash
+sudo cp ~/.bash/services/jupyter.service /etc/systemd/system
+
+### Start service manually
+sudo systemctl enable jupyter.service
+sudo systemctl daemon-reload
+sudo systemctl restart jupyter.service
+```
+
+### Install jupyter lab extensions
 
 ```bash
-# Using python
-pip install -r ~/.bash/requirements.txt
 
-# Using Conda
-conda deactivate
-conda update -n base -c defaults conda
-conda env update -f ~/.bash/environment.yml
 ```
-
 ### Enable jupyterlab extensions for plotly
 ```bash
 # Avoid "JavaScript heap out of memory" errors during extension installation
