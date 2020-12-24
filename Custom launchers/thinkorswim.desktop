@@ -1,11 +1,9 @@
 [Desktop Entry]
-Comment[en_US]=Desktop Application for thinkorswim
-
-#Exec=export _JAVA_OPTIONS='-Dsun.java2d.ddscale=true';\nexport PATH=/usr/lib/jvm/zulu-8-amd64/jre/bin/:$PATH;exec  /home/jona/thinkorswim/thinkorswim "$@";
-Exec=export _JAVA_OPTIONS='-Dsun.java2d.ddscale=true'; export GDK_SCALE=2 /home/jona/thinkorswim/thinkorswim; exec /home/jona/thinkorswim/thinkorswim "$@";
+Name=thinkorswim
+Comment=Desktop Application for thinkorswim
+#Exec=export _JAVA_OPTIONS='-Dsun.java2d.ddscale=true'; exec /home/jona/thinkorswim/thinkorswim "$@";
+Exec=/home/jona/thinkorswim/thinkorswim
 Icon=/home/jona/thinkorswim/.install4j/thinkorswim.png
-Name[en_US]=thinkorswim
-StartupNotify=true
 Terminal=false
 Type=Application
-
+StartupNotify=true

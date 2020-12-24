@@ -54,10 +54,12 @@ alias ssh-whopper="ssh jona@192.168.1.79"
 alias ssh-whopper-remote="ssh jona@jraviotta.asuscomm.com -p 22022"
 
 # Lando
-alias drush='lando drush --y'
+alias drush='lando drush --yes'
+alias composer='lando composer'
+alias behat='lando behat'
 
 # Python
-alias activate="source .venv/bin/activate"
+alias activate="source env/bin/activate"
 
 # Docker
 alias airflow="docker exec -ti airflow airflow"
