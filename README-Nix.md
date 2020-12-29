@@ -91,3 +91,10 @@ sudo wget -O /usr/local/bin/run_scaled "https://raw.githubusercontent.com/kauera
 sudo chmod +x /usr/local/bin/run_scaled
 # execute with run_scaled vncviewer
 ```
+
+# Enable ssh
+```bash
+sudo apt update
+sudo apt install openssh-server
+sudo ufw allow ssh
+```
