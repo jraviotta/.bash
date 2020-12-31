@@ -97,4 +97,10 @@ sudo chmod +x /usr/local/bin/run_scaled
 sudo apt update
 sudo apt install openssh-server
 sudo ufw allow ssh
+# Enable password login
+sudo gedit /etc/ssh/sshd_config
+# Update line
+# PasswordAuthentication yes
+sudo service ssh restart
+
 ```
