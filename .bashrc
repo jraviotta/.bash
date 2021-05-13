@@ -178,11 +178,11 @@ fi
 
 # Deduplicate path entries
 dedupe_path(){
-    echo $PATH
-    echo "${PATH//:/$'\n'}"
+    # echo $PATH
+    # echo "${PATH//:/$'\n'}"
     export PATH=`echo -n $PATH | awk -v RS=: '!($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}'`
-    echo $PATH
-    echo "${PATH//:/$'\n'}"
+    # echo $PATH
+    # echo "${PATH//:/$'\n'}"
 
 }
 
@@ -248,9 +248,6 @@ source_and_report ~/.git-completion.sh
 # Source .tokens for environment tokens and api keys
 source_and_report ~/.credentials/tokens
 
-# include Mycroft commands
-source_and_report ~/.profile_mycroft
-
 # Generate .nanorc for syntax highlighting in nano
 if [ -f ~/.nanorc ] ; then
 	echo "~/.nanorc exists"
@@ -269,15 +266,13 @@ fi
 pathmunge "$HOME/bin" before
 pathmunge "$HOME/.local/bin" before
 
-# composer
-# export PATH="$HOME/.composer/vendor/bin:$PATH"
-
 # Fred
 export FRED_HOME=$HOME/FRED
 pathmunge "${FRED_HOME}/bin" after
 export FRED_GNUPLOT=/usr/bin/gnuplot
 alias fred="FRED"
 dedupe_path
+
 #######################################################
 ########     Environment customizations    ############
 #######################################################
