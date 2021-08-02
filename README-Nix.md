@@ -1,6 +1,24 @@
-# Configuring Linux
+# README-Nix.md
 
-ubuntu 18.x installs without problem
+Configuring Linux
+ubuntu 20.x installs without problem
+
+- [Run updates & install essentials](#run-updates--install-essentials)
+- [Install Utilities and networking packages](#install-utilities-and-networking-packages)
+- [Install services](#install-services)
+- [Install software](#install-software)
+  - [VSCode](#vscode)
+  - [Brave](#brave)
+  - [Java](#java)
+    - [Zulu OpenJDK](#zulu-openjdk)
+    - [Oracle JDK](#oracle-jdk)
+    - [Open JDK](#open-jdk)
+  - [thinkorswim](#thinkorswim)
+  - [Virtualbox](#virtualbox)
+  - [NoMachine](#nomachine)
+  - [VNC](#vnc)
+- [Fix scaling](#fix-scaling)
+- [Enable ssh](#enable-ssh)
 
 ## Run updates & install essentials  
 
@@ -29,11 +47,17 @@ sudo apt-get install -q -y \
 
 ```bash
 sudo cp services/jupyter.service /etc/systemd/system
+
+# OneDrive sync
+# https://github.com/abraunegg/onedrive/blob/master/docs/ubuntu-package-install.md
+
+
+# https://github.com/abraunegg/onedrive/blob/master/docs/advanced-usage.md
+mkdir ~/.config/onedrive_phsnl ~/.config/onedrive_pittvax
 sudo cp services/onedrive* /usr/lib/systemd/user
+mkdir ~/OneDrive_PittVax ~/OneDrive_SDOH-PACE-UPMC_Data_Center
 sudo systemctl enable jupyter.service
-sudo systemctl enable onedrive.service
-sudo systemctl enable onedrive_phsnl.service
-sudo systemctl enable onedrive_pittvax.service
+sudo systemctl enable onedrive.service onedrive_phsnl.service onedrive_pittvax.service
 ```
 
 ## Install software
@@ -96,7 +120,11 @@ cp ~/.bash/Custom launchers/thinkorswim.desktop ~/.local/share/applications
 
 ### Virtualbox
 
-See https://www.virtualbox.org/wiki/Linux_Downloads
+See also:
+
+- https://www.virtualbox.org/wiki/Linux_Downloads  
+- https://linuxconfig.org/install-virtualbox-on-ubuntu-20-04-focal-fossa-linux  
+- https://linuxconfig.org/ virtualbox-extension-pack-installation-on-ubuntu-20-04-focal-fossa-linux  
 
 ### NoMachine
 
