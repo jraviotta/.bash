@@ -7,7 +7,7 @@ ExecStart=/home/jona/.local/bin/jupyter-notebook --config=/home/jona/.jupyter/ju
 User=jona      
 Group=jona     
 WorkingDirectory=/home/jona
-restart=always
+Restart=always
 RestartSec=10
 
 [Install]
