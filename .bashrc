@@ -291,11 +291,10 @@ fi
 ########     Environment customizations    ############
 #######################################################
 export EDITOR='code'
-if [ "$OSTYPE" = "linux-gnu" ]; then
-	export XDG_RUNTIME_DIR="/run/user/$UID"
-	export DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"
-	echo XDG_RUNTIME_DIR
-fi 
+# if [ "$OSTYPE" = "linux-gnu" ]; then
+# 	export XDG_RUNTIME_DIR="/run/user/$UID"
+# 	export DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"
+# fi 
 
 #######################################################
 ##########   Customize Prompt  ########################
