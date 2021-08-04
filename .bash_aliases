@@ -59,7 +59,7 @@ alias composer='lando composer'
 alias behat='lando behat'
 
 # Python
-alias activate="source env/bin/activate"
+alias activate="source .venv/bin/activate"
 
 # Docker
 alias airflow="docker exec -ti airflow airflow"
