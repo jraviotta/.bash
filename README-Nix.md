@@ -17,6 +17,7 @@ ubuntu 20.x installs without problem
   - [Virtualbox](#virtualbox)
   - [NoMachine](#nomachine)
   - [VNC](#vnc)
+  - [Flameshot](#flameshot)
 - [Fix scaling](#fix-scaling)
 - [Enable ssh](#enable-ssh)
 
@@ -96,8 +97,8 @@ sudo apt-get install zulu-8
 
 #### Oracle JDK
 
-Oracle JDK 8 download page. 
-https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+Oracle JDK 8 download page.
+<https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html>
 Accept the license agreement and download the tar.gz file.
 
 #### Open JDK
@@ -109,8 +110,8 @@ sudo apt-get install openjdk-11-jdk
 
 ### thinkorswim
 
-See https://askubuntu.com/questions/394062/running-thinkorswim
-See https://tlc.thinkorswim.com/center/faq/technical#q_011111111111111114
+See <https://askubuntu.com/questions/394062/running-thinkorswim>
+See <https://tlc.thinkorswim.com/center/faq/technical#q_011111111111111114>
 
 ```bash
 wget -P ~/Downloads https://mediaserver.thinkorswim.com/installer/InstFiles/thinkorswim_installer.sh
@@ -122,23 +123,32 @@ cp ~/.bash/Custom launchers/thinkorswim.desktop ~/.local/share/applications
 
 See also:
 
-- https://www.virtualbox.org/wiki/Linux_Downloads  
-- https://linuxconfig.org/install-virtualbox-on-ubuntu-20-04-focal-fossa-linux  
-- https://linuxconfig.org/ virtualbox-extension-pack-installation-on-ubuntu-20-04-focal-fossa-linux  
+- <https://www.virtualbox.org/wiki/Linux_Downloads>  
+- <https://linuxconfig.org/install-virtualbox-on-ubuntu-20-04-focal-fossa-linux>  
+- <https://linuxconfig.org/> virtualbox-extension-pack-installation-on-ubuntu-20-04-focal-fossa-linux  
 
 ### NoMachine
 
-See https://www.nomachine.com/
+See <https://www.nomachine.com/>
 
 ### VNC
 
-Download and install vncserver https://www.realvnc.com/en/connect/download/vnc/
-Download and install vncviewer https://www.realvnc.com/en/connect/download/viewer/
+Download and install [vncserver](https://www.realvnc.com/en/connect/download/vnc/)  
+Download and install [vncviewer](https://www.realvnc.com/en/connect/download/viewer/)  
 Load on startup
 
 ```bash
 sudo systemctl enable vncserver-x11-serviced.service
 sudo systemctl enable vncserver-virtuald.service
+```
+
+### Flameshot
+
+See <https://github.com/flameshot-org/flameshot#installation>  
+Configuration [here](https://github.com/flameshot-org/flameshot#on-ubuntu-tested-on-1804-2004)  
+
+```bash
+sudo apt-get install flameshot
 ```
 
 ## Fix scaling
