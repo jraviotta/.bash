@@ -52,6 +52,8 @@ alias ssh-jupyter-remote="ssh -N -C -q -f -L localhost:8888:localhost:9999 jona@
 # login to whopper
 alias ssh-whopper="ssh jona@192.168.1.79"
 alias ssh-whopper-remote="ssh jona@jraviotta.asuscomm.com -p 22022"
+# PHSNL
+alias ssh-pace="ssh -L 127.0.0.1:10432:localhost:5432 jmr154@130.49.206.138"
 
 # Lando
 alias drush='lando drush --yes'
@@ -63,3 +65,5 @@ alias activate="source .venv/bin/activate"
 
 # Docker
 alias airflow="docker exec -ti airflow airflow"
+
+

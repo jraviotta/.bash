@@ -132,8 +132,40 @@ shopt -s histappend
 PROMPT_COMMAND='history -a'
 
 #######################################################
+#########      OS identification     ##################
+#######################################################
+if [ "grep -q Microsoft /proc/version" == "linux-gnu" ] || [ "$OS" = "Windows_NT" ]; then
+    HOST='windows'
+	echo "Detected Windows host"
+elif [[ "$OSTYPE" == "linux-gnu" ]]; then
+	HOST="linux-gnu"
+	echo "Detected linux host."
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    HOST="darwin"
+	echo "Detected Mac host"
+else
+	HOST="unknown"
+    echo 'Unknown OS'
+fi
+
+#######################################################
 ##############   Functions  ###########################
 #######################################################
+# Run function as root
+function Sudo {
+        local firstArg=$1
+        if [ $(type -t $firstArg) = function ]
+        then
+                shift && command sudo bash -c "$(declare -f $firstArg);$firstArg $*"
+        elif [ $(type -t $firstArg) = alias ]
+        then
+                alias sudo='\sudo '
+                eval "sudo $@"
+        else
+                command sudo "$@"
+        fi
+}
+
 # Add to path if it doesn't exist
 pathmunge () {
         if ! echo "$PATH" | /bin/grep -Eq "(^|:)$1($|:)" ; then
@@ -149,21 +181,21 @@ pathmunge () {
 check_and_create_links (){
 	my_target=$1
 	my_link=$2
-
+	
 	if [ -L ${my_link} ] ; then
 		if [ -e ${my_link} ] ; then
 			echo -e $2"${Green} Good link${Color_Off}"
 		else
-			echo -e ${Red}$2" ${BRed}Broken link${Color_Off}"
-			ln -s $my_target $my_link
-			echo -e "${Green}Created link to "$1${Color_Off}
+			echo -e $2"${BRed}Broken link${Color_Off}"
+			echo -e "${Green}Created link to $1${Color_Off}"
 		fi
 	elif [ -e ${my_link} ] ; then
-		echo -e ${Red}$2"${BRed} Not a link${Color_Off}"
+		echo -e $2"${BRed} Not a link${Color_Off}"
+
 	else
-		echo -e ${Red}$2" ${BRed}Missing${Color_Off}"
+		echo -e $2"${BRed} Missing${Color_Off}"
 		ln -s $my_target $my_link
-		echo -e "${Green}Created link to "$1${Color_Off}
+		echo -e $2"${Green}Created link to $1${Color_Off}"
 	fi
 }
 
@@ -187,56 +219,8 @@ dedupe_path(){
 }
 
 #######################################################
-#########      OS identification     ##################
-#######################################################
-if [ "grep -q Microsoft /proc/version" == "linux-gnu" ] || [ "$OS" = "Windows_NT" ]; then
-    echo "Detected Windows host"
-elif [[ "$OSTYPE" == "linux-gnu" ]]; then
-    echo "Detected linux host."
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-    echo "Detected Mac host"
-else
-    echo 'Unknown OS'
-fi
-
-
-#######################################################
-################      Docker     ######################
-#######################################################
-# Cross platform Docker
-if grep -q Microsoft /proc/version; then
-    echo 'detected windows Docker host'
-	export DOCKER_HOST=tcp://localhost:2375
-fi
-
-#######################################################
-################      Python     ######################
-#######################################################
-# if [[ "$OSTYPE" == "linux-gnu" ]]; then
-#     if [ -e $HOME/.local/bin ] ; then
-#         if [ ":$PYTHONPATH:" != *":${HOME}/.local/bin:"* ] ; then
-#             export PYTHONPATH="${HOME}/.local/bin:${PYTHONPATH}"
-#         fi
-#         if [ ":${PATH}:" != *"${HOME}/.local/bin:"* ] ; then
-#             export PATH="${HOME}/.local/bin:${PATH}"
-#         fi
-#     fi
-# elif [[ "$OSTYPE" == "darwin"* ]]; then
-#     pathmunge /usr/local/opt/python/libexec/bin before
-# fi
-
-# Create jupyter config
-check_and_create_links ~/.bash/jupyter/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
-
-# Create ipython config
-check_and_create_links ~/.bash/ipython/ipython_config.py ~/.ipython/profile_default/ipython_config.py
-
-export PYTHONSTARTUP=~/.bash/python_startup.py
-
-#######################################################
 #########     Add other bash sources     ##############
 #######################################################
-
 # Generate .bashrc on first use
 check_and_create_links ~/.bash/.bashrc ~/.bashrc
 
@@ -258,15 +242,41 @@ source_and_report ~/.git-completion.sh
 # Source .tokens for environment tokens and api keys
 source_and_report ~/.credentials/tokens
 
+if [[ "$HOST" == "linux-gnu" ]]; then
+    echo "Detected linux host."
+# Generate pitt.conf for VPNC
+Sudo check_and_create_links ~/.bash/etc/pitt.conf /etc/vpnc/pitt.conf
+fi
+
 # Generate .nanorc for syntax highlighting in nano
 if [ -f ~/.nanorc ] ; then
-	echo "~/.nanorc exists"
+	echo -e "${Green}~/.nanorc exists${Color_Off}"
 else
 	cp ~/.bash/.nanorc ~/.nanorc
 	find /usr/share/nano -name '*.nanorc' -printfs echo "include %p\n" >> ~/.nanorc
 	find/usr/local/share/nano -name '*.nanorc' -printfs echo "include %p\n" >> ~/.nanorc
-	echo "Created ~/.nanorc"
+	echo -e "${Green}Created ~/.nanorc${Color_Off}"
 fi
+
+#######################################################
+################      Docker     ######################
+#######################################################
+# Cross platform Docker
+if grep -q Microsoft /proc/version; then
+    echo 'detected windows Docker host'
+	export DOCKER_HOST=tcp://localhost:2375
+fi
+
+#######################################################
+################      Python     ######################
+#######################################################
+# Create jupyter config
+check_and_create_links ~/.bash/jupyter/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
+
+# Create ipython config
+check_and_create_links ~/.bash/ipython/ipython_config.py ~/.ipython/profile_default/ipython_config.py
+
+export PYTHONSTARTUP=~/.bash/python_startup.py
 
 #######################################################
 #############    Path customizations     ##############
