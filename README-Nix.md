@@ -18,6 +18,7 @@ ubuntu 20.x installs without problem
   - [NoMachine](#nomachine)
   - [VNC](#vnc)
   - [Flameshot](#flameshot)
+  - ["pbcopy" & "pbpaste"](#pbcopy--pbpaste)
 - [Fix scaling](#fix-scaling)
 - [Enable ssh](#enable-ssh)
 
@@ -151,6 +152,15 @@ Configuration [here](https://github.com/flameshot-org/flameshot#on-ubuntu-tested
 sudo apt-get install flameshot
 ```
 
+### "pbcopy" & "pbpaste"
+
+```bash
+sudo apt install xclip
+
+# Add aliases to .bashrc
+alias pbcopy='xclip -selection clipboard'
+alias pbpaste='xclip -selection clipboard -o'
+```
 ## Fix scaling
 
 ```bash

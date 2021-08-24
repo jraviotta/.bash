@@ -182,20 +182,25 @@ check_and_create_links (){
 	my_target=$1
 	my_link=$2
 	
-	if [ -L ${my_link} ] ; then
-		if [ -e ${my_link} ] ; then
-			echo -e $2"${Green} Good link${Color_Off}"
-		else
-			echo -e $2"${BRed}Broken link${Color_Off}"
-			echo -e "${Green}Created link to $1${Color_Off}"
-		fi
-	elif [ -e ${my_link} ] ; then
-		echo -e $2"${BRed} Not a link${Color_Off}"
-
+	# Check if my_link is a link
+	if [ -L ${my_link} ] || Sudo [ -L ${my_link} ] ; then
+		echo -e $2"${Green} Good link${Color_Off}"
 	else
-		echo -e $2"${BRed} Missing${Color_Off}"
+		# try
+		(
+		set -e 	# <--- This flag will exit from current subshell on any error
 		ln -s $my_target $my_link
-		echo -e $2"${Green}Created link to $1${Color_Off}"
+		)
+		# catch
+		errorCode=$?
+		if [ $errorCode -ne 0 ]; then
+			if [ $errorCode -eq 1 ]; then
+				Sudo ln -s $my_target $my_link
+				echo -e $1" ${Green}created by Sudo${Color_Off}"
+			fi
+		# We exit the script with the same error
+		# exit $errorCode 		# <--- Delete this line to continue
+		fi
 	fi
 }
 
@@ -242,21 +247,22 @@ source_and_report ~/.git-completion.sh
 # Source .tokens for environment tokens and api keys
 source_and_report ~/.credentials/tokens
 
-if [[ "$HOST" == "linux-gnu" ]]; then
-    echo "Detected linux host."
-# Generate pitt.conf for VPNC
-Sudo check_and_create_links ~/.bash/etc/pitt.conf /etc/vpnc/pitt.conf
-fi
-
 # Generate .nanorc for syntax highlighting in nano
 if [ -f ~/.nanorc ] ; then
-	echo -e "${Green}~/.nanorc exists${Color_Off}"
+	echo "~/.nanorc exists"
 else
 	cp ~/.bash/.nanorc ~/.nanorc
 	find /usr/share/nano -name '*.nanorc' -printfs echo "include %p\n" >> ~/.nanorc
 	find/usr/local/share/nano -name '*.nanorc' -printfs echo "include %p\n" >> ~/.nanorc
-	echo -e "${Green}Created ~/.nanorc${Color_Off}"
+	echo "Created ~/.nanorc"
 fi
+
+# Generate ~/.ssh/config
+check_and_create_links ~/.bash/ssh/config ~/.ssh/config
+
+
+# Generate pitt.conf for VPNC
+check_and_create_links ~/.bash/etc/pitt.conf /etc/vpnc/pitt.conf
 
 #######################################################
 ################      Docker     ######################

@@ -37,33 +37,39 @@ alias glog='git log --graph --full-history --all --color --pretty=format:"%x1b[3
 function git() { case $* in fetch* ) shift 1; command git fetch "$@" --prune ;; * ) command git "$@" ;; esac }
 
 # Tools
-if grep -q Microsoft /proc/version; then
+## Lando
+if [ "$HOST" == "windows" ]; then
     echo 'Creating Windows aliases'
 	alias lando='/mnt/c/Windows/System32/cmd.exe /c "lando"'
     alias drush='/mnt/c/Windows/System32/cmd.exe /c "lando drush --y"'
-    alias brave-browser="'/mnt/c/Program Files (x86)/BraveSoftware/Brave-Browser/Application/brave.exe'"
-fi
+    alias composer='/mnt/c/Windows/System32/cmd.exe /c "lando composer"'
+    alias behat='/mnt/c/Windows/System32/cmd.exe /c "lando behat"'
+
+elif [ "$HOST" == "linux-gnu" ] || [ "$HOST" == "darwin"] ; then
+    echo "Creating Linux/Mac aliases"
+    # Lando
+    alias drush='lando drush --yes'
+    alias composer='lando composer'
+    alias behat='lando behat'
+
+    # Python
+    alias activate="source .venv/bin/activate"
+
+    # Docker
+    alias airflow="docker exec -ti airflow airflow"
+
+    # pbcopy
+    alias pbcopy='xclip -selection clipboard'
+    alias pbpaste='xclip -selection clipboard -o'
+    fi
 
 # SSH
 # open port to local jupyter
-alias ssh-jupyter="ssh -N -C -q -f -L 9999:localhost:8888 jona@192.168.1.79"
-alias ssh-jupyter-remote="ssh -N -C -q -f -L localhost:8888:localhost:9999 jona@jraviotta.asuscomm.com -p 22022"
-#alias ssh-whopper-pf="ssh -D 4000 -f -C -q -N jona@jraviotta.asuscomm.com -p 22022"
-# login to whopper
-alias ssh-whopper="ssh jona@192.168.1.79"
-alias ssh-whopper-remote="ssh jona@jraviotta.asuscomm.com -p 22022"
-# PHSNL
-alias ssh-pace="ssh -L 127.0.0.1:10432:localhost:5432 jmr154@130.49.206.138"
-
-# Lando
-alias drush='lando drush --yes'
-alias composer='lando composer'
-alias behat='lando behat'
-
-# Python
-alias activate="source .venv/bin/activate"
-
-# Docker
-alias airflow="docker exec -ti airflow airflow"
-
-
+# alias ssh-jupyter="ssh -N -C -q -f -L 9999:localhost:8888 jona@192.168.1.79"
+# alias ssh-jupyter-remote="ssh -N -C -q -f -L localhost:8888:localhost:9999 jona@jraviotta.asuscomm.com -p 22022"
+# #alias ssh-whopper-pf="ssh -D 4000 -f -C -q -N jona@jraviotta.asuscomm.com -p 22022"
+# # login to whopper
+# alias ssh-whopper="ssh jona@192.168.1.79"
+# alias ssh-whopper-remote="ssh jona@jraviotta.asuscomm.com -p 22022"
+# # PHSNL
+# alias ssh-pace="ssh -L 127.0.0.1:10432:localhost:5432 jmr154@130.49.206.138"
