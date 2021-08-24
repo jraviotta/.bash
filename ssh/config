@@ -1,18 +1,24 @@
 Host triads
   HostName 130.49.206.138
   User jmr154
+  AddKeysToAgent yes
+  UseKeychain yes
   LocalForward localhost:10432 localhost:5432 
 
 Host Whopper-remote
   HostName jraviotta.asuscomm.com
   User jona
   Port 22022
+  AddKeysToAgent yes
+  UseKeychain yes
   IdentityFile ~/.ssh/jona@Whopper
 
 Host Whopper
   HostName 192.168.1.79
   User jona
   Port 22
+  AddKeysToAgent yes
+  UseKeychain yes
   IdentityFile ~/.ssh/jona@Whopper
 
 Host pi-hole
@@ -22,10 +28,19 @@ Host pi-hole
 Host jupyter
   HostName 192.168.1.79
   User jona
+  AddKeysToAgent yes
+  UseKeychain yes
   LocalForward localhost:8888 localhost:9999 
 
 Host jupyter-remote
   HostName jraviotta.asuscomm.com
   User jona
   Port 22022
+  AddKeysToAgent yes
+  UseKeychain yes
   LocalForward localhost:8888 localhost:9999
+
+Host *
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/github
