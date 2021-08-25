@@ -33,6 +33,15 @@ Blue='\e[0;34m'         # Blue
 Purple='\e[0;35m'       # Purple
 Cyan='\e[0;36m'         # Cyan
 White='\e[0;37m'        # White
+fg_black="$(tput setaf 0)"
+fg_red="$(tput setaf 1)"
+fg_green="$(tput setaf 2)"
+fg_yellow="$(tput setaf 3)"
+fg_blue="$(tput setaf 4)"
+fg_magenta="$(tput setaf 5)"
+fg_cyan="$(tput setaf 6)"
+fg_white="$(tput setaf 7)"
+reset="$(tput sgr0)"
 
 # Bold
 BBlack='\e[1;30m'       # Black
@@ -134,7 +143,7 @@ PROMPT_COMMAND='history -a'
 #######################################################
 #########      OS identification     ##################
 #######################################################
-if [ "grep -q Microsoft /proc/version" == "linux-gnu" ] || [ "$OS" = "Windows_NT" ]; then
+if [ "grep Microsoft /proc/version -q" == "linux-gnu" ] || [ "$OS" = "Windows_NT" ]; then
     HOST='windows'
 	echo "Detected Windows host"
 elif [[ "$OSTYPE" == "linux-gnu" ]]; then
@@ -184,7 +193,7 @@ check_and_create_links (){
 	
 	# Check if my_link is a link
 	if [ -L ${my_link} ] || Sudo [ -L ${my_link} ] ; then
-		echo -e $2$Green" Good link$"Color_Off
+		echo -e $2"${fg_green} Good link${reset}"
 	else
 		# try
 		(
@@ -196,7 +205,7 @@ check_and_create_links (){
 		if [ $errorCode -ne 0 ]; then
 			if [ $errorCode -eq 1 ]; then
 				Sudo ln -s $my_target $my_link
-				echo -e $1" ${Green}created by Sudo${Color_Off}"
+				echo -e $1" ${fg_green}created by Sudo${reset}"
 			fi
 		# We exit the script with the same error
 		# exit $errorCode 		# <--- Delete this line to continue
@@ -209,7 +218,7 @@ source_and_report(){
 	my_link=$1
 	if [ -f ${my_link} ]; then
 	source ${my_link}
-	echo -e ${my_link}"${Green} loaded${Color_Off}"
+	echo -e ${my_link}"${fg_green} loaded${reset}"
 fi
 }
 
@@ -262,14 +271,13 @@ check_and_create_links ~/.bash/ssh/config ~/.ssh/config
 
 
 # Generate pitt.conf for VPNC
-if [$HOST eq "linux-gnu" ]; then
-	check_and_create_links ~/.bash/etc/pitt.conf /etc/vpnc/pitt.conf
-fi
+check_and_create_links ~/.bash/etc/pitt.conf /etc/vpnc/pitt.conf
+
 #######################################################
 ################      Docker     ######################
 #######################################################
 # Cross platform Docker
-if grep -q Microsoft /proc/version; then
+if [ $HOST == "windows" ]; then
     echo 'detected windows Docker host'
 	export DOCKER_HOST=tcp://localhost:2375
 fi
@@ -301,7 +309,7 @@ alias fred="FRED"
 dedupe_path
 
 # vscode
-if [ "grep -q Microsoft /proc/version" == "linux-gnu" ] || [ "$OS" = "Windows_NT" ]; then
+if [ "$HOST" = "windows" ]; then
 	pathmunge "$HOME\AppData\Local\Programs\Microsoft VS Code\bin" before
 fi
 #######################################################
