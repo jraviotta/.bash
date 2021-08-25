@@ -20,7 +20,8 @@ ubuntu 20.x installs without problem
   - [Flameshot](#flameshot)
   - ["pbcopy" & "pbpaste"](#pbcopy--pbpaste)
 - [Fix scaling](#fix-scaling)
-- [Enable ssh](#enable-ssh)
+- [Enable ssh on host](#enable-ssh-on-host)
+- [ssh keys](#ssh-keys)
 
 ## Run updates & install essentials  
 
@@ -161,6 +162,7 @@ sudo apt install xclip
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 ```
+
 ## Fix scaling
 
 ```bash
@@ -170,7 +172,7 @@ sudo chmod +x /usr/local/bin/run_scaled
 # execute with run_scaled vncviewer
 ```
 
-## Enable ssh
+## Enable ssh on host
 
 ```bash
 sudo apt update
@@ -181,5 +183,14 @@ sudo gedit /etc/ssh/sshd_config
 # Update line
 # PasswordAuthentication yes
 sudo service ssh restart
+```
 
+## ssh keys
+
+```bash
+# Create key
+ssh-keygen -f ~/.ssh/<name_of_key>
+
+# Transfer to server
+ssh-copy-id -i ~/.ssh/<name_of_key> <user@host>
 ```

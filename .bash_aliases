@@ -59,9 +59,11 @@ elif [ "$HOST" == "linux-gnu" ] || [ "$HOST" == "darwin" ] ; then
     alias airflow="docker exec -ti airflow airflow"
 
     # pbcopy
-    alias pbcopy='xclip -selection clipboard'
-    alias pbpaste='xclip -selection clipboard -o'
+    if [ $HOST == 'linux-gnu' ]; then
+        alias pbcopy='xclip -selection clipboard'
+        alias pbpaste='xclip -selection clipboard -o'
     fi
+fi
 
 # SSH
 # open port to local jupyter
