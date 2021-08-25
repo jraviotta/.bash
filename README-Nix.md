@@ -47,19 +47,28 @@ sudo apt-get install -q -y \
 ```
 
 ## Install services
+```bash
+sudo cp ~/.bash/services/jupyter.service /etc/systemd/system
+sudo systemctl enable jupyter.service
+```
+### OneDrive sync
+
+  [Install](https://github.com/abraunegg/onedrive/blob/master/docs/ubuntu-package-install.md)
+  [Usage](https://github.com/abraunegg/onedrive/blob/master/docs/advanced-usage.md)
 
 ```bash
-sudo cp services/jupyter.service /etc/systemd/system
+# install
+echo "deb https://download.opensuse.org/repositories/home:/npreining:/debian-ubuntu-onedrive/xUbuntu_20.04/ ./" | sudo tee -a /etc/apt/sources.list
+cd ~/Downloads && wget https://download.opensuse.org/repositories/home:/npreining:/debian-ubuntu-onedrive/xUbuntu_20.04/Release.key
+sudo apt-key add ./Release.key
+sudo apt-get update && sudo apt-get install -y onedrive
 
-# OneDrive sync
-# https://github.com/abraunegg/onedrive/blob/master/docs/ubuntu-package-install.md
 
+declare -a dirs=( ~/.config/onedrive_phsnl, ~/.config/onedrive_pittvax, ~/OneDrive_PittVax, ~/OneDrive_SDOH-PACE-UPMC_Data_Center)
+for val in ${dirs[@]}; do    if [ ! -e $val ]; then mkdir $val;    fi; done
 
-# https://github.com/abraunegg/onedrive/blob/master/docs/advanced-usage.md
-mkdir ~/.config/onedrive_phsnl ~/.config/onedrive_pittvax
-sudo cp services/onedrive* /usr/lib/systemd/user
-mkdir ~/OneDrive_PittVax ~/OneDrive_SDOH-PACE-UPMC_Data_Center
-sudo systemctl enable jupyter.service
+if [ ! -e /usr/lib/systemd/user/onedrive ]; then sudo cp ~/.bash/services/onedrive* /usr/lib/systemd/user; fi
+
 sudo systemctl enable onedrive.service onedrive_phsnl.service onedrive_pittvax.service
 ```
 
