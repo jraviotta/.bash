@@ -63,10 +63,11 @@ cd ~/Downloads && wget https://download.opensuse.org/repositories/home:/npreinin
 sudo apt-key add ./Release.key
 sudo apt-get update && sudo apt-get install -y onedrive
 
-
-declare -a dirs=( ~/.config/onedrive_phsnl, ~/.config/onedrive_pittvax, ~/OneDrive_PittVax, ~/OneDrive_SDOH-PACE-UPMC_Data_Center)
+# Create dirs
+declare -a dirs=( ~/.config/onedrive, ~/.config/onedrive_phsnl, ~/.config/onedrive_pittvax, ~/OneDrive, ~/OneDrive_PittVax, ~/OneDrive_SDOH-PACE-UPMC_Data_Center)
 for val in ${dirs[@]}; do    if [ ! -e $val ]; then mkdir $val;    fi; done
 
+# install & activate services
 if [ ! -e /usr/lib/systemd/user/onedrive ]; then sudo cp ~/.bash/services/onedrive* /usr/lib/systemd/user; fi
 
 sudo systemctl enable onedrive.service onedrive_phsnl.service onedrive_pittvax.service
