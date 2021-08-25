@@ -45,7 +45,7 @@ if [ "$HOST" == "windows" ]; then
     alias composer='/mnt/c/Windows/System32/cmd.exe /c "lando composer"'
     alias behat='/mnt/c/Windows/System32/cmd.exe /c "lando behat"'
 
-elif [ "$HOST" == "linux-gnu" ] || [ "$HOST" == "darwin"] ; then
+elif [ "$HOST" == "linux-gnu" ] || [ "$HOST" == "darwin" ] ; then
     echo "Creating Linux/Mac aliases"
     # Lando
     alias drush='lando drush --yes'

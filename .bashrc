@@ -184,7 +184,7 @@ check_and_create_links (){
 	
 	# Check if my_link is a link
 	if [ -L ${my_link} ] || Sudo [ -L ${my_link} ] ; then
-		echo -e $2"${Green} Good link${Color_Off}"
+		echo -e $2$Green" Good link$"Color_Off
 	else
 		# try
 		(
@@ -262,8 +262,9 @@ check_and_create_links ~/.bash/ssh/config ~/.ssh/config
 
 
 # Generate pitt.conf for VPNC
-check_and_create_links ~/.bash/etc/pitt.conf /etc/vpnc/pitt.conf
-
+if [$HOST eq "linux-gnu" ]; then
+	check_and_create_links ~/.bash/etc/pitt.conf /etc/vpnc/pitt.conf
+fi
 #######################################################
 ################      Docker     ######################
 #######################################################
