@@ -11,6 +11,7 @@ ubuntu 20.x installs without problem
   - [Docker](#docker)
   - [Flameshot](#flameshot)
   - [OneDrive sync](#onedrive-sync)
+  - [nbstripout](#nbstripout)
   - [Brave](#brave)
   - [thinkorswim](#thinkorswim)
   - [Virtualbox](#virtualbox)
@@ -32,6 +33,7 @@ sudo apt install -q -y \
   apt-transport-https \
   ca-certificates \
   curl \
+  vpnc \
   libpq-dev \
   gnupg2 \
   software-properties-common \
@@ -168,9 +170,9 @@ declare -a dirs=( ~/OneDrive ~/OneDrive_PittVax
 for val in ${dirs[@]}; do    if [ ! -e $val ]; then mkdir $val;    fi; done
 
 # Authenticate the client using the specific configuration file:
-onedrive --confdir="~/.config/onedrive"
-onedrive --confdir="~/.config/onedrive_phsnl"
-onedrive --confdir="~/.config/onedrive_pittvax"
+onedrive --confdir="~/.config/onedrive" --synchronize --dry-run
+onedrive --confdir="~/.config/onedrive_phsnl" --synchronize --dry-run
+onedrive --confdir="~/.config/onedrive_pittvax" --synchronize --dry-run
 
 # install & activate services
 if [ ! -e /lib/systemd/system/onedrive ]; then 
@@ -180,6 +182,15 @@ fi
 systemctl --user enable onedrive.service onedrive_phsnl.service onedrive_pittvax.service
 systemctl --user start onedrive.service onedrive_phsnl.service onedrive_pittvax.service
 
+```
+
+### nbstripout
+
+See [also](https://github.com/kynan/nbstripout)
+
+```bash
+# Set up the git filter in your global ~/.gitconfig
+nbstripout --install --global
 ```
 
 ### Brave

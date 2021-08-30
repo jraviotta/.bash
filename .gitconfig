@@ -12,8 +12,8 @@
 [difftool "default-difftool"]
 	cmd = code --wait --diff $LOCAL $REMOTE
 [filter "nbstripout"]
-	clean = \"/usr/bin/python3\" \"/home/jona/.local/lib/python3.7/site-packages/nbstripout\"
+	clean = \"/usr/bin/python3\" -m nbstripout
 	smudge = cat
 	required = true
 [diff "ipynb"]
-	textconv = \"/usr/bin/python3\" \"/home/jona/.local/lib/python3.7/site-packages/nbstripout\" -t
+	textconv = \"/usr/bin/python3\" -m nbstripout -t
