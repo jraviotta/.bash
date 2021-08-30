@@ -2,7 +2,8 @@ Host triads
   HostName 130.49.206.138
   User jmr154
   ForwardX11 yes
-  LocalForward localhost:10432 localhost:5432 
+  LocalForward localhost:10432 localhost:5432
+  IdentityFile ~/.ssh/triads-DL
 
 Host Whopper-remote
   HostName jraviotta.asuscomm.com
