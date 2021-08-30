@@ -1,8 +1,9 @@
 # Python customizations
+
 ## Install Python Debian
 
-https://linuxize.com/post/how-to-install-python-3-7-on-debian-9/
-https://realpython.com/installing-python/#debian
+<https://linuxize.com/post/how-to-install-python-3-7-on-debian-9/>
+<https://realpython.com/installing-python/#debian>
 
 ```bash
 # Install prerequisites
@@ -25,11 +26,14 @@ sudo make altinstall
 ```
 
 ## Install Python Ubuntu
+
 ```bash
 # install latest default systems versions
 sudo apt-get install python python3
 ```
-# Configure system python
+
+## Configure system python
+
 ```bash
 #Show available python versions
 ls -larth `which python`*
@@ -44,61 +48,7 @@ sudo update-alternatives --install /usr/local/bin/python python /usr/bin/python3
 
 # configure targets for system aliases
 sudo update-alternatives --config python
-
-# Install pip if necessary
-sudo apt-get install python3-pip
-```
-
-## Install jupyter and tooling
-```bash
-pip install -r ~/.bash/requirements.txt
-```
-
-## Configure jupyter server to start on boot
-```bash
-sudo cp ~/.bash/services/jupyter.service /etc/systemd/system
-
-### Start service manually
-sudo systemctl enable jupyter.service
-sudo systemctl daemon-reload
-sudo systemctl restart jupyter.service
-```
-
-### Install jupyter lab extensions
-
-```bash
-
-```
 ### Enable jupyterlab extensions for plotly
-```bash
-# Avoid "JavaScript heap out of memory" errors during extension installation
-# (OS X/Linux)
-export NODE_OPTIONS=--max-old-space-size=4096
-# (Windows)
-set NODE_OPTIONS=--max-old-space-size=4096
-
-# Jupyter widgets extension
-jupyter labextension install @jupyter-widgets/jupyterlab-manager@1.1 --no-build
-
-# FigureWidget support
-jupyter labextension install plotlywidget@1.3.0 --no-build
-
-# and jupyterlab renderer support
-jupyter labextension install jupyterlab-plotly@1.3.0 --no-build
-
-# Build extensions (must be done to activate extensions since --no-build is used above)
-jupyter lab build
-
-# Unset NODE_OPTIONS environment variable
-# (OS X/Linux)
-unset NODE_OPTIONS
-```
-
-### Configure [jupyterthemes](https://github.com/dunovank/jupyter-themes)
-
-```bash
-jt -t onedork -N -fs 105 -altp -tfs 11 -nfs 115 -cellw 95% -T -dfs 8
-```
 
 ## Use [environments](https://conda.io/docs/user-guide/tasks/manage-environments.html)  
 

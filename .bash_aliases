@@ -6,6 +6,10 @@
 # application.  To override the alias instruction use a \ before, ie
 # \rm will call the real rm not the alias.
 
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
 # Interactive operation...
 alias rm='rm -i'
 alias cp='cp -i'
@@ -18,18 +22,16 @@ alias du='du -h'
 # Misc :)
 alias less='less -r'                          # raw control characters
 alias whence='type -a'                        # where, of a sort
-alias grep='grep --color'                     # show differences in colour
-alias egrep='egrep'              # show differences in colour
-alias fgrep='fgrep'              # show differences in colour
+alias grep='grep --color=auto'                     # show differences in colour
+alias egrep='egrep --color=auto'              # show differences in colour
+alias fgrep='fgrep --color=auto'              # show differences in colour
 alias ifconfig='ip -stats -color -human addr'
 
 # Some shortcuts for different directory listings
-alias dir='ls --format=vertical'
-alias vdir='ls --format=long'
-alias ll='ls -lF'
-alias lsa='ls -alF'
-alias l='ls -CF'
-alias ls='ls -F'
+alias ls='ls -F --color=auto'
+alias lsa='ls -A --color=auto'
+alias ll='ls --format=long --color=auto'
+alias lla='ls -alF --color=auto'
 
 # Git
 # Make pretty git log for cli
@@ -46,7 +48,6 @@ if [ "$HOST" == "windows" ]; then
     alias behat='/mnt/c/Windows/System32/cmd.exe /c "lando behat"'
 
 elif [ "$HOST" == "linux-gnu" ] || [ "$HOST" == "darwin" ] ; then
-    echo "Creating Linux/Mac aliases"
     # Lando
     alias drush='lando drush --yes'
     alias composer='lando composer'

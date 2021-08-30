@@ -4,53 +4,151 @@ Configuring Linux
 ubuntu 20.x installs without problem
 
 - [Run updates & install essentials](#run-updates--install-essentials)
-- [Install Utilities and networking packages](#install-utilities-and-networking-packages)
-- [Install services](#install-services)
-- [Install software](#install-software)
-  - [VSCode](#vscode)
+- [Install .bash](#install-bash)
+- [Other software & Configuration](#other-software--configuration)
+  - [Python](#python)
+- [Install Psycopg from source code](#install-psycopg-from-source-code)
+  - [Docker](#docker)
+  - [Flameshot](#flameshot)
+  - [OneDrive sync](#onedrive-sync)
   - [Brave](#brave)
-  - [Java](#java)
-    - [Zulu OpenJDK](#zulu-openjdk)
-    - [Oracle JDK](#oracle-jdk)
-    - [Open JDK](#open-jdk)
   - [thinkorswim](#thinkorswim)
   - [Virtualbox](#virtualbox)
   - [NoMachine](#nomachine)
   - [VNC](#vnc)
-  - [Flameshot](#flameshot)
   - ["pbcopy" & "pbpaste"](#pbcopy--pbpaste)
-- [Fix scaling](#fix-scaling)
-- [Enable ssh on host](#enable-ssh-on-host)
-- [ssh keys](#ssh-keys)
+  - [Enable ssh on host](#enable-ssh-on-host)
+  - [ssh keys](#ssh-keys)
+  - [Fix scaling](#fix-scaling)
+  - [Install services](#install-services)
 
 ## Run updates & install essentials  
 
 ```bash  
-sudo apt-get update && sudo apt-get upgrade -y
-```  
-
-## Install Utilities and networking packages
-
-```bash
-sudo apt-get install -q -y \
+sudo apt update && sudo apt-get upgrade -y
+sudo apt install -q -y \
   build-essential \
   dos2unix \
   apt-transport-https \
   ca-certificates \
   curl \
+  libpq-dev \
   gnupg2 \
   software-properties-common \
   net-tools \
   bridge-utils \
   git-core \
-  gnome-shell-extensions
+  gnome-shell-extensions \
+  software-properties-common \
+  python3.8-venv
+
+# Snaps
+sudo snap install \
+  chromium \
+  code \
+  docker \
+  flameshot \
+  htop \
+  jupyter \
+  openjdk \
+  palapeli \
+  polar-bookshelf \
+  teams
 ```
 
-## Install services
+## Install .bash
+
+```bash
+git clone git@github.com:jraviotta/.bash.git ~/.bash
+source ~/.bash/.bashrc
+```
+
+## Other software & Configuration
+
+### Python
+
+```bash
+## Install Python
+```bash
+# install latest default systems versions
+sudo apt install python python3
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt update
+sudo apt install python3.8
+sudo apt install python3-pip
+
+## Configure jupyter server to start on boot
+
 ```bash
 sudo cp ~/.bash/services/jupyter.service /etc/systemd/system
+
+### Start service manually
 sudo systemctl enable jupyter.service
+sudo systemctl daemon-reload
+sudo systemctl restart jupyter.service
 ```
+
+## Install Psycopg from source code
+
+See [also](https://www.psycopg.org/docs/install.html)
+
+```bash
+export PATH=/usr/lib/postgresql/X.Y/bin/:$PATH
+pip install psycopg2
+
+```
+
+### Docker
+
+<https://towardsdatascience.com/docker-for-data-scientists-part-1-41b0725d4a50>
+Install:
+
+1. [Docker desktop](https://www.docker.com/get-started)
+1. [Docker compose](https://docs.docker.com/compose/install/)
+1. [Docker shell completion](https://docs.docker.com/compose/completion/)
+
+```bash
+# Install
+sudo snap install docker
+
+# configure
+sudo addgroup --system docker
+sudo adduser $USER docker
+newgrp docker
+sudo snap disable docker
+sudo snap enable docker
+
+# Docker compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+# Shell completion
+sudo curl \
+    -L https://raw.githubusercontent.com/docker/compose/1.29.2/contrib/completion/bash/docker-compose \
+    -o /etc/bash_completion.d/docker-compose
+source ~/.bashrc
+
+# Test
+docker-compose --version
+```
+
+### Flameshot
+
+See <https://github.com/flameshot-org/flameshot#installation>  
+Configuration [here](https://github.com/flameshot-org/flameshot#on-ubuntu-tested-on-1804-2004)  
+
+```bash
+sudo snap install flameshot
+# Remove the binding on Prt Sc using the following command.
+gsettings set org.gnome.settings-daemon.plugins.media-keys screenshot '[]'
+```
+
+Ubuntu 18.04: Go to Settings > Device > Keyboard and press the '+' button at the bottom.
+Ubuntu 20.04: Go to Settings > Keyboard and press the '+' button at the bottom.
+Name the command as you like it, e.g. flameshot. And in the command insert /usr/bin/flameshot gui.
+Then click "Set Shortcut.." and press Prt Sc. This will show as "print".
+Now every time you press Prt Sc, it will start the Flameshot GUI instead of the default application.
+
 ### OneDrive sync
 
   [Install](https://github.com/abraunegg/onedrive/blob/master/docs/ubuntu-package-install.md)
@@ -63,27 +161,25 @@ cd ~/Downloads && wget https://download.opensuse.org/repositories/home:/npreinin
 sudo apt-key add ./Release.key
 sudo apt-get update && sudo apt-get install -y onedrive
 
-# Create dirs
-declare -a dirs=( ~/.config/onedrive, ~/.config/onedrive_phsnl, ~/.config/onedrive_pittvax, ~/OneDrive, ~/OneDrive_PittVax, ~/OneDrive_SDOH-PACE-UPMC_Data_Center)
+# Create OneDrive dirs and onedrive config dirs
+declare -a dirs=( ~/OneDrive ~/OneDrive_PittVax 
+      ~/OneDrive_SDOH-PACE-UPMC_Data_Center ~/.config/onedrive 
+      ~/.config/onedrive_phsnl ~/.config/onedrive_pittvax)
 for val in ${dirs[@]}; do    if [ ! -e $val ]; then mkdir $val;    fi; done
 
+# Authenticate the client using the specific configuration file:
+onedrive --confdir="~/.config/onedrive"
+onedrive --confdir="~/.config/onedrive_phsnl"
+onedrive --confdir="~/.config/onedrive_pittvax"
+
 # install & activate services
-if [ ! -e /usr/lib/systemd/user/onedrive ]; then sudo cp ~/.bash/services/onedrive* /usr/lib/systemd/user; fi
+if [ ! -e /lib/systemd/system/onedrive ]; then 
+  sudo cp ~/.bash/services/onedrive* /lib/systemd/system/;
+fi
 
-sudo systemctl enable onedrive.service onedrive_phsnl.service onedrive_pittvax.service
-```
+systemctl --user enable onedrive.service onedrive_phsnl.service onedrive_pittvax.service
+systemctl --user start onedrive.service onedrive_phsnl.service onedrive_pittvax.service
 
-## Install software
-
-### VSCode
-
-```bash
-curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-sudo install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/
-rm -f packages.microsoft.gpg
-sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
-sudo apt-get update
-sudo apt-get install code # or code-insiders
 ```
 
 ### Brave
@@ -93,31 +189,6 @@ curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt
 sudo sh -c 'echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com `lsb_release -sc` main" >> /etc/apt/sources.list.d/brave.list'
 sudo apt-get update
 sudo apt-get install brave-browser brave-keyring
-```
-
-### Java
-
-#### Zulu OpenJDK
-
-```bash
-# Install
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0xB1998361219BD9C9
-sudo apt-add-repository 'deb http://repos.azulsystems.com/ubuntu stable main'
-sudo apt-get update
-sudo apt-get install zulu-8
-```
-
-#### Oracle JDK
-
-Oracle JDK 8 download page.
-<https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html>
-Accept the license agreement and download the tar.gz file.
-
-#### Open JDK
-
-```bash
-sudo tar xvf ~/Downloads/jdk-8u221-linux-x64.tar.gz --directory /usr/lib/jvm/
-sudo apt-get install openjdk-11-jdk
 ```
 
 ### thinkorswim
@@ -139,6 +210,14 @@ See also:
 - <https://linuxconfig.org/install-virtualbox-on-ubuntu-20-04-focal-fossa-linux>  
 - <https://linuxconfig.org/> virtualbox-extension-pack-installation-on-ubuntu-20-04-focal-fossa-linux  
 
+```bash
+# add key
+wget -qO - https://www.virtualbox.org/download/oracle_vbox_2016.asc | sudo apt-key add -
+# add repository
+sudo apt-add-repository "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian focal contrib"
+sudo apt install virtualbox
+```
+
 ### NoMachine
 
 See <https://www.nomachine.com/>
@@ -154,15 +233,6 @@ sudo systemctl enable vncserver-x11-serviced.service
 sudo systemctl enable vncserver-virtuald.service
 ```
 
-### Flameshot
-
-See <https://github.com/flameshot-org/flameshot#installation>  
-Configuration [here](https://github.com/flameshot-org/flameshot#on-ubuntu-tested-on-1804-2004)  
-
-```bash
-sudo apt-get install flameshot
-```
-
 ### "pbcopy" & "pbpaste"
 
 ```bash
@@ -173,34 +243,48 @@ alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 ```
 
-## Fix scaling
-
-```bash
-sudo apt-get install xvfb xpra x11_server_utils
-sudo wget -O /usr/local/bin/run_scaled "https://raw.githubusercontent.com/kaueraal/run_scaled/master/run_scaled"
-sudo chmod +x /usr/local/bin/run_scaled
-# execute with run_scaled vncviewer
-```
-
-## Enable ssh on host
+### Enable ssh on host
 
 ```bash
 sudo apt update
 sudo apt install openssh-server
 sudo ufw allow ssh
+
 # Enable password login
 sudo gedit /etc/ssh/sshd_config
 # Update line
 # PasswordAuthentication yes
+
 sudo service ssh restart
 ```
 
-## ssh keys
+### ssh keys
 
 ```bash
-# Create key
+# Create keys
 ssh-keygen -f ~/.ssh/<name_of_key>
 
 # Transfer to server
 ssh-copy-id -i ~/.ssh/<name_of_key> <user@host>
+```
+
+### Fix scaling
+
+```bash
+sudo apt-get install xvfb xpra x11_server_utils
+sudo wget -O /usr/local/bin/run_scaled "https://raw.githubusercontent.com/kaueraal/run_scaled/master/run_scaled"
+sudo chmod +x /usr/local/bin/run_scaled
+# example
+# run_scaled vncviewer
+
+```
+
+### Install services
+
+```bash
+if [ ! -e /lib/systemd/system/jupyter.service ]; then 
+  sudo cp ~/.bash/services/jupyter.service /lib/systemd/system;
+fi
+
+sudo systemctl enable jupyter.service
 ```

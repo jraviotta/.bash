@@ -1,6 +1,17 @@
+
 ################# Shell Options #######################
 ### See man bash for more options...                ###
 #######################################################
+# ~/.bashrc: executed by bash for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
+
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
 # Don't wait for job termination notification
 set -o notify
 
@@ -20,19 +31,25 @@ shopt -s cdspell
 # Include dotfiles in glob operations
 shopt -s dotglob
 
-# Define colors
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+#shopt -s globstar
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+#######################################################
+##################  Colors  ###########################
+#######################################################
 # Reset
-Color_Off='\e[0m'       # Text Reset
+# Color_Off='\e[0m'       # Text Reset
+reset="$(tput sgr0)"
 
 # Regular Colors
-Black='\e[0;30m'        # Black
-Red='\e[0;31m'          # Red
-Green='\e[0;32m'        # Green
-Yellow='\e[0;33m'       # Yellow
-Blue='\e[0;34m'         # Blue
-Purple='\e[0;35m'       # Purple
-Cyan='\e[0;36m'         # Cyan
-White='\e[0;37m'        # White
 fg_black="$(tput setaf 0)"
 fg_red="$(tput setaf 1)"
 fg_green="$(tput setaf 2)"
@@ -41,67 +58,74 @@ fg_blue="$(tput setaf 4)"
 fg_magenta="$(tput setaf 5)"
 fg_cyan="$(tput setaf 6)"
 fg_white="$(tput setaf 7)"
-reset="$(tput sgr0)"
 
-# Bold
-BBlack='\e[1;30m'       # Black
-BRed='\e[1;31m'         # Red
-BGreen='\e[1;32m'       # Green
-BYellow='\e[1;33m'      # Yellow
-BBlue='\e[1;34m'        # Blue
-BPurple='\e[1;35m'      # Purple
-BCyan='\e[1;36m'        # Cyan
-BWhite='\e[1;37m'       # White
+# # Bold
+# BBlack='\e[1;30m'       # Black
+# BRed='\e[1;31m'         # Red
+# BGreen='\e[1;32m'       # Green
+# BYellow='\e[1;33m'      # Yellow
+# BBlue='\e[1;34m'        # Blue
+# BPurple='\e[1;35m'      # Purple
+# BCyan='\e[1;36m'        # Cyan
+# BWhite='\e[1;37m'       # White
 
-# Underline
-UBlack='\e[4;30m'       # Black
-URed='\e[4;31m'         # Red
-UGreen='\e[4;32m'       # Green
-UYellow='\e[4;33m'      # Yellow
-UBlue='\e[4;34m'        # Blue
-UPurple='\e[4;35m'      # Purple
-UCyan='\e[4;36m'        # Cyan
-UWhite='\e[4;37m'       # White
+# # Underline
+# UBlack='\e[4;30m'       # Black
+# URed='\e[4;31m'         # Red
+# UGreen='\e[4;32m'       # Green
+# UYellow='\e[4;33m'      # Yellow
+# UBlue='\e[4;34m'        # Blue
+# UPurple='\e[4;35m'      # Purple
+# UCyan='\e[4;36m'        # Cyan
+# UWhite='\e[4;37m'       # White
 
-# Background
-On_Black='\e[40m'       # Black
-On_Red='\e[41m'         # Red
-On_Green='\e[42m'       # Green
-On_Yellow='\e[43m'      # Yellow
-On_Blue='\e[44m'        # Blue
-On_Purple='\e[45m'      # Purple
-On_Cyan='\e[46m'        # Cyan
-On_White='\e[47m'       # White
+# # Background
+# On_Black='\e[40m'       # Black
+# On_Red='\e[41m'         # Red
+# On_Green='\e[42m'       # Green
+# On_Yellow='\e[43m'      # Yellow
+# On_Blue='\e[44m'        # Blue
+# On_Purple='\e[45m'      # Purple
+# On_Cyan='\e[46m'        # Cyan
+# On_White='\e[47m'       # White
 
-# High Intensity
-IBlack='\e[0;90m'       # Black
-IRed='\e[0;91m'         # Red
-IGreen='\e[0;92m'       # Green
-IYellow='\e[0;93m'      # Yellow
-IBlue='\e[0;94m'        # Blue
-IPurple='\e[0;95m'      # Purple
-ICyan='\e[0;96m'        # Cyan
-IWhite='\e[0;97m'       # White
+# # High Intensity
+# IBlack='\e[0;90m'       # Black
+# IRed='\e[0;91m'         # Red
+# IGreen='\e[0;92m'       # Green
+# IYellow='\e[0;93m'      # Yellow
+# IBlue='\e[0;94m'        # Blue
+# IPurple='\e[0;95m'      # Purple
+# ICyan='\e[0;96m'        # Cyan
+# IWhite='\e[0;97m'       # White
 
-# Bold High Intensity
-BIBlack='\e[1;90m'      # Black
-BIRed='\e[1;91m'        # Red
-BIGreen='\e[1;92m'      # Green
-BIYellow='\e[1;93m'     # Yellow
-BIBlue='\e[1;94m'       # Blue
-BIPurple='\e[1;95m'     # Purple
-BICyan='\e[1;96m'       # Cyan
-BIWhite='\e[1;97m'      # White
+# # Bold High Intensity
+# BIBlack='\e[1;90m'      # Black
+# BIRed='\e[1;91m'        # Red
+# BIGreen='\e[1;92m'      # Green
+# BIYellow='\e[1;93m'     # Yellow
+# BIBlue='\e[1;94m'       # Blue
+# BIPurple='\e[1;95m'     # Purple
+# BICyan='\e[1;96m'       # Cyan
+# BIWhite='\e[1;97m'      # White
 
-# High Intensity backgrounds
-On_IBlack='\e[0;100m'   # Black
-On_IRed='\e[0;101m'     # Red
-On_IGreen='\e[0;102m'   # Green
-On_IYellow='\e[0;103m'  # Yellow
-On_IBlue='\e[0;104m'    # Blue
-On_IPurple='\e[0;105m'  # Purple
-On_ICyan='\e[0;106m'    # Cyan
-On_IWhite='\e[0;107m'   # White
+# # High Intensity backgrounds
+# On_IBlack='\e[0;100m'   # Black
+# On_IRed='\e[0;101m'     # Red
+# On_IGreen='\e[0;102m'   # Green
+# On_IYellow='\e[0;103m'  # Yellow
+# On_IBlue='\e[0;104m'    # Blue
+# On_IPurple='\e[0;105m'  # Purple
+# On_ICyan='\e[0;106m'    # Cyan
+# On_IWhite='\e[0;107m'   # White
+
+# enable color support of ls
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+fi
+
+# colored GCC warnings and errors
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 #######################################################
 ##########   Completion options  ######################
@@ -120,18 +144,35 @@ COMP_CONFIGURE_HINTS=1
 # Define to avoid flattening internal contents of tar files
 COMP_TAR_INTERNAL_PATHS=1
 
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
 #######################################################
 #############   History Options  ######################
 #######################################################
-# Don't put duplicate lines in the history.
-export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
 
 # Ignore some controlling instructions
 #HISTIGNORE is a colon-delimited list of patterns which should be excluded.
 #The '&' is a special pattern which suppresses duplicate entries.
 export HISTIGNORE=$'[ \t]*:&:[fb]g:exit'
-export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls' # Ignore the ls command as well
 
+# Also ignore...
+export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls:lsa:ll:lls:clear' 
 # Append commands to the bash command history file (~/.bash_history)
 # instead of overwriting it.
 shopt -s histappend
@@ -186,33 +227,6 @@ pathmunge () {
         fi
 }
 
-# Function to check and create links if necessary
-check_and_create_links (){
-	my_target=$1
-	my_link=$2
-	
-	# Check if my_link is a link
-	if [ -L ${my_link} ] || Sudo [ -L ${my_link} ] ; then
-		echo -e $2"${fg_green} Good link${reset}"
-	else
-		# try
-		(
-		set -e 	# <--- This flag will exit from current subshell on any error
-		ln -s $my_target $my_link
-		)
-		# catch
-		errorCode=$?
-		if [ $errorCode -ne 0 ]; then
-			if [ $errorCode -eq 1 ]; then
-				Sudo ln -s $my_target $my_link
-				echo -e $1" ${fg_green}created by Sudo${reset}"
-			fi
-		# We exit the script with the same error
-		# exit $errorCode 		# <--- Delete this line to continue
-		fi
-	fi
-}
-
 # Source file and report status
 source_and_report(){
 	my_link=$1
@@ -222,6 +236,64 @@ source_and_report(){
 fi
 }
 
+# Check and create links if necessary
+check_and_create_links (){
+	my_target=$1
+	my_link=$2
+	my_dir="$(dirname "$2")"
+	
+	# Check if my_link is a link
+	if [ -L $my_link ]; then
+		echo -e $2"${fg_green} Good link${reset}"
+	else
+		# try
+		(
+		set -e 	# <--- This flag will exit from current subshell on any error
+		# Delete my_target if it is not a link
+		if [ -e $my_link ] && [ ! -L $my_link ]; then
+			echo "Removing "$my_link
+			if [ rm $my_link ]; then echo removed $my_link; fi
+		fi
+
+		# Create parent directory if my_link does not have an existing parent dir
+		if [ ! -e $my_dir ]; then
+			echo "Creating "$my_dir
+			mkdir -p $my_dir 
+			if [ -e $my_dir ]; then
+				echo -e $my_dir"${fg_green} created${reset}"
+			fi
+		fi
+		# Link to repo's file
+		echo "Creating link "$my_link
+		ln -s $my_target $my_link 
+		if [ -L $my_link ]; then
+			echo $my_link"${fg_green} created${reset}"
+		fi
+		)
+		# catch
+		errorCode=$?
+		if [ $errorCode -ne 0 ]; then
+			echo errorCode: $errorCode
+			if [ $errorCode -eq 1 ]; then
+				echo "Trying with sudo"
+				# Create parent directory if my_link does not have an existing parent dir
+				if [ ! -e $my_dir ]; then 
+					if [ Sudo mkdir -p $my_dir ]; then 
+						echo -e $my_dir"${fg_green} created by Sudo${reset}"
+					fi
+				fi
+				# Create tha link
+				echo "Creating link "$my_link
+				if [ Sudo ln -s $my_target $my_link ]; then
+					echo -e $2"${fg_green} created by Sudo${reset}"
+				fi
+			fi
+		# We exit the script with the same error
+		# exit $errorCode 		# <--- Delete this line to continue
+		fi
+	fi
+}
+
 # Deduplicate path entries
 dedupe_path(){
     # echo $PATH
@@ -229,7 +301,6 @@ dedupe_path(){
     export PATH=`echo -n $PATH | awk -v RS=: '!($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}'`
     # echo $PATH
     # echo "${PATH//:/$'\n'}"
-
 }
 
 #######################################################
@@ -241,58 +312,25 @@ check_and_create_links ~/.bash/.bashrc ~/.bashrc
 # Generate .bash_profile for windows
 check_and_create_links ~/.bash/.bash_profile ~/.bash_profile
 
-# Source .bash_aliases
-check_and_create_links ~/.bash/.bash_aliases ~/.bash_aliases
-source_and_report ~/.bash_aliases
-
-# Source .git-prompt.sh for customizing prompt with Git info
-check_and_create_links ~/.bash/.git-prompt.sh ~/.git-prompt.sh
-source_and_report ~/.git-prompt.sh
-
-# Source .git-completion for git tab completion
-check_and_create_links ~/.bash/.git-completion.sh ~/.git-completion.sh
-source_and_report ~/.git-completion.sh
-
-# Source .tokens for environment tokens and api keys
+# Source .bash files
+source_and_report ~/.bash/.bash_aliases
+source_and_report ~/.bash/.git-prompt.sh
+source_and_report ~/.bash/.git-completion.sh
 source_and_report ~/.credentials/tokens
 
-# Generate .nanorc for syntax highlighting in nano
-if [ -f ~/.nanorc ] ; then
-	echo "~/.nanorc exists"
-else
-	cp ~/.bash/.nanorc ~/.nanorc
-	find /usr/share/nano -name '*.nanorc' -printfs echo "include %p\n" >> ~/.nanorc
-	find/usr/local/share/nano -name '*.nanorc' -printfs echo "include %p\n" >> ~/.nanorc
-	echo "Created ~/.nanorc"
-fi
-
-# Generate ~/.ssh/config
+# Generate links
 check_and_create_links ~/.bash/ssh/config ~/.ssh/config
-
-
-# Generate pitt.conf for VPNC
 check_and_create_links ~/.bash/etc/pitt.conf /etc/vpnc/pitt.conf
-
-#######################################################
-################      Docker     ######################
-#######################################################
-# Cross platform Docker
-if [ $HOST == "windows" ]; then
-    echo 'detected windows Docker host'
-	export DOCKER_HOST=tcp://localhost:2375
-fi
-
-#######################################################
-################      Python     ######################
-#######################################################
-# Create jupyter config
 check_and_create_links ~/.bash/jupyter/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
-
-# Create ipython config
 check_and_create_links ~/.bash/ipython/ipython_config.py ~/.ipython/profile_default/ipython_config.py
-
-export PYTHONSTARTUP=~/.bash/python_startup.py
-
+check_and_create_links ~/.bash/.nanorc ~/.nanorc
+check_and_create_links ~/.bash/.gitconfig ~/.gitconfig
+check_and_create_links ~/.bash/config/onedrive/config ~/.config/onedrive/config
+check_and_create_links ~/.bash/config/onedrive/sync_list ~/.config/onedrive/sync_list
+check_and_create_links ~/.bash/config/onedrive_phsnl/config ~/.config/onedrive_phsnl/config
+check_and_create_links ~/.bash/config/onedrive_phsnl/sync_list ~/.config/onedrive_phsnl/sync_list
+check_and_create_links ~/.bash/config/onedrive_pittvax/config ~/.config/onedrive_pittvax/config
+check_and_create_links ~/.bash/config/onedrive_pittvax/sync_list ~/.config/onedrive_pittvax/sync_list
 #######################################################
 #############    Path customizations     ##############
 #######################################################
@@ -312,10 +350,19 @@ dedupe_path
 if [ "$HOST" = "windows" ]; then
 	pathmunge "$HOME\AppData\Local\Programs\Microsoft VS Code\bin" before
 fi
+
 #######################################################
 ########     Environment customizations    ############
 #######################################################
 export EDITOR='code'
+export PYTHONSTARTUP=~/.bash/python_startup.py
+
+# Cross platform Docker
+if [ $HOST == "windows" ]; then
+    echo 'detected windows Docker host'
+	export DOCKER_HOST=tcp://localhost:2375
+fi
+
 # if [ "$OSTYPE" = "linux-gnu" ]; then
 # 	export XDG_RUNTIME_DIR="/run/user/$UID"
 # 	export DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"
@@ -324,6 +371,45 @@ export EDITOR='code'
 #######################################################
 ##########   Customize Prompt  ########################
 #######################################################
-PS1="\[$Green\]\t \[$Yellow\]\w\[\033[m\]\[$Red\]\$(__git_ps1)\[$White\]\012\u@\H \$ "
-# If not running interactively, don't do anything
-[[ "$-" != *i* ]] && return
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+    xterm-color|*-256color) color_prompt=yes;;
+esac
+
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+force_color_prompt=yes
+
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+	# We have color support; assume it's compliant with Ecma-48
+	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+	# a case would tend to support setf rather than setaf.)
+	color_prompt=yes
+    else
+	color_prompt=
+    fi
+fi
+
+if [ "$color_prompt" = yes ]; then
+    PS1="\[$fg_green\]\w\[\033[m\]\[$fg_red\]\$(__git_ps1)\[$fg_white\]\012\u@\H \$ "
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+fi
+unset color_prompt force_color_prompt
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac

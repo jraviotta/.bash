@@ -1,0 +1,28 @@
+## sync_list supports comments
+## 
+## The ordering of entries is highly recommended - exclusions before inclusions
+##
+## Exclude temp folders under Documents
+# !Documents/temp*
+## Exclude my secret data
+# !/Secret_data/*
+## Include my Backup folder
+# Backup
+## Include all PDF documents
+# Documents/*.pdf
+## Include this single document
+# Documents/latest_report.docx
+## Include all Work/Project directories
+# Work/Project*
+## Include /Blender in the ~OneDrive root but not if elsewhere
+# /Blender
+## Include these names if they match any file or folder
+# Cinema Soc
+
+# General
+#Impact of FluBlok in UPMC
+#iMPH - Influenza Modeling for Public Health
+#PHSNL - PACE
+!*
+!*/@old
+!*/old
