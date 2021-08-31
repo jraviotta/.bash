@@ -5,6 +5,7 @@
 # they may mask.  For example, alias rm='rm -i' will mask the rm
 # application.  To override the alias instruction use a \ before, ie
 # \rm will call the real rm not the alias.
+if [[ $HOST == "darwin" ]]; then COLOR="-G"; else COLOR="--color=auto"; fi
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -22,16 +23,16 @@ alias du='du -h'
 # Misc :)
 alias less='less -r'                          # raw control characters
 alias whence='type -a'                        # where, of a sort
-alias grep='grep --color=auto'                     # show differences in colour
-alias egrep='egrep --color=auto'              # show differences in colour
-alias fgrep='fgrep --color=auto'              # show differences in colour
+alias grep='grep $COLOR'                     # show differences in colour
+alias egrep='egrep $COLOR'              # show differences in colour
+alias fgrep='fgrep $COLOR'              # show differences in colour
 alias ifconfig='ip -stats -color -human addr'
 
 # Some shortcuts for different directory listings
-alias ls='ls -F --color=auto'
-alias lsa='ls -A --color=auto'
-alias ll='ls --format=long --color=auto'
-alias lla='ls -alF --color=auto'
+alias ls='ls $COLOR'
+alias lsa='ls -A $COLOR'
+alias ll='ls --format=long $COLOR'
+alias lla='ls -alF $COLOR'
 
 # Git
 # Make pretty git log for cli
@@ -39,6 +40,7 @@ alias glog='git log --graph --full-history --all --color --pretty=format:"%x1b[3
 function git() { case $* in fetch* ) shift 1; command git fetch "$@" --prune ;; * ) command git "$@" ;; esac }
 
 # Tools
+# TODO: update for WSL
 ## Lando
 if [ "$HOST" == "windows" ]; then
     echo 'Creating Windows aliases'

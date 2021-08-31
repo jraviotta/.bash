@@ -1,4 +1,5 @@
 
+#!/bin/bash
 ################# Shell Options #######################
 ### See man bash for more options...                ###
 #######################################################
@@ -218,7 +219,7 @@ function Sudo {
 
 # Add to path if it doesn't exist
 pathmunge () {
-        if ! echo "$PATH" | /bin/grep -Eq "(^|:)$1($|:)" ; then
+        if ! echo "$PATH" | grep -Eq "(^|:)$1($|:)" ; then
            if [ "$2" = "after" ] ; then
               PATH="$PATH:$1"
            else
@@ -251,24 +252,17 @@ check_and_create_links (){
 		set -e 	# <--- This flag will exit from current subshell on any error
 		# Delete my_target if it is not a link
 		if [ -e $my_link ] && [ ! -L $my_link ]; then
-			echo "Removing "$my_link
-			if [ rm $my_link ]; then echo removed $my_link; fi
+			rm -f $my_link && echo $my_link "${fg_yellow} removed${reset}"
 		fi
 
 		# Create parent directory if my_link does not have an existing parent dir
 		if [ ! -e $my_dir ]; then
 			echo "Creating "$my_dir
-			mkdir -p $my_dir 
-			if [ -e $my_dir ]; then
-				echo -e $my_dir"${fg_green} created${reset}"
-			fi
+			mkdir -p $my_dir &&	echo -e $my_dir"${fg_green} created${reset}"
 		fi
 		# Link to repo's file
 		echo "Creating link "$my_link
-		ln -s $my_target $my_link 
-		if [ -L $my_link ]; then
-			echo $my_link"${fg_green} created${reset}"
-		fi
+		ln -s $my_target $my_link && echo $my_link"${fg_green} created${reset}"
 		)
 		# catch
 		errorCode=$?
@@ -310,8 +304,10 @@ dedupe_path(){
 check_and_create_links ~/.bash/.bashrc ~/.bashrc
 
 # Generate .bash_profile for windows
-check_and_create_links ~/.bash/.bash_profile ~/.bash_profile
-
+  
+if [ $HOST == "windows" ]; then 
+	check_and_create_links ~/.bash/.bash_profile ~/.bash_profile
+fi
 # Source .bash files
 source_and_report ~/.bash/.bash_aliases
 source_and_report ~/.bash/.git-prompt.sh
@@ -325,12 +321,14 @@ check_and_create_links ~/.bash/jupyter/jupyter_notebook_config.py ~/.jupyter/jup
 check_and_create_links ~/.bash/ipython/ipython_config.py ~/.ipython/profile_default/ipython_config.py
 check_and_create_links ~/.bash/.nanorc ~/.nanorc
 check_and_create_links ~/.bash/.gitconfig ~/.gitconfig
-check_and_create_links ~/.bash/config/onedrive/config ~/.config/onedrive/config
-check_and_create_links ~/.bash/config/onedrive/sync_list ~/.config/onedrive/sync_list
-check_and_create_links ~/.bash/config/onedrive_phsnl/config ~/.config/onedrive_phsnl/config
-check_and_create_links ~/.bash/config/onedrive_phsnl/sync_list ~/.config/onedrive_phsnl/sync_list
-check_and_create_links ~/.bash/config/onedrive_pittvax/config ~/.config/onedrive_pittvax/config
-check_and_create_links ~/.bash/config/onedrive_pittvax/sync_list ~/.config/onedrive_pittvax/sync_list
+if [[ $HOST == 'linux-gnu' ]]; then
+	check_and_create_links ~/.bash/config/onedrive/config ~/.config/onedrive/config
+	check_and_create_links ~/.bash/config/onedrive/sync_list ~/.config/onedrive/sync_list
+	check_and_create_links ~/.bash/config/onedrive_phsnl/config ~/.config/onedrive_phsnl/config
+	check_and_create_links ~/.bash/config/onedrive_phsnl/sync_list ~/.config/onedrive_phsnl/sync_list
+	check_and_create_links ~/.bash/config/onedrive_pittvax/config ~/.config/onedrive_pittvax/config
+	check_and_create_links ~/.bash/config/onedrive_pittvax/sync_list ~/.config/onedrive_pittvax/sync_list
+fi
 #######################################################
 #############    Path customizations     ##############
 #######################################################

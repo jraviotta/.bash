@@ -17,3 +17,6 @@
 	required = true
 [diff "ipynb"]
 	textconv = \"/usr/bin/python3\" -m nbstripout -t
+[filter "gitignore"]
+	clean = sed '/\"password/d'
+	smudge = cat
