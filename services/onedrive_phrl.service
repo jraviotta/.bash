@@ -5,7 +5,7 @@ After=network-online.target
 Wants=network-online.target
 
 [Service]
-ExecStart=/usr/bin/onedrive --monitor --confdir="/home/jona/.config/onedrive_phsnl"
+ExecStart=/usr/bin/onedrive --monitor --confdir="/home/jona/.config/onedrive_phrl"
 Restart=on-failure
 RestartSec=3
 RestartPreventExitStatus=3

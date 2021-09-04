@@ -324,8 +324,8 @@ check_and_create_links ~/.bash/.gitconfig ~/.gitconfig
 if [[ $HOST == 'linux-gnu' ]]; then
 	check_and_create_links ~/.bash/config/onedrive/config ~/.config/onedrive/config
 	check_and_create_links ~/.bash/config/onedrive/sync_list ~/.config/onedrive/sync_list
-	check_and_create_links ~/.bash/config/onedrive_phsnl/config ~/.config/onedrive_phsnl/config
-	check_and_create_links ~/.bash/config/onedrive_phsnl/sync_list ~/.config/onedrive_phsnl/sync_list
+	check_and_create_links ~/.bash/config/onedrive_phrl/config ~/.config/onedrive_phrl/config
+	check_and_create_links ~/.bash/config/onedrive_phrl/sync_list ~/.config/onedrive_phrl/sync_list
 	check_and_create_links ~/.bash/config/onedrive_pittvax/config ~/.config/onedrive_pittvax/config
 	check_and_create_links ~/.bash/config/onedrive_pittvax/sync_list ~/.config/onedrive_pittvax/sync_list
 fi

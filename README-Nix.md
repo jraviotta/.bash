@@ -22,6 +22,7 @@ ubuntu 20.x installs without problem
   - [ssh keys](#ssh-keys)
   - [Fix scaling](#fix-scaling)
   - [Install services](#install-services)
+  - [Uninstall services](#uninstall-services)
 
 ## Run updates & install essentials  
 
@@ -164,24 +165,24 @@ sudo apt-key add ./Release.key
 sudo apt-get update && sudo apt-get install -y onedrive
 
 # Create OneDrive dirs and onedrive config dirs
-declare -a dirs=( ~/OneDrive ~/OneDrive_PittVax 
-      ~/OneDrive_SDOH-PACE-UPMC_Data_Center ~/.config/onedrive 
-      ~/.config/onedrive_phsnl ~/.config/onedrive_pittvax)
+declare -a dirs=( ~/OneDrive ~/OneDrive_PittVax ~/OneDrive_SDOH-PACE-UPMC_Data_Center/Data ~/.config/onedrive ~/.config/onedrive_pittvax ~/.config/onedrive_phrl
 for val in ${dirs[@]}; do    if [ ! -e $val ]; then mkdir $val;    fi; done
 
 # Authenticate the client using the specific configuration file:
 onedrive --confdir="~/.config/onedrive" --synchronize --dry-run
-onedrive --confdir="~/.config/onedrive_phsnl" --synchronize --dry-run
+onedrive --confdir="~/.config/onedrive_phrl" --synchronize --dry-run
 onedrive --confdir="~/.config/onedrive_pittvax" --synchronize --dry-run
 
 # install & activate services
-if [ ! -e /lib/systemd/system/onedrive ]; then 
-  sudo cp ~/.bash/services/onedrive* /lib/systemd/system/;
+for SERVICE in onedrive_phrl.service onedrive_pittvax.service onedrive.service
+do
+if [ ! -e /lib/systemd/system/$SERVICE ]; then 
+  sudo cp ~/.bash/services/$SERVICE /lib/systemd/system;
 fi
-
-systemctl --user enable onedrive.service onedrive_phsnl.service onedrive_pittvax.service
-systemctl --user start onedrive.service onedrive_phsnl.service onedrive_pittvax.service
-
+sudo systemctl start $SERVICE # <--- Start now
+sudo systemctl enable $SERVICE # <--- Start on boot
+systemctl status $SERVICE
+done
 ```
 
 ### nbstripout
@@ -292,10 +293,30 @@ sudo chmod +x /usr/local/bin/run_scaled
 
 ### Install services
 
-```bash
-if [ ! -e /lib/systemd/system/jupyter.service ]; then 
-  sudo cp ~/.bash/services/jupyter.service /lib/systemd/system;
-fi
+See [also](https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units)
 
-sudo systemctl enable jupyter.service
+```bash
+for SERVICE in <service1.service> <service2.service>
+do
+if [ ! -e /lib/systemd/system/$SERVICE ]; then 
+  sudo cp ~/.bash/services/$SERVICE /lib/systemd/system;
+fi
+sudo systemctl start $SERVICE # <--- Start now
+sudo systemctl enable $SERVICE # <--- Start on boot
+systemctl status $SERVICE
+done
+```
+
+### Uninstall services
+
+```bash
+SERVICE=<serviceName.service>
+systemctl stop $SERVICE
+systemctl disable $SERVICE
+rm /etc/systemd/system/$SERVICE
+rm /etc/systemd/system/$SERVICE # and symlinks that might be related
+rm /usr/lib/systemd/system/$SERVICE 
+rm /usr/lib/systemd/system/$SERVICE # and symlinks that might be related
+systemctl daemon-reload
+systemctl reset-failed
 ```
