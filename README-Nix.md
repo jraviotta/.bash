@@ -154,8 +154,9 @@ Now every time you press Prt Sc, it will start the Flameshot GUI instead of the 
 
 ### OneDrive sync
 
-  [Install](https://github.com/abraunegg/onedrive/blob/master/docs/ubuntu-package-install.md)
-  [Usage](https://github.com/abraunegg/onedrive/blob/master/docs/advanced-usage.md)
+  [Install](https://github.com/abraunegg/onedrive/blob/master/docs/ubuntu-package-install.md)  
+  [Usage](https://github.com/abraunegg/onedrive/blob/master/docs/advanced-usage.md)  
+  **Be sure to include trailing slash in config** EG. `sync_dir = "~/OneDrive_PittVax/"
 
 ```bash
 # install

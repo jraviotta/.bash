@@ -20,9 +20,13 @@
 # Cinema Soc
 
 # General
-Impact of FluBlok in UPMC/Data
+
+
+Impact of FluBlok in UPMC/Data/
+
+!Impact of FluBlok in UPMC/*
+
 #iMPH - Influenza Modeling for Public Health
 
-# !*
-!*/@old
-!*/old
+!Impact of FluBlok in UPMC/**/@old
+!Impact of FluBlok in UPMC/**/old

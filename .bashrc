@@ -317,10 +317,13 @@ source_and_report ~/.credentials/tokens
 # Generate links
 check_and_create_links ~/.bash/ssh/config ~/.ssh/config
 check_and_create_links ~/.bash/etc/pitt.conf /etc/vpnc/pitt.conf
-check_and_create_links ~/.bash/jupyter/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
-check_and_create_links ~/.bash/ipython/ipython_config.py ~/.ipython/profile_default/ipython_config.py
 check_and_create_links ~/.bash/.nanorc ~/.nanorc
 check_and_create_links ~/.bash/.gitconfig ~/.gitconfig
+#python links
+check_and_create_links ~/.bash/jupyter/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
+check_and_create_links ~/.bash/jupyter/jupyter_nbconvert_config.json ~/.jupyter/jupyter_nbconvert_config.json
+check_and_create_links ~/.bash/ipython/ipython_config.py ~/.ipython/profile_default/ipython_config.py
+
 if [[ $HOST == 'linux-gnu' ]]; then
 	check_and_create_links ~/.bash/config/onedrive/config ~/.config/onedrive/config
 	check_and_create_links ~/.bash/config/onedrive/sync_list ~/.config/onedrive/sync_list
