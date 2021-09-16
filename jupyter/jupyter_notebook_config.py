@@ -38,7 +38,7 @@
 # ------------------------------------------------------------------------------
 
 ## Set the Access-Control-Allow-Credentials: true header
-c.NotebookApp.allow_credentials = True
+# c.NotebookApp.allow_credentials = True
 
 ## Set the Access-Control-Allow-Origin header
 #
@@ -65,7 +65,7 @@ c.NotebookApp.allow_credentials = True
 #  token login mechanism.
 #
 #  This can be set to false to prevent changing password from the UI/API.
-c.NotebookApp.allow_password_change = True
+# c.NotebookApp.allow_password_change = True
 
 ## Allow requests where the Host header doesn't point to a local server
 #
@@ -201,7 +201,7 @@ c.NotebookApp.allow_password_change = True
 # c.NotebookApp.iopub_msg_rate_limit = 1000
 
 ## The IP address the notebook server will listen on.
-c.NotebookApp.ip = "127.0.0.1"
+# c.NotebookApp.ip = "127.0.0.1"
 
 ## Supply extra arguments that will be passed to Jinja environment.
 # c.NotebookApp.jinja_environment_options = {}
@@ -284,7 +284,7 @@ c.NotebookApp.ip = "127.0.0.1"
 # c.NotebookApp.password_required = False
 
 ## The port the notebook server will listen on.
-c.NotebookApp.port = 8888
+# c.NotebookApp.port = 8888
 
 ## The number of additional ports to try if the specified port is not available.
 # c.NotebookApp.port_retries = 50
@@ -886,4 +886,4 @@ def script_post_save(model, os_path, contents_manager, **kwargs):
 
 
 # c.FileContentsManager.post_save_hook = script_post_save
-c.InteractiveShell.ast_node_interactivity = "all"
+# c.InteractiveShell.ast_node_interactivity = "all"

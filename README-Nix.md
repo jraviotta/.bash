@@ -44,6 +44,7 @@ sudo apt install -q -y \
   gnome-shell-extensions \
   software-properties-common \
   python3.8-venv
+  pandoc
 
 # Snaps
 sudo snap install \
@@ -175,7 +176,7 @@ onedrive --confdir="~/.config/onedrive_phrl" --synchronize --dry-run
 onedrive --confdir="~/.config/onedrive_pittvax" --synchronize --dry-run
 
 # install & activate services
-for SERVICE in onedrive_phrl.service onedrive_pittvax.service onedrive.service
+for SERVICE in onedrive_phrl.service onedrive_pittvax.service onedrive.service jupyter.service
 do
 if [ ! -e /lib/systemd/system/$SERVICE ]; then 
   sudo cp ~/.bash/services/$SERVICE /lib/systemd/system;

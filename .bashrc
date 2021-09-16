@@ -319,18 +319,21 @@ check_and_create_links ~/.bash/ssh/config ~/.ssh/config
 check_and_create_links ~/.bash/etc/pitt.conf /etc/vpnc/pitt.conf
 check_and_create_links ~/.bash/.nanorc ~/.nanorc
 check_and_create_links ~/.bash/.gitconfig ~/.gitconfig
-#python links
-check_and_create_links ~/.bash/jupyter/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
-check_and_create_links ~/.bash/jupyter/jupyter_nbconvert_config.json ~/.jupyter/jupyter_nbconvert_config.json
-check_and_create_links ~/.bash/ipython/ipython_config.py ~/.ipython/profile_default/ipython_config.py
 
 if [[ $HOST == 'linux-gnu' ]]; then
+	# onedrive config
 	check_and_create_links ~/.bash/config/onedrive/config ~/.config/onedrive/config
 	check_and_create_links ~/.bash/config/onedrive/sync_list ~/.config/onedrive/sync_list
 	check_and_create_links ~/.bash/config/onedrive_phrl/config ~/.config/onedrive_phrl/config
 	check_and_create_links ~/.bash/config/onedrive_phrl/sync_list ~/.config/onedrive_phrl/sync_list
 	check_and_create_links ~/.bash/config/onedrive_pittvax/config ~/.config/onedrive_pittvax/config
 	check_and_create_links ~/.bash/config/onedrive_pittvax/sync_list ~/.config/onedrive_pittvax/sync_list
+	#python config
+	check_and_create_links ~/.bash/jupyter/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
+	check_and_create_links ~/.bash/jupyter/jupyter_nbconvert_config.json ~/.jupyter/jupyter_nbconvert_config.json
+	# check_and_create_links ~/.bash/jupyter/jupyter_nbconvert_config.py ~/.jupyter/jupyter_nbconvert_config.py
+	check_and_create_links ~/.bash/ipython/ipython_config.py ~/.ipython/profile_default/ipython_config.py
+
 fi
 #######################################################
 #############    Path customizations     ##############
@@ -363,11 +366,6 @@ if [ $HOST == "windows" ]; then
     echo 'detected windows Docker host'
 	export DOCKER_HOST=tcp://localhost:2375
 fi
-
-# if [ "$OSTYPE" = "linux-gnu" ]; then
-# 	export XDG_RUNTIME_DIR="/run/user/$UID"
-# 	export DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"
-# fi 
 
 #######################################################
 ##########   Customize Prompt  ########################
