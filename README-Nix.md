@@ -57,7 +57,8 @@ sudo snap install \
   openjdk \
   palapeli \
   polar-bookshelf \
-  teams
+  teams \
+  dbeaver-ce
 ```
 
 ## Install .bash
