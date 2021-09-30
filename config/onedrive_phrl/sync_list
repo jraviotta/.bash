@@ -19,6 +19,11 @@
 ## Include these names if they match any file or folder
 # Cinema Soc
 
+!SDOH-PACE-UPMC Data Center
+!SDOH-PACE-UPMC Data Center/**/@old/**
+!SDOH-PACE-UPMC Data Center/**/old/**
+!SDOH-PACE-UPMC Data Center/**/@old
+!SDOH-PACE-UPMC Data Center/**/old
 
 SDOH-PACE-UPMC Data Center/Data/concept_sets
 SDOH-PACE-UPMC Data Center/Data/ems
@@ -26,5 +31,3 @@ SDOH-PACE-UPMC Data Center/Data/NDC-class-mapping
 SDOH-PACE-UPMC Data Center/Data/data-exports
 SDOH-PACE-UPMC Data Center/Data/processed_data
 SDOH-PACE-UPMC Data Center/Analyses
-
-!SDOH-PACE-UPMC Data Center/**/old/
