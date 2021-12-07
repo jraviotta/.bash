@@ -67,14 +67,3 @@ elif [ "$HOST" == "linux-gnu" ] || [ "$HOST" == "darwin" ] ; then
         alias pbpaste='xclip -selection clipboard -o'
     fi
 fi
-
-# SSH
-# open port to local jupyter
-# alias ssh-jupyter="ssh -N -C -q -f -L 9999:localhost:8888 jona@192.168.1.79"
-# alias ssh-jupyter-remote="ssh -N -C -q -f -L localhost:8888:localhost:9999 jona@jraviotta.asuscomm.com -p 22022"
-# #alias ssh-whopper-pf="ssh -D 4000 -f -C -q -N jona@jraviotta.asuscomm.com -p 22022"
-# # login to whopper
-# alias ssh-whopper="ssh jona@192.168.1.79"
-# alias ssh-whopper-remote="ssh jona@jraviotta.asuscomm.com -p 22022"
-# # PHSNL
-# alias ssh-pace="ssh -L 127.0.0.1:10432:localhost:5432 jmr154@130.49.206.138"

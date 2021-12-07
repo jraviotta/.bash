@@ -288,14 +288,14 @@ check_and_create_links (){
 	fi
 }
 
-# Deduplicate path entries
-dedupe_path(){
-    # echo $PATH
-    # echo "${PATH//:/$'\n'}"
-    export PATH=`echo -n $PATH | awk -v RS=: '!($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}'`
-    # echo $PATH
-    # echo "${PATH//:/$'\n'}"
-}
+# # Deduplicate path entries
+# dedupe_path(){
+#     # echo $PATH
+#     # echo "${PATH//:/$'\n'}"
+#     export PATH=`echo -n $PATH | awk -v RS=: '!($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}'`
+#     # echo $PATH
+#     # echo "${PATH//:/$'\n'}"
+# }
 
 #######################################################
 #########     Add other bash sources     ##############
@@ -348,7 +348,7 @@ export FRED_HOME=$HOME/FRED
 pathmunge "${FRED_HOME}/bin" after
 export FRED_GNUPLOT=/usr/bin/gnuplot
 alias fred="FRED"
-dedupe_path
+# dedupe_path
 
 # vscode
 if [ "$HOST" = "windows" ]; then
@@ -360,6 +360,7 @@ fi
 #######################################################
 export EDITOR='code'
 export PYTHONSTARTUP=~/.bash/python_startup.py
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 # Cross platform Docker
 if [ $HOST == "windows" ]; then
