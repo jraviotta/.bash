@@ -99,7 +99,6 @@ See [also](https://www.psycopg.org/docs/install.html)
 ```bash
 export PATH=/usr/lib/postgresql/X.Y/bin/:$PATH
 pip install psycopg2
-
 ```
 
 ### Docker
@@ -168,12 +167,18 @@ sudo apt-get update && sudo apt-get install -y onedrive
 
 # Create OneDrive dirs and onedrive config dirs
 declare -a dirs=( ~/OneDrive ~/OneDrive_PittVax ~/OneDrive_SDOH-PACE-UPMC_Data_Center/Data ~/.config/onedrive ~/.config/onedrive_pittvax ~/.config/onedrive_phrl
-for val in ${dirs[@]}; do    if [ ! -e $val ]; then mkdir $val;    fi; done
 
-# Authenticate the client using the specific configuration file:
-onedrive --confdir="~/.config/onedrive" --synchronize --dry-run
-onedrive --confdir="~/.config/onedrive_phrl" --synchronize --dry-run
-onedrive --confdir="~/.config/onedrive_pittvax" --synchronize --dry-run
+for val in ${dirs[@]}; do
+  if [ ! -e $val ]
+    then mkdir $val
+  fi
+done
+
+# Authenticate the client using the specific configuration file:  
+onedrive --confdir="~/.config/onedrive" --synchronize --resync --dry-run
+onedrive --confdir="~/.config/onedrive_phrl" --synchronize --resync --dry-run
+onedrive --confdir="~/.config/onedrive_pittvax" --synchronize --resync --dry-run
+
 
 # install & activate services
 for SERVICE in onedrive_phrl.service onedrive_pittvax.service onedrive.service jupyter.service
@@ -312,13 +317,19 @@ done
 ### Uninstall services
 
 ```bash
-SERVICE=<serviceName.service>
-systemctl stop $SERVICE
-systemctl disable $SERVICE
-rm /etc/systemd/system/$SERVICE
-rm /etc/systemd/system/$SERVICE # and symlinks that might be related
-rm /usr/lib/systemd/system/$SERVICE 
-rm /usr/lib/systemd/system/$SERVICE # and symlinks that might be related
-systemctl daemon-reload
-systemctl reset-failed
+# find service name
+systemctl list-units --type=service | grep onedrive
+
+# Set service name
+SERVICE=[myService]
+
+# Execute commands
+sudo systemctl stop $SERVICE
+sudo systemctl disable $SERVICE
+sudo rm /etc/systemd/system/$SERVICE
+sudo rm /etc/systemd/system/$SERVICE # and symlinks that might be related
+sudo rm /usr/lib/systemd/system/$SERVICE 
+sudo rm /usr/lib/systemd/system/$SERVICE # and symlinks that might be related
+sudo systemctl daemon-reload
+sudo systemctl reset-failed
 ```
