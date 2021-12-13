@@ -53,7 +53,6 @@ sudo snap install \
   code \
   docker \
   flameshot \
-  htop \
   jupyter \
   openjdk \
   palapeli \
