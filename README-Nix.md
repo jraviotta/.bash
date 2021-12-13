@@ -7,6 +7,7 @@ ubuntu 20.x installs without problem
 - [Install .bash](#install-bash)
 - [Other software & Configuration](#other-software--configuration)
   - [Python](#python)
+  - [.NET](#net)
 - [Install Psycopg from source code](#install-psycopg-from-source-code)
   - [Docker](#docker)
   - [Flameshot](#flameshot)
@@ -91,6 +92,22 @@ sudo cp ~/.bash/services/jupyter.service /etc/systemd/system
 sudo systemctl enable jupyter.service
 sudo systemctl daemon-reload
 sudo systemctl restart jupyter.service
+```
+
+### .NET
+
+<https://docs.microsoft.com/en-us/dotnet/core/install/linux-ubuntu>
+
+```bash
+wget <https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb> -O packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+rm packages-microsoft-prod.deb
+
+sudo apt-get update; \
+  sudo apt-get install -y apt-transport-https && \
+  sudo apt-get update && \
+  sudo apt-get install -y aspnetcore-runtime-6.0
+
 ```
 
 ## Install Psycopg from source code
