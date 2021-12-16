@@ -257,6 +257,7 @@ sudo apt install virtualbox
 ### NoMachine
 
 See <https://www.nomachine.com/>
+Deselect "share the desktop at server startup" from "Server Status">"Status"
 
 ### VNC
 
