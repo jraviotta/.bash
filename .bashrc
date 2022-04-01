@@ -333,7 +333,7 @@ if [[ $HOST == 'linux-gnu' ]]; then
 	check_and_create_links ~/.bash/jupyter/jupyter_nbconvert_config.json ~/.jupyter/jupyter_nbconvert_config.json
 	# check_and_create_links ~/.bash/jupyter/jupyter_nbconvert_config.py ~/.jupyter/jupyter_nbconvert_config.py
 	check_and_create_links ~/.bash/ipython/ipython_config.py ~/.ipython/profile_default/ipython_config.py
-
+	# check_and_create_links ~/.bash/Custom launchers/netlogo.desktop ~/.local/share/applications/
 fi
 #######################################################
 #############    Path customizations     ##############

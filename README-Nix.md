@@ -8,8 +8,9 @@ ubuntu 20.x installs without problem
 - [Other software & Configuration](#other-software--configuration)
   - [Python](#python)
   - [.NET](#net)
-- [Install Psycopg from source code](#install-psycopg-from-source-code)
+  - [Install Psycopg from source code](#install-psycopg-from-source-code)
   - [Docker](#docker)
+  - [Lando](#lando)
   - [Flameshot](#flameshot)
   - [OneDrive sync](#onedrive-sync)
   - [nbstripout](#nbstripout)
@@ -109,7 +110,7 @@ sudo apt-get update; \
 
 ```
 
-## Install Psycopg from source code
+### Install Psycopg from source code
 
 See [also](https://www.psycopg.org/docs/install.html)
 
@@ -123,34 +124,16 @@ pip install psycopg2
 <https://towardsdatascience.com/docker-for-data-scientists-part-1-41b0725d4a50>
 Install:
 
-1. [Docker desktop](https://www.docker.com/get-started)
-1. [Docker compose](https://docs.docker.com/compose/install/)
-1. [Docker shell completion](https://docs.docker.com/compose/completion/)
+1. [Docker engine](https://docs.docker.com/engine/install/ubuntu/)
 
 ```bash
-# Install
-sudo snap install docker
-
-# configure
-sudo addgroup --system docker
-sudo adduser $USER docker
-newgrp docker
-sudo snap disable docker
-sudo snap enable docker
-
-# Docker compose
-sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-
-# Shell completion
-sudo curl \
-    -L https://raw.githubusercontent.com/docker/compose/1.29.2/contrib/completion/bash/docker-compose \
-    -o /etc/bash_completion.d/docker-compose
-source ~/.bashrc
-
 # Test
-docker-compose --version
+sudo docker run hello-world
 ```
+
+### Lando
+
+See <https://docs.lando.dev/getting-started/installation.html>
 
 ### Flameshot
 

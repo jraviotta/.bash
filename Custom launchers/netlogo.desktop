@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=NetLogo
+Comment=Desktop Application for NetLogo
+Exec=/home/jona/NetLogo/NetLogo
+Icon=/home/jona/NetLogo/desktopicon.png
+Terminal=false
+Type=Application
+StartupNotify=true
