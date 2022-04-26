@@ -23,17 +23,6 @@ Host pi-hole
   ForwardX11 yes
   IdentityFile ~/.ssh/raspberrypi
 
-Host jupyter
-  HostName 192.168.1.79
-  User jona
-  LocalForward localhost:8888 localhost:9999
-
-Host jupyter-remote
-  HostName jraviotta.asuscomm.com
-  User jona
-  Port 22022
-  LocalForward localhost:8888 localhost:9999
-
 Host github.com
 	HostName github.com
 	User git
