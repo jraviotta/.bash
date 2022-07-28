@@ -337,7 +337,7 @@
 #
 #  Setting to an empty string disables authentication altogether, which is NOT
 #  RECOMMENDED.
-# c.NotebookApp.token = '<generated>'
+# c.NotebookApp.token = ''
 
 ## Supply overrides for the tornado.web.Application that the Jupyter notebook
 #  uses.
@@ -879,7 +879,8 @@ def script_post_save(model, os_path, contents_manager, **kwargs):
     base, ext = os.path.splitext(os_path)
     script, resources = _script_exporter.from_filename(os_path)
     script_fname = base + resources.get("output_extension", ".txt")
-    log.info("Saving script /%s", to_api_path(script_fname, contents_manager.root_dir))
+    log.info("Saving script /%s",
+             to_api_path(script_fname, contents_manager.root_dir))
 
     with io.open(script_fname, "w", encoding="utf-8") as f:
         f.write(script)
