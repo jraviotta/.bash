@@ -6,14 +6,14 @@ Host triads
   IdentityFile ~/.ssh/triads-DL
 
 Host Whopper-remote
-  HostName jraviotta.asuscomm.com
+  HostName 24.154.21.216
   User jona
-  Port 22022
+  Port 22
   ForwardX11 yes
   IdentityFile ~/.ssh/jona@Whopper
 
 Host Whopper
-  HostName 192.168.1.79
+  HostName 192.168.86.199
   User jona
   Port 22
   ForwardX11 yes
