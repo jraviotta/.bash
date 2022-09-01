@@ -7,8 +7,10 @@ ubuntu 20.x installs without problem
 - [Install .bash](#install-bash)
 - [Other software & Configuration](#other-software--configuration)
   - [Python](#python)
-- [Install Psycopg from source code](#install-psycopg-from-source-code)
+  - [.NET](#net)
+  - [Install Psycopg from source code](#install-psycopg-from-source-code)
   - [Docker](#docker)
+  - [Lando](#lando)
   - [Flameshot](#flameshot)
   - [OneDrive sync](#onedrive-sync)
   - [nbstripout](#nbstripout)
@@ -22,6 +24,7 @@ ubuntu 20.x installs without problem
   - [ssh keys](#ssh-keys)
   - [Fix scaling](#fix-scaling)
   - [Install services](#install-services)
+  - [Uninstall services](#uninstall-services)
 
 ## Run updates & install essentials  
 
@@ -43,6 +46,7 @@ sudo apt install -q -y \
   gnome-shell-extensions \
   software-properties-common \
   python3.8-venv
+  pandoc
 
 # Snaps
 sudo snap install \
@@ -50,12 +54,12 @@ sudo snap install \
   code \
   docker \
   flameshot \
-  htop \
   jupyter \
   openjdk \
   palapeli \
   polar-bookshelf \
-  teams
+  teams \
+  dbeaver-ce
 ```
 
 ## Install .bash
@@ -90,14 +94,29 @@ sudo systemctl daemon-reload
 sudo systemctl restart jupyter.service
 ```
 
-## Install Psycopg from source code
+### .NET
+
+<https://docs.microsoft.com/en-us/dotnet/core/install/linux-ubuntu>
+
+```bash
+wget <https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb> -O packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+rm packages-microsoft-prod.deb
+
+sudo apt-get update; \
+  sudo apt-get install -y apt-transport-https && \
+  sudo apt-get update && \
+  sudo apt-get install -y aspnetcore-runtime-6.0
+
+```
+
+### Install Psycopg from source code
 
 See [also](https://www.psycopg.org/docs/install.html)
 
 ```bash
 export PATH=/usr/lib/postgresql/X.Y/bin/:$PATH
 pip install psycopg2
-
 ```
 
 ### Docker
@@ -105,34 +124,16 @@ pip install psycopg2
 <https://towardsdatascience.com/docker-for-data-scientists-part-1-41b0725d4a50>
 Install:
 
-1. [Docker desktop](https://www.docker.com/get-started)
-1. [Docker compose](https://docs.docker.com/compose/install/)
-1. [Docker shell completion](https://docs.docker.com/compose/completion/)
+1. [Docker engine](https://docs.docker.com/engine/install/ubuntu/)
 
 ```bash
-# Install
-sudo snap install docker
-
-# configure
-sudo addgroup --system docker
-sudo adduser $USER docker
-newgrp docker
-sudo snap disable docker
-sudo snap enable docker
-
-# Docker compose
-sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-
-# Shell completion
-sudo curl \
-    -L https://raw.githubusercontent.com/docker/compose/1.29.2/contrib/completion/bash/docker-compose \
-    -o /etc/bash_completion.d/docker-compose
-source ~/.bashrc
-
 # Test
-docker-compose --version
+sudo docker run hello-world
 ```
+
+### Lando
+
+See <https://docs.lando.dev/getting-started/installation.html>
 
 ### Flameshot
 
@@ -153,8 +154,9 @@ Now every time you press Prt Sc, it will start the Flameshot GUI instead of the 
 
 ### OneDrive sync
 
-  [Install](https://github.com/abraunegg/onedrive/blob/master/docs/ubuntu-package-install.md)
-  [Usage](https://github.com/abraunegg/onedrive/blob/master/docs/advanced-usage.md)
+  [Install](https://github.com/abraunegg/onedrive/blob/master/docs/ubuntu-package-install.md)  
+  [Usage](https://github.com/abraunegg/onedrive/blob/master/docs/advanced-usage.md)  
+  **Be sure to include trailing slash in config** EG. `sync_dir = "~/OneDrive_PittVax/"
 
 ```bash
 # install
@@ -164,24 +166,30 @@ sudo apt-key add ./Release.key
 sudo apt-get update && sudo apt-get install -y onedrive
 
 # Create OneDrive dirs and onedrive config dirs
-declare -a dirs=( ~/OneDrive ~/OneDrive_PittVax 
-      ~/OneDrive_SDOH-PACE-UPMC_Data_Center ~/.config/onedrive 
-      ~/.config/onedrive_phsnl ~/.config/onedrive_pittvax)
-for val in ${dirs[@]}; do    if [ ! -e $val ]; then mkdir $val;    fi; done
+declare -a dirs=( ~/OneDrive ~/OneDrive_PittVax ~/OneDrive_SDOH-PACE-UPMC_Data_Center/Data ~/.config/onedrive ~/.config/onedrive_pittvax ~/.config/onedrive_phrl
 
-# Authenticate the client using the specific configuration file:
-onedrive --confdir="~/.config/onedrive" --synchronize --dry-run
-onedrive --confdir="~/.config/onedrive_phsnl" --synchronize --dry-run
-onedrive --confdir="~/.config/onedrive_pittvax" --synchronize --dry-run
+for val in ${dirs[@]}; do
+  if [ ! -e $val ]
+    then mkdir $val
+  fi
+done
+
+# Authenticate the client using the specific configuration file:  
+onedrive --confdir="~/.config/onedrive" --synchronize --resync --dry-run
+onedrive --confdir="~/.config/onedrive_phrl" --synchronize --resync --dry-run
+onedrive --confdir="~/.config/onedrive_pittvax" --synchronize --resync --dry-run
+
 
 # install & activate services
-if [ ! -e /lib/systemd/system/onedrive ]; then 
-  sudo cp ~/.bash/services/onedrive* /lib/systemd/system/;
+for SERVICE in onedrive_phrl.service onedrive_pittvax.service onedrive.service jupyter.service
+do
+if [ ! -e /lib/systemd/system/$SERVICE ]; then 
+  sudo cp ~/.bash/services/$SERVICE /lib/systemd/system;
 fi
-
-systemctl --user enable onedrive.service onedrive_phsnl.service onedrive_pittvax.service
-systemctl --user start onedrive.service onedrive_phsnl.service onedrive_pittvax.service
-
+sudo systemctl start $SERVICE # <--- Start now
+sudo systemctl enable $SERVICE # <--- Start on boot
+systemctl status $SERVICE
+done
 ```
 
 ### nbstripout
@@ -196,10 +204,11 @@ nbstripout --install --global
 ### Brave
 
 ```bash
-curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
-sudo sh -c 'echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com `lsb_release -sc` main" >> /etc/apt/sources.list.d/brave.list'
-sudo apt-get update
-sudo apt-get install brave-browser brave-keyring
+sudo apt install apt-transport-https curl
+sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+sudo apt update
+sudo apt install brave-browser
 ```
 
 ### thinkorswim
@@ -232,6 +241,7 @@ sudo apt install virtualbox
 ### NoMachine
 
 See <https://www.nomachine.com/>
+Deselect "share the desktop at server startup" from "Server Status">"Status"
 
 ### VNC
 
@@ -279,6 +289,14 @@ ssh-keygen -f ~/.ssh/<name_of_key>
 ssh-copy-id -i ~/.ssh/<name_of_key> <user@host>
 ```
 
+- Configure [Windows host](https://stackoverflow.com/questions/16212816/setting-up-openssh-for-windows-using-public-key-authentication)
+- Deploy to a [Windows host](https://askubuntu.com/questions/46424/how-do-i-add-ssh-keys-to-authorized-keys-file)
+
+```bash
+cat ~/.ssh/vm_win10.pub | ssh -p3022 jravi@localhost "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+```
+
+
 ### Fix scaling
 
 ```bash
@@ -292,10 +310,36 @@ sudo chmod +x /usr/local/bin/run_scaled
 
 ### Install services
 
-```bash
-if [ ! -e /lib/systemd/system/jupyter.service ]; then 
-  sudo cp ~/.bash/services/jupyter.service /lib/systemd/system;
-fi
+See [also](https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units)
 
-sudo systemctl enable jupyter.service
+```bash
+for SERVICE in <service1.service> <service2.service>
+do
+if [ ! -e /lib/systemd/system/$SERVICE ]; then 
+  sudo cp ~/.bash/services/$SERVICE /lib/systemd/system;
+fi
+sudo systemctl start $SERVICE # <--- Start now
+sudo systemctl enable $SERVICE # <--- Start on boot
+systemctl status $SERVICE
+done
+```
+
+### Uninstall services
+
+```bash
+# find service name
+systemctl list-units --type=service | grep onedrive
+
+# Set service name
+SERVICE=[myService]
+
+# Execute commands
+sudo systemctl stop $SERVICE
+sudo systemctl disable $SERVICE
+sudo rm /etc/systemd/system/$SERVICE
+sudo rm /etc/systemd/system/$SERVICE # and symlinks that might be related
+sudo rm /usr/lib/systemd/system/$SERVICE 
+sudo rm /usr/lib/systemd/system/$SERVICE # and symlinks that might be related
+sudo systemctl daemon-reload
+sudo systemctl reset-failed
 ```

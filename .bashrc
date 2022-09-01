@@ -288,14 +288,14 @@ check_and_create_links (){
 	fi
 }
 
-# Deduplicate path entries
-dedupe_path(){
-    # echo $PATH
-    # echo "${PATH//:/$'\n'}"
-    export PATH=`echo -n $PATH | awk -v RS=: '!($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}'`
-    # echo $PATH
-    # echo "${PATH//:/$'\n'}"
-}
+# # Deduplicate path entries
+# dedupe_path(){
+#     # echo $PATH
+#     # echo "${PATH//:/$'\n'}"
+#     export PATH=`echo -n $PATH | awk -v RS=: '!($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}'`
+#     # echo $PATH
+#     # echo "${PATH//:/$'\n'}"
+# }
 
 #######################################################
 #########     Add other bash sources     ##############
@@ -316,18 +316,23 @@ source_and_report ~/.credentials/tokens
 
 # Generate links
 check_and_create_links ~/.bash/ssh/config ~/.ssh/config
-check_and_create_links ~/.bash/etc/pitt.conf /etc/vpnc/pitt.conf
-check_and_create_links ~/.bash/jupyter/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
-check_and_create_links ~/.bash/ipython/ipython_config.py ~/.ipython/profile_default/ipython_config.py
 check_and_create_links ~/.bash/.nanorc ~/.nanorc
 check_and_create_links ~/.bash/.gitconfig ~/.gitconfig
+
 if [[ $HOST == 'linux-gnu' ]]; then
+	# onedrive config
 	check_and_create_links ~/.bash/config/onedrive/config ~/.config/onedrive/config
 	check_and_create_links ~/.bash/config/onedrive/sync_list ~/.config/onedrive/sync_list
-	check_and_create_links ~/.bash/config/onedrive_phsnl/config ~/.config/onedrive_phsnl/config
-	check_and_create_links ~/.bash/config/onedrive_phsnl/sync_list ~/.config/onedrive_phsnl/sync_list
+	check_and_create_links ~/.bash/config/onedrive_phrl/config ~/.config/onedrive_phrl/config
+	check_and_create_links ~/.bash/config/onedrive_phrl/sync_list ~/.config/onedrive_phrl/sync_list
 	check_and_create_links ~/.bash/config/onedrive_pittvax/config ~/.config/onedrive_pittvax/config
 	check_and_create_links ~/.bash/config/onedrive_pittvax/sync_list ~/.config/onedrive_pittvax/sync_list
+	#python config
+	check_and_create_links ~/.bash/jupyter/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
+	check_and_create_links ~/.bash/jupyter/jupyter_nbconvert_config.json ~/.jupyter/jupyter_nbconvert_config.json
+	# check_and_create_links ~/.bash/jupyter/jupyter_nbconvert_config.py ~/.jupyter/jupyter_nbconvert_config.py
+	check_and_create_links ~/.bash/ipython/ipython_config.py ~/.ipython/profile_default/ipython_config.py
+	# check_and_create_links ~/.bash/Custom launchers/netlogo.desktop ~/.local/share/applications/
 fi
 #######################################################
 #############    Path customizations     ##############
@@ -342,7 +347,7 @@ export FRED_HOME=$HOME/FRED
 pathmunge "${FRED_HOME}/bin" after
 export FRED_GNUPLOT=/usr/bin/gnuplot
 alias fred="FRED"
-dedupe_path
+# dedupe_path
 
 # vscode
 if [ "$HOST" = "windows" ]; then
@@ -354,17 +359,13 @@ fi
 #######################################################
 export EDITOR='code'
 export PYTHONSTARTUP=~/.bash/python_startup.py
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 # Cross platform Docker
 if [ $HOST == "windows" ]; then
     echo 'detected windows Docker host'
 	export DOCKER_HOST=tcp://localhost:2375
 fi
-
-# if [ "$OSTYPE" = "linux-gnu" ]; then
-# 	export XDG_RUNTIME_DIR="/run/user/$UID"
-# 	export DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"
-# fi 
 
 #######################################################
 ##########   Customize Prompt  ########################

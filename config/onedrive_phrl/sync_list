@@ -1,5 +1,5 @@
 ## sync_list supports comments
-## 
+##
 ## The ordering of entries is highly recommended - exclusions before inclusions
 ##
 ## Exclude temp folders under Documents
@@ -19,11 +19,11 @@
 ## Include these names if they match any file or folder
 # Cinema Soc
 
-! SDOH-PACE-UPMC Data Center/*
+!SDOH-PACE-UPMC Data Center
+
+SDOH-PACE-UPMC Data Center/Analyses
+!SDOH-PACE-UPMC Data Center/Analyses/.*/old
 SDOH-PACE-UPMC Data Center/Data/concept_sets
 SDOH-PACE-UPMC Data Center/Data/ems
 SDOH-PACE-UPMC Data Center/Data/NDC-class-mapping
-SDOH-PACE-UPMC Data Center/Data/data-exports
-! SDOH-PACE-UPMC Data Center/data-exports/old
-! SDOH-PACE-UPMC Data Center/data-exports/expanded/
-
+SDOH-PACE-UPMC Data Center/Data/processed_data

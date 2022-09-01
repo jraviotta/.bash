@@ -10,29 +10,19 @@ Host Whopper-remote
   User jona
   Port 22
   ForwardX11 yes
-  IdentityFile ~/.ssh/jona@Whopper
+  IdentityFile ~/.ssh/Whopper
 
 Host Whopper
   HostName 192.168.86.199
   User jona
-  Port 22
   ForwardX11 yes
-  IdentityFile ~/.ssh/jona@Whopper
+  IdentityFile ~/.ssh/Whopper
 
 Host pi-hole
-  HostName 192.168.1.206
+  HostName 192.168.86.20
   User pi
-
-Host jupyter
-  HostName 192.168.1.79
-  User jona
-  LocalForward localhost:8888 localhost:9999 
-
-Host jupyter-remote
-  HostName jraviotta.asuscomm.com
-  User jona
-  Port 22022
-  LocalForward localhost:8888 localhost:9999
+  ForwardX11 yes
+  IdentityFile ~/.ssh/raspberrypi
 
 Host github.com
 	HostName github.com
