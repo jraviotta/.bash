@@ -289,6 +289,14 @@ ssh-keygen -f ~/.ssh/<name_of_key>
 ssh-copy-id -i ~/.ssh/<name_of_key> <user@host>
 ```
 
+- Configure [Windows host](https://stackoverflow.com/questions/16212816/setting-up-openssh-for-windows-using-public-key-authentication)
+- Deploy to a [Windows host](https://askubuntu.com/questions/46424/how-do-i-add-ssh-keys-to-authorized-keys-file)
+
+```bash
+cat ~/.ssh/vm_win10.pub | ssh -p3022 jravi@localhost "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+```
+
+
 ### Fix scaling
 
 ```bash

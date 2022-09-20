@@ -8,6 +8,7 @@ Host triads
 Host Whopper-remote
   HostName 24.154.21.216
   User jona
+  Port 22
   ForwardX11 yes
   IdentityFile ~/.ssh/Whopper
 

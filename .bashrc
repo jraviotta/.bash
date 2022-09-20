@@ -316,7 +316,6 @@ source_and_report ~/.credentials/tokens
 
 # Generate links
 check_and_create_links ~/.bash/ssh/config ~/.ssh/config
-check_and_create_links ~/.bash/etc/pitt.conf /etc/vpnc/pitt.conf
 check_and_create_links ~/.bash/.nanorc ~/.nanorc
 check_and_create_links ~/.bash/.gitconfig ~/.gitconfig
 

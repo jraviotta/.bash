@@ -1,5 +1,12 @@
 # Windows native configuration
 
+## Configure ssh
+
+- Install [OpenSSH](https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse?tabs=powershell)
+- Generate [keys](https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_keymanagement) 
+- Enable [key-based login](http://woshub.com/using-ssh-key-based-authentication-on-windows/)
+- Transfer client keys [here](https://serverfault.com/questions/224810/is-there-an-equivalent-to-ssh-copy-id-for-windows)
+
 ## Make Powershell [Useful](http://jbeckwith.com/2012/11/28/5-steps-to-a-better-windows-command-line/)  
 
 See also https://mathieubuisson.github.io/powershell-linux-bash/

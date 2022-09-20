@@ -1,33 +1,28 @@
 # Configuring WSL  
+## Activate [Hyper-V](https://docs.microsoft.com/en-us/answers/questions/29175/installation-of-hyper-v-on-windows-10-home.html)
+  
+  * [Error 0x80370102 ](https://www.thewindowsclub.com/error-0x80370102-the-virtual-machine-could-not-be-started#:~:text=To%20fix%20Error%200x80370102%20The,Enable%20Nested%20Virtualization)
+  * [Hyper-V is not installed](https://docs.microsoft.com/en-us/answers/questions/29175/installation-of-hyper-v-on-windows-10-home.html)
 
-## Install [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10)  
+```cmd
+ pushd "%~dp0"
+ dir /b %SystemRoot%\servicing\Packages\*Hyper-V*.mum >hv.txt
+ for /f %%i in ('findstr /i . hv.txt 2^>nul') do dism /online /norestart /add-package:"%SystemRoot%\servicing\Packages\%%i"
+ del hv.txt
+ Dism /online /enable-feature /featurename:Microsoft-Hyper-V -All /LimitAccess /ALL
+ pause
+```
 
-* Enable Developer Mode  
-  `Settings -> Update and Security -> For developers`  
-* Open PowerShell as Administrator and run:  
-  `Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux`
-* Install a Linux distro from the Microsoft Store  
-* Launch and create a user  
-* Create `/etc/wsl.conf`  
+## Install [WSL](https://docs.microsoft.com/en-us/windows/wsl/)  
 
-```bash
-sudo bash -c 'cat >> /etc/wsl.conf << EOF
-# Enable extra metadata options by default
-[automount]
-enabled = true
-options = "metadata,umask=22,fmask=11"
-# options = "case=dir"
+* Follow online documentation
 
-# Enable DNS – even though these are turned on by default, we’ll specify here just to be explicit.
-[network]
-generateHosts = true
-generateResolvConf = true
-EOF'
-```  
+## Configure [WSL](https://docs.microsoft.com/en-us/windows/wsl/setup/environment)
+
+* Follow online documentation
 
 
 
-## Change default home dir to %USERPROFILE%  
 
 * edit `/etc/passwd`  
   * [reference here](https://brianketelsen.com/going-overboard-with-wsl-metadata/)  
